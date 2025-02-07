@@ -7,8 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +20,8 @@ public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String username;
 
     private String firstname;
 
@@ -37,10 +38,19 @@ public class User implements UserDetails, Principal {
 
     private boolean enabled;
 
-    @Override
-    public String getName() {
-        return "";
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns =
+                @JoinColumn(name = "user_id"),
+            inverseJoinColumns =
+                @JoinColumn(name = "role_id")
+
+    )
+    private Set<Role> roles = new HashSet<>();
+
+//    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+//    private List<Book> books = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -48,13 +58,18 @@ public class User implements UserDetails, Principal {
     }
 
     @Override
+    public String getName() {
+        return firstname + " " + lastname;
+    }
+
+    @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return username;
     }
 
     @Override
@@ -75,9 +90,5 @@ public class User implements UserDetails, Principal {
     @Override
     public boolean isEnabled() {
         return enabled;
-    }
-
-    private String fullName() {
-        return firstname + " " + lastname;
     }
 }
