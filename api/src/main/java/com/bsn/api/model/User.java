@@ -31,7 +31,7 @@ public class User {
 
     private boolean accountLocked;
 
-    private boolean enabled;
+    private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -43,4 +43,12 @@ public class User {
 
 //    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
 //    private List<Book> books = new ArrayList<>();
+
+    User(RegisterUserDTO registerUserDTO) {
+        this.firstname = registerUserDTO.getFirstname();
+        this.lastname = registerUserDTO.getLastname();
+        this.email = registerUserDTO.getEmail();
+        this.password = registerUserDTO.getPassword();
+        this.birthDate = registerUserDTO.getBirthDate();
+    }
 }
