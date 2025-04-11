@@ -2,6 +2,7 @@ package com.bsn.api.controller;
 
 import com.bsn.api.model.Book;
 import com.bsn.api.model.BookRequest;
+import com.bsn.api.model.BookResponse;
 import com.bsn.api.service.BookService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -22,7 +23,7 @@ public class BookController {
     @PostMapping("/add")
     public ResponseEntity<?> saveBook(@RequestBody @Valid BookRequest bookRequest, Authentication connectedUser) {
         try {
-            Book savedBook = bookService.save(bookRequest, connectedUser);
+            BookResponse savedBook = bookService.save(bookRequest, connectedUser);
             return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
         } catch (UsernameNotFoundException e) {
             String errorMessage = "Authenticated user not found";
@@ -33,7 +34,7 @@ public class BookController {
     @GetMapping("/get/{id}")
     public ResponseEntity<?> findBookById(@PathVariable Long id) {
         try {
-            Book book = bookService.findById(id);
+            BookResponse book = bookService.findById(id);
             return new ResponseEntity<>(book, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             String errorMessage = "Book not found with ID: " + id;
