@@ -8,9 +8,10 @@ import com.bsn.api.repository.RoleRepository;
 import com.bsn.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.util.InternalException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -31,9 +32,7 @@ public class AuthenticationService {
 
     private final BCryptPasswordEncoder encoder;
 
-//    da vidq posle kakvo da pravq s tozi EntityNotFoundException
-//    da hvana exceptionite v AuthControllera
-    public User registerUser(RegisterUserDTO registerUserDTO) throws IllegalArgumentException, EntityNotFoundException{
+    public User registerUser(RegisterUserDTO registerUserDTO) throws IllegalArgumentException, EntityNotFoundException {
         try {
             registerUserDTO.setPassword(encoder.encode(registerUserDTO.getPassword()));
             User user = new User(registerUserDTO);
@@ -42,16 +41,18 @@ public class AuthenticationService {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException();
+        } catch (EntityNotFoundException e) {
+            throw new InternalException("User role not present in DB");
         }
     }
 
-    public String login(LoginUserDTO loginUserDTO) throws Exception {
+    public String login(LoginUserDTO loginUserDTO) throws BadCredentialsException {
         try {
             Authentication auth = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginUserDTO.getEmail(), loginUserDTO.getPassword()));
             return jwtService.generateToken(loginUserDTO.getEmail());
         } catch (AuthenticationException e) {
-            throw new Exception("Need more thoughtful exception handling");
+            throw new BadCredentialsException("Invalid username or password");
         }
     }
 }
