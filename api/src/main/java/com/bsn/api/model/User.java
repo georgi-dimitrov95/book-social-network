@@ -44,7 +44,7 @@ public class User {
 //    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
 //    private List<Book> books = new ArrayList<>();
 
-    User(RegisterUserDTO registerUserDTO) {
+    public User(RegisterUserDTO registerUserDTO) {
         this.firstname = registerUserDTO.getFirstname();
         this.lastname = registerUserDTO.getLastname();
         this.email = registerUserDTO.getEmail();
