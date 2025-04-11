@@ -7,6 +7,7 @@ import com.bsn.api.model.User;
 import com.bsn.api.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthenticationController {
 
     private final AuthenticationService authService;
