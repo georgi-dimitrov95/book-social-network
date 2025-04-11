@@ -32,7 +32,7 @@ public class AuthenticationService {
 
     private final BCryptPasswordEncoder encoder;
 
-    public User registerUser(RegisterUserDTO registerUserDTO) throws IllegalArgumentException, EntityNotFoundException {
+    public User registerUser(RegisterUserDTO registerUserDTO) throws IllegalArgumentException, InternalException {
         try {
             registerUserDTO.setPassword(encoder.encode(registerUserDTO.getPassword()));
             User user = new User(registerUserDTO);
