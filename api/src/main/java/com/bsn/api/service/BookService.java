@@ -8,9 +8,12 @@ import com.bsn.api.repository.BookRepository;
 import com.bsn.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +35,9 @@ public class BookService {
     public BookResponse findById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return new BookResponse(book);
+    }
+
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 }
