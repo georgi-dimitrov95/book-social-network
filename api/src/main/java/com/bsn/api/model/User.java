@@ -41,8 +41,11 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-//    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-//    private List<Book> books = new ArrayList<>();
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransaction> bookTransactions = new ArrayList<>();
 
     public User(RegisterUserDTO registerUserDTO) {
         this.firstname = registerUserDTO.getFirstname();
