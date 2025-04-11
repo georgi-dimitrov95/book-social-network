@@ -54,4 +54,8 @@ public class User {
         this.password = registerUserDTO.getPassword();
         this.birthDate = registerUserDTO.getBirthDate();
     }
+
+    public String getFullName() {
+        return firstname + lastname;
+    }
 }
