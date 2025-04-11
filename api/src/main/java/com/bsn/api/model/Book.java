@@ -50,4 +50,12 @@ public class Book {
         this.synopsis = bookRequest.synopsis();
         this.shareable = bookRequest.shareable();
     }
+
+//    check later - Feeback should have non-null rating field (otherwise this should work fine)
+    public double getRate() {
+        return feedbacks.stream()
+                .mapToDouble(Feedback::getRating)
+                .average()
+                .orElse(0.0);
+    }
 }
