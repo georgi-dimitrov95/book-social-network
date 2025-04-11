@@ -10,6 +10,9 @@ public record BookRequest(
         String title,
         @NotNull
         @NotEmpty
+        String authorName,
+        @NotNull
+        @NotEmpty
         String isbn,
         @NotNull
         @NotEmpty

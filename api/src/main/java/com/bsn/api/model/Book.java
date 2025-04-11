@@ -41,4 +41,13 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     private List<BookTransaction> bookTransactions = new ArrayList<>();
+
+    public Book(BookRequest bookRequest) {
+        this.id = bookRequest.id();
+        this.title = bookRequest.title();
+        this.authorName = bookRequest.authorName();
+        this.isbn = bookRequest.isbn();
+        this.synopsis = bookRequest.synopsis();
+        this.shareable = bookRequest.shareable();
+    }
 }
