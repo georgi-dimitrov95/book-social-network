@@ -28,7 +28,7 @@ public class Book {
 
     private String bookCoverPath;
 
-    private boolean archived;
+    private boolean archived = false;
 
     private boolean shareable;
 
