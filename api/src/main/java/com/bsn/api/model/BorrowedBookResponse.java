@@ -21,7 +21,8 @@ public class BorrowedBookResponse extends BookResponse{
 
     private Date returnedAt;
 
-    public BorrowedBookResponse(Book book, BookTransaction bookTransaction) {
+    public BorrowedBookResponse(BookTransaction bookTransaction) {
+        Book book = bookTransaction.getBook();
         super(book);
         this.borrowedFrom = book.getOwner().getFullName();
         this.returned = bookTransaction.isReturned();

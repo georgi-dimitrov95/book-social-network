@@ -2,6 +2,7 @@ package com.bsn.api.service;
 
 import com.bsn.api.model.*;
 import com.bsn.api.repository.BookRepository;
+import com.bsn.api.repository.BookTransactionRepository;
 import com.bsn.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ public class BookService {
     private BookRepository bookRepository;
 
     private UserRepository userRepository;
+
+    private BookTransactionRepository bookTransactionRepository;
 
     public BookResponse save(BookRequest bookRequest, Authentication authentication) {
         User user = getAuthenticatedUser(authentication);
@@ -57,6 +60,18 @@ public class BookService {
                 .toList();
 
         return new PageResponse<>(bookResponses, booksPage);
+    }
+
+    public PageResponse<BorrowedBookResponse> findAllBorrowedBooksByCurrentUser(int page, int size, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(user.getId());
+        List<BorrowedBookResponse> borrowedBookResponses = bookTransactionsPage.getContent()
+                .stream()
+                .map(BorrowedBookResponse::new)
+                .toList();
+
+        return new PageResponse<>(borrowedBookResponses, bookTransactionsPage);
     }
 
     private User getAuthenticatedUser(Authentication authentication) {
