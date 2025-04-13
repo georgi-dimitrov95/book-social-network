@@ -5,10 +5,14 @@ import com.bsn.api.repository.BookRepository;
 import com.bsn.api.repository.FeedbackRepository;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -39,5 +43,17 @@ public class FeedbackService {
         feedback.setBook(book);
 
         return new FeedbackResponse(feedbackRepository.save(feedback));
+    }
+
+    public PageResponse<FeedbackResponse> findAllFeedbacksByBook(Long bookId, int page, int size) {
+//        User user = authenticationService.getAuthenticatedUser(authentication);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Feedback> feedbacksPage = feedbackRepository.findByBookId(bookId, pageable);
+        List<FeedbackResponse> feedbackResponses = feedbacksPage.getContent()
+                .stream()
+                .map(FeedbackResponse::new)
+                .toList();
+
+        return new PageResponse<>(feedbackResponses, feedbacksPage);
     }
 }
