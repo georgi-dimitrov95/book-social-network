@@ -1,14 +1,13 @@
 package com.bsn.api.service;
 
-import com.bsn.api.model.Book;
-import com.bsn.api.model.BookRequest;
-import com.bsn.api.model.BookResponse;
-import com.bsn.api.model.User;
+import com.bsn.api.model.*;
 import com.bsn.api.repository.BookRepository;
 import com.bsn.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,8 @@ public class BookService {
 
     private UserRepository userRepository;
 
-    public BookResponse save(BookRequest bookRequest, Authentication connectedUser) {
-        String userEmail = (String) connectedUser.getPrincipal();
-        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public BookResponse save(BookRequest bookRequest, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
         Book book = new Book(bookRequest);
         book.setOwner(user);
         Book savedBook = bookRepository.save(book);
@@ -37,7 +35,20 @@ public class BookService {
         return new BookResponse(book);
     }
 
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public PageResponse<BookResponse> findALlBooksFromOtherOwners(int page, int size, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Book> booksPage = bookRepository.findByArchivedFalseAndShareableTrueAndOwnerIdNot(user.getId(), pageable);
+        List<BookResponse> bookResponses = booksPage.getContent()
+                .stream()
+                .map(BookResponse::new)
+                .toList();
+
+        return new PageResponse<>(bookResponses, booksPage);
+    }
+
+    private User getAuthenticatedUser(Authentication authentication) {
+        String email = (String) authentication.getPrincipal();
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

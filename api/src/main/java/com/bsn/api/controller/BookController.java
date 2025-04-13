@@ -1,8 +1,8 @@
 package com.bsn.api.controller;
 
-import com.bsn.api.model.Book;
 import com.bsn.api.model.BookRequest;
 import com.bsn.api.model.BookResponse;
+import com.bsn.api.model.PageResponse;
 import com.bsn.api.service.BookService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -13,8 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
@@ -23,9 +21,9 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> saveBook(@RequestBody @Valid BookRequest bookRequest, Authentication connectedUser) {
+    public ResponseEntity<?> saveBook(@RequestBody @Valid BookRequest bookRequest, Authentication authentication) {
         try {
-            BookResponse savedBook = bookService.save(bookRequest, connectedUser);
+            BookResponse savedBook = bookService.save(bookRequest, authentication);
             return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
         } catch (UsernameNotFoundException e) {
             String errorMessage = "Authenticated user not found";
@@ -45,7 +43,12 @@ public class BookController {
     }
 
     @GetMapping("/get/all")
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return ResponseEntity.ok(bookService.getAllBooks());
+    public ResponseEntity<PageResponse<BookResponse>> findAllBooksFromOtherOwners(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size,
+            Authentication authentication
+    ) {
+        PageResponse<BookResponse> pageResponse = bookService.findALlBooksFromOtherOwners(page, size, authentication);
+        return ResponseEntity.ok(pageResponse);
     }
 }
