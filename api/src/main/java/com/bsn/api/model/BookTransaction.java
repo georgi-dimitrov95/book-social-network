@@ -18,8 +18,8 @@ public class BookTransaction {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "borrower_id")
+    private User borrower;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
