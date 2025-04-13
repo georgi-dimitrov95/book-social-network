@@ -53,7 +53,7 @@ public class BookService {
     public PageResponse<BookResponse> findAllBooksOfCurrentUser(int page, int size, Authentication authentication) {
         User user = getAuthenticatedUser(authentication);
         Pageable pageable = PageRequest.of(page, size);
-        Page<Book> booksPage = bookRepository.findByOwnerId(user.getId());
+        Page<Book> booksPage = bookRepository.findByOwnerId(user.getId(), pageable);
         List<BookResponse> bookResponses = booksPage.getContent()
                 .stream()
                 .map(BookResponse::new)
@@ -65,7 +65,19 @@ public class BookService {
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksByCurrentUser(int page, int size, Authentication authentication) {
         User user = getAuthenticatedUser(authentication);
         Pageable pageable = PageRequest.of(page, size);
-        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(user.getId());
+        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(user.getId(), pageable);
+        List<BorrowedBookResponse> borrowedBookResponses = bookTransactionsPage.getContent()
+                .stream()
+                .map(BorrowedBookResponse::new)
+                .toList();
+
+        return new PageResponse<>(borrowedBookResponses, bookTransactionsPage);
+    }
+
+    public PageResponse<BorrowedBookResponse> findAllBorrowedBooksFromCurrentUser(int page, int size, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerId(user.getId(), pageable);
         List<BorrowedBookResponse> borrowedBookResponses = bookTransactionsPage.getContent()
                 .stream()
                 .map(BorrowedBookResponse::new)

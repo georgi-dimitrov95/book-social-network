@@ -13,5 +13,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Page<Book> findByArchivedFalseAndShareableTrueAndOwnerIdNot(Long ownerId, Pageable pageable);
 
-    Page<Book> findByOwnerId(Long ownerId);
+    Page<Book> findByOwnerId(Long ownerId, Pageable pageable);
 }
