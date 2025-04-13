@@ -13,7 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.naming.OperationNotSupportedException;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +87,18 @@ public class BookService {
                 .toList();
 
         return new PageResponse<>(borrowedBookResponses, bookTransactionsPage);
+    }
+
+    public BookResponse updateBookShareableStatus(Long bookId, Authentication authentication) throws AccessDeniedException {
+        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        User user = getAuthenticatedUser(authentication);
+
+        if (!Objects.equals(user.getId(), book.getOwner().getId())) {
+            throw new AccessDeniedException("You can't make changes to other users' books");
+        }
+
+        book.setShareable(!book.isShareable());
+        return new BookResponse(bookRepository.save(book));
     }
 
     private User getAuthenticatedUser(Authentication authentication) {

@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
+
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
@@ -81,5 +83,18 @@ public class BookController {
     ) {
         PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksFromCurrentUser(page, size, authentication);
         return ResponseEntity.ok(pageResponse);
+    }
+
+    @PatchMapping("/shareable/{bookId}")
+    public ResponseEntity<?> updateBookShareableStatus(@RequestParam("bookId") Long bookId, Authentication authentication) {
+        try {
+            BookResponse book = bookService.updateBookShareableStatus(bookId, authentication);
+            return new ResponseEntity<>(book, HttpStatus.OK);
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            String errorMessage = "Book not found with ID: " + bookId;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
     }
 }
