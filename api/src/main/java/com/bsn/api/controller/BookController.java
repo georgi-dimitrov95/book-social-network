@@ -97,4 +97,17 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
+
+    @PatchMapping("/archived/{bookId}")
+    public ResponseEntity<?> updateBookArchivedStatus(@RequestParam("bookId") Long bookId, Authentication authentication) {
+        try {
+            BookResponse book = bookService.updateBookArchivedStatus(bookId, authentication);
+            return new ResponseEntity<>(book, HttpStatus.OK);
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            String errorMessage = "Book not found with ID: " + bookId;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
 }

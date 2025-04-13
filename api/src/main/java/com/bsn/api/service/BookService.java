@@ -101,6 +101,18 @@ public class BookService {
         return new BookResponse(bookRepository.save(book));
     }
 
+    public BookResponse updateBookArchivedStatus(Long bookId, Authentication authentication) throws AccessDeniedException {
+        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        User user = getAuthenticatedUser(authentication);
+
+        if (!Objects.equals(user.getId(), book.getOwner().getId())) {
+            throw new AccessDeniedException("You can't make changes to other users' books");
+        }
+
+        book.setArchived(!book.isArchived());
+        return new BookResponse(bookRepository.save(book));
+    }
+
     private User getAuthenticatedUser(Authentication authentication) {
         String email = (String) authentication.getPrincipal();
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
