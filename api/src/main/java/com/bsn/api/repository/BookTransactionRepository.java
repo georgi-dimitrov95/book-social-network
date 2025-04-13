@@ -7,10 +7,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BookTransactionRepository extends JpaRepository<BookTransaction, Long> {
 
     Page<BookTransaction> findByBorrowerId(Long borrowerId, Pageable pageable);
 
     Page<BookTransaction> findByBookOwnerId(Long ownerId, Pageable pageable);
+
+    boolean existsByBookIdAndReturnedFalse(Long bookId);
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.OperationNotSupportedException;
 import java.nio.file.AccessDeniedException;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -111,6 +112,32 @@ public class BookService {
 
         book.setArchived(!book.isArchived());
         return new BookResponse(bookRepository.save(book));
+    }
+
+    public BorrowedBookResponse borrowBook(Long bookId, Authentication authentication) throws AccessDeniedException {
+        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        User user = getAuthenticatedUser(authentication);
+
+        if (book.isArchived() || !book.isShareable()) {
+            throw new AccessDeniedException("You can't borrow a book that is archived or is not shareable");
+        }
+
+        if (Objects.equals(user.getId(), book.getOwner().getId())) {
+            throw new AccessDeniedException("You can't borrow your own book");
+        }
+
+        boolean alreadyBorrowed = bookTransactionRepository.existsByBookIdAndReturnedFalse(book.getId());
+        if (alreadyBorrowed) {
+            throw new AccessDeniedException("The requested book is already borrowed");
+        }
+
+        BookTransaction bookTransaction = new BookTransaction();
+        bookTransaction.setBorrower(user);
+        bookTransaction.setBook(book);
+        bookTransaction.setReturned(false);
+        bookTransaction.setBorrowedAt(new Date());
+
+        return new BorrowedBookResponse(bookTransactionRepository.save(bookTransaction));
     }
 
     private User getAuthenticatedUser(Authentication authentication) {

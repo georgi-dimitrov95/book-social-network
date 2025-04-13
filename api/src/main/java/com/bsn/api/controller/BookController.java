@@ -110,4 +110,22 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
+
+    @PostMapping("/borrow/{bookId}")
+    public ResponseEntity<?> borrowBook(@RequestParam("bookId") Long bookId, Authentication authentication) {
+        try {
+            BorrowedBookResponse borrowedBook = bookService.borrowBook(bookId, authentication);
+            return new ResponseEntity<>(borrowedBook, HttpStatus.OK);
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            String errorMessage = "Book not found with ID: " + bookId;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
+
+
+
+
+
 }
