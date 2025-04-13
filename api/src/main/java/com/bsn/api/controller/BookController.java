@@ -13,8 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 
 @RestController
 @RequestMapping("/books")
@@ -124,8 +123,18 @@ public class BookController {
         }
     }
 
-
-
+    @PatchMapping("/return/{bookId}")
+    public ResponseEntity<?> returnBook(@RequestParam("bookId") Long bookId, Authentication authentication) {
+        try {
+            BorrowedBookResponse returnedBook = bookService.returnBook(bookId, authentication);
+            return new ResponseEntity<>(returnedBook, HttpStatus.OK);
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            String errorMessage = "Book not found with ID: " + bookId;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
 
 
 }

@@ -12,9 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.access.AccessDeniedException;
 
-import javax.naming.OperationNotSupportedException;
-import java.nio.file.AccessDeniedException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -138,6 +137,27 @@ public class BookService {
         bookTransaction.setBorrowedAt(new Date());
 
         return new BorrowedBookResponse(bookTransactionRepository.save(bookTransaction));
+    }
+
+
+//    update the bookTransaction
+//    update the BorrowedBookResponse (returned = true, returnedAt = new Date)
+    public BorrowedBookResponse returnBook(Long bookId, Authentication authentication) throws AccessDeniedException {
+        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        User user = getAuthenticatedUser(authentication);
+
+        if (Objects.equals(user.getId(), book.getOwner().getId())) {
+            throw new AccessDeniedException("You can't borrow or return your own book");
+        }
+
+        BookTransaction bookTransaction = bookTransactionRepository.findByBookIdAndBorrowerIdAndReturnedFalse(
+                book.getId(), user.getId()).orElseThrow(() -> new AccessDeniedException("You haven't borrowed this book or you have but you already returned it"));
+
+        bookTransaction.setReturned(true);
+        bookTransaction.setReturnedAt(new Date());
+
+        return new BorrowedBookResponse(bookTransactionRepository.save(bookTransaction));
+
     }
 
     private User getAuthenticatedUser(Authentication authentication) {

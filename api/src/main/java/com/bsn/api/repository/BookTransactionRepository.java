@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BookTransactionRepository extends JpaRepository<BookTransaction, Long> {
@@ -17,4 +18,6 @@ public interface BookTransactionRepository extends JpaRepository<BookTransaction
     Page<BookTransaction> findByBookOwnerId(Long ownerId, Pageable pageable);
 
     boolean existsByBookIdAndReturnedFalse(Long bookId);
+
+    Optional<BookTransaction> findByBookIdAndBorrowerIdAndReturnedFalse(Long bookId, Long borrowerId);
 }
