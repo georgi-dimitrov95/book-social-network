@@ -47,6 +47,18 @@ public class BookService {
         return new PageResponse<>(bookResponses, booksPage);
     }
 
+    public PageResponse<BookResponse> findAllBooksOfCurrentUser(int page, int size, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Book> booksPage = bookRepository.findByOwnerId(user.getId());
+        List<BookResponse> bookResponses = booksPage.getContent()
+                .stream()
+                .map(BookResponse::new)
+                .toList();
+
+        return new PageResponse<>(bookResponses, booksPage);
+    }
+
     private User getAuthenticatedUser(Authentication authentication) {
         String email = (String) authentication.getPrincipal();
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
