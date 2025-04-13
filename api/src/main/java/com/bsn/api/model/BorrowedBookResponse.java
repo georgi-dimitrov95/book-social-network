@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class BorrowedBookResponse extends BookResponse{
 
-    private String borrowedFrom;
+    private String borrowedBy;
 
     private boolean returned;
 
@@ -24,7 +24,7 @@ public class BorrowedBookResponse extends BookResponse{
     public BorrowedBookResponse(BookTransaction bookTransaction) {
         Book book = bookTransaction.getBook();
         super(book);
-        this.borrowedFrom = book.getOwner().getFullName();
+        this.borrowedBy = bookTransaction.getBorrower().getFullName();
         this.returned = bookTransaction.isReturned();
         this.borrowedAt = bookTransaction.getBorrowedAt();
         this.returnedAt = bookTransaction.getReturnedAt();
