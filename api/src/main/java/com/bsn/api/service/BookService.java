@@ -22,6 +22,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class BookService {
 
+    private AuthenticationService authenticationService;
+
     private BookRepository bookRepository;
 
     private UserRepository userRepository;
@@ -29,7 +31,7 @@ public class BookService {
     private BookTransactionRepository bookTransactionRepository;
 
     public BookResponse save(BookRequest bookRequest, Authentication authentication) {
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
         Book book = new Book(bookRequest);
         book.setOwner(user);
         Book savedBook = bookRepository.save(book);
@@ -42,7 +44,7 @@ public class BookService {
     }
 
     public PageResponse<BookResponse> findALlBooksFromOtherOwners(int page, int size, Authentication authentication) {
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
         Pageable pageable = PageRequest.of(page, size);
         Page<Book> booksPage = bookRepository.findByArchivedFalseAndShareableTrueAndOwnerIdNot(user.getId(), pageable);
         List<BookResponse> bookResponses = booksPage.getContent()
@@ -54,7 +56,7 @@ public class BookService {
     }
 
     public PageResponse<BookResponse> findAllBooksOfCurrentUser(int page, int size, Authentication authentication) {
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
         Pageable pageable = PageRequest.of(page, size);
         Page<Book> booksPage = bookRepository.findByOwnerId(user.getId(), pageable);
         List<BookResponse> bookResponses = booksPage.getContent()
@@ -66,7 +68,7 @@ public class BookService {
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksByCurrentUser(int page, int size, Authentication authentication) {
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
         Pageable pageable = PageRequest.of(page, size);
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(user.getId(), pageable);
         List<BorrowedBookResponse> borrowedBookResponses = bookTransactionsPage.getContent()
@@ -78,7 +80,7 @@ public class BookService {
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksFromCurrentUser(int page, int size, Authentication authentication) {
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
         Pageable pageable = PageRequest.of(page, size);
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerId(user.getId(), pageable);
         List<BorrowedBookResponse> borrowedBookResponses = bookTransactionsPage.getContent()
@@ -91,7 +93,7 @@ public class BookService {
 
     public BookResponse updateBookShareableStatus(Long bookId, Authentication authentication) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
 
         if (!Objects.equals(user.getId(), book.getOwner().getId())) {
             throw new AccessDeniedException("You can't make changes to other users' books");
@@ -103,7 +105,7 @@ public class BookService {
 
     public BookResponse updateBookArchivedStatus(Long bookId, Authentication authentication) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
 
         if (!Objects.equals(user.getId(), book.getOwner().getId())) {
             throw new AccessDeniedException("You can't make changes to other users' books");
@@ -115,7 +117,7 @@ public class BookService {
 
     public BorrowedBookResponse borrowBook(Long bookId, Authentication authentication) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
 
         if (book.isArchived() || !book.isShareable()) {
             throw new AccessDeniedException("You can't borrow a book that is archived or is not shareable");
@@ -144,7 +146,7 @@ public class BookService {
 //    update the BorrowedBookResponse (returned = true, returnedAt = new Date)
     public BorrowedBookResponse returnBook(Long bookId, Authentication authentication) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
-        User user = getAuthenticatedUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
 
         if (Objects.equals(user.getId(), book.getOwner().getId())) {
             throw new AccessDeniedException("You can't borrow or return your own book");
@@ -158,10 +160,5 @@ public class BookService {
 
         return new BorrowedBookResponse(bookTransactionRepository.save(bookTransaction));
 
-    }
-
-    private User getAuthenticatedUser(Authentication authentication) {
-        String email = (String) authentication.getPrincipal();
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
