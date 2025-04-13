@@ -44,7 +44,7 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private List<Book> books = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "borrower")
     private List<BookTransaction> bookTransactions = new ArrayList<>();
 
     public User(RegisterUserDTO registerUserDTO) {
