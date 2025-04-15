@@ -12,7 +12,7 @@ public record FeedbackRequest(
         @Size(min = 8, max = 1000, message = "Comment must be between 8 and 1000 characters long")
         String comment,
 
-        @NotNull
+        @NotNull(message = "Book ID must be provided")
         Long bookId
 ) {
 }
