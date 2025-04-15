@@ -1,7 +1,6 @@
 package com.bsn.api.security;
 
-import com.bsn.api.service.JwtService;
-import com.bsn.api.service.UserPrincipalService;
+import com.bsn.api.user.UserPrincipalService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
