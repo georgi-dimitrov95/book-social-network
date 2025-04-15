@@ -5,6 +5,7 @@ import com.bsn.api.model.BookResponse;
 import com.bsn.api.model.BorrowedBookResponse;
 import com.bsn.api.model.PageResponse;
 import com.bsn.api.service.BookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.security.access.AccessDeniedException;
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
+@Tag(name = "Book")
 public class BookController {
 
     private final BookService bookService;

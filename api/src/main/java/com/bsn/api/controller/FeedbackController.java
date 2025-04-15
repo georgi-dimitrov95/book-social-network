@@ -5,6 +5,7 @@ import com.bsn.api.model.FeedbackRequest;
 import com.bsn.api.model.FeedbackResponse;
 import com.bsn.api.model.PageResponse;
 import com.bsn.api.service.FeedbackService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/feedbacks")
 @RequiredArgsConstructor
+@Tag(name = "Feedback")
 public class FeedbackController {
 
     private final FeedbackService feedbackService;

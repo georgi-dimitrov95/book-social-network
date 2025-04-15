@@ -5,6 +5,7 @@ import com.bsn.api.model.RegisterResponseDTO;
 import com.bsn.api.model.RegisterUserDTO;
 import com.bsn.api.model.User;
 import com.bsn.api.service.AuthenticationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication")
 public class AuthenticationController {
 
     private final AuthenticationService authService;
