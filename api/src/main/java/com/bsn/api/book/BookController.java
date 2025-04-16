@@ -1,6 +1,7 @@
 package com.bsn.api.book;
 
 import com.bsn.api.misc.PageResponse;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/books")
@@ -132,5 +134,16 @@ public class BookController {
             String errorMessage = "Book not found with ID: " + bookId;
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
+    }
+
+    @PostMapping(value = "/cover/{bookId}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadBookCoverPicture(
+            @PathVariable("bookId") Long bookId,
+            @Parameter()
+            @RequestPart("file")MultipartFile file,
+            Authentication authentication
+    ) {
+        bookService.uploadBookCoverPicture(file, bookId, authentication);
+        return ResponseEntity.accepted().build();
     }
 }

@@ -2,6 +2,7 @@ package com.bsn.api.book;
 
 import com.bsn.api.auth.AuthenticationService;
 import com.bsn.api.book_transaction.BookTransaction;
+import com.bsn.api.file.FileStorageService;
 import com.bsn.api.misc.*;
 import com.bsn.api.book_transaction.BookTransactionRepository;
 import com.bsn.api.user.UserRepository;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -30,6 +32,8 @@ public class BookService {
     private UserRepository userRepository;
 
     private BookTransactionRepository bookTransactionRepository;
+
+    private FileStorageService fileService;
 
     public BookResponse save(BookRequest bookRequest, Authentication authentication) {
         User user = authenticationService.getAuthenticatedUser(authentication);
@@ -160,6 +164,13 @@ public class BookService {
         bookTransaction.setReturnedAt(new Date());
 
         return new BorrowedBookResponse(bookTransactionRepository.save(bookTransaction));
+    }
 
+    public void uploadBookCoverPicture(MultipartFile file, Long bookId, Authentication authentication) {
+        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        User user = authenticationService.getAuthenticatedUser(authentication);
+        var bookPicturePath = fileService.saveFile(file, user.getId());
+        book.setBookCoverPath(bookPicturePath);
+        bookRepository.save(book);
     }
 }

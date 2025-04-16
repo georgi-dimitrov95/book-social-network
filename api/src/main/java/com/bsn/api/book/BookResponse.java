@@ -1,5 +1,6 @@
 package com.bsn.api.book;
 
+import com.bsn.api.file.FileUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,7 @@ public class BookResponse {
         this.isbn = book.getIsbn();
         this.synopsis = book.getSynopsis();
         this.owner = book.getOwner().getFullName();
-//        cover
+        this.cover = FileUtils.readFileFromLocation(book.getBookCoverPath());
         this.rate = book.getRate();
         this.archived = book.isArchived();
         this.shareable = book.isShareable();

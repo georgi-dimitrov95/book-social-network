@@ -26,7 +26,7 @@ public class FileStorageService {
     @Value("${application.file.uploads.photos-output-path}")
     private String fileUploadPath;
 
-    public String saveFile(@Nonnull MultipartFile sourceFile, @Nonnull String userId) {
+    public String saveFile(@Nonnull MultipartFile sourceFile, @Nonnull Long userId) {
         final String subPath = "users" + separator + userId;
         return uploadFile(sourceFile, subPath);
     }
