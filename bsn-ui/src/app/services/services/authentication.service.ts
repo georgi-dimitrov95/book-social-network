@@ -31,8 +31,7 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  registerUser$Response(params: RegisterUser$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+  registerUser$Response(params: RegisterUser$Params, context?: HttpContext): Observable<StrictHttpResponse<{}>> {
     return registerUser(this.http, this.rootUrl, params, context);
   }
 
@@ -45,10 +44,7 @@ export class AuthenticationService extends BaseService {
   registerUser(params: RegisterUser$Params, context?: HttpContext): Observable<{
 }> {
     return this.registerUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
-    );
+      map((r: StrictHttpResponse<{}>): {} => r.body));
   }
 
   /** Path part for operation `login()` */
@@ -60,8 +56,7 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<{}>> {
     return login(this.http, this.rootUrl, params, context);
   }
 
@@ -71,13 +66,8 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login(params: Login$Params, context?: HttpContext): Observable<{
-}> {
+  login(params: Login$Params, context?: HttpContext): Observable<{}> {
     return this.login$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
-    );
+      map((r: StrictHttpResponse<{}>): {} => r.body));
   }
-
 }
