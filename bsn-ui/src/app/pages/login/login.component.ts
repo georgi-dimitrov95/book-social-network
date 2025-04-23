@@ -28,10 +28,13 @@ export class LoginComponent {
         },
         error: (err) => {
           console.log(err);
-          if (err.error.validationErrors) {
-            this.errorMsg = err.error.validationErrors;
-          } else {
-            this.errorMsg.push(err.error.errorMsg);
+          if (err.error instanceof Blob && err.error.type === 'application/json') {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const errorObj = JSON.parse(reader.result as string);
+              this.errorMsg = errorObj.validationErrors || [errorObj.error || "Unknown error"];
+            };
+            reader.readAsText(err.error);
           }
         }
       });
