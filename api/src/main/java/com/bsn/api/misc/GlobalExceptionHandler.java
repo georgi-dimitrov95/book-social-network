@@ -1,28 +1,29 @@
 package com.bsn.api.misc;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException e) {
-        Map<String, String> errors = new HashMap<>();
+    public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException e) {
+        Set<String> errors = new HashSet<>();
         e.getBindingResult().getAllErrors()
-                .forEach((error) -> {
-                    String fieldName = ((FieldError) error).getField();
+                .forEach(error -> {
                     String errorMessage = error.getDefaultMessage();
-                    errors.put(fieldName, errorMessage);
+                    errors.add(errorMessage);
                 });
-        return  errors;
+
+        ExceptionResponse response = new ExceptionResponse();
+        response.setValidationErrors(errors);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
