@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterResponseDTO {
+public class RegisterResponse {
 
     private Long id;
 
@@ -18,7 +18,7 @@ public class RegisterResponseDTO {
 
     private String email;
 
-    public RegisterResponseDTO(User user) {
+    public RegisterResponse(User user) {
         this.id = user.getId();
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();

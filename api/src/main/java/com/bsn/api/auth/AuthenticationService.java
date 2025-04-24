@@ -32,10 +32,10 @@ public class AuthenticationService {
 
     private final BCryptPasswordEncoder encoder;
 
-    public User registerUser(RegisterUserDTO registerUserDTO) throws IllegalArgumentException, InternalException {
+    public User registerUser(RegisterRequest registerRequest) throws IllegalArgumentException, InternalException {
         try {
-            registerUserDTO.setPassword(encoder.encode(registerUserDTO.getPassword()));
-            User user = new User(registerUserDTO);
+            registerRequest.setPassword(encoder.encode(registerRequest.getPassword()));
+            User user = new User(registerRequest);
             Role role = roleRepository.findByName("USER").orElseThrow(() -> new EntityNotFoundException("USER role not found"));
             user.getRoles().add(role);
             return userRepository.save(user);
@@ -46,11 +46,11 @@ public class AuthenticationService {
         }
     }
 
-    public String login(LoginUserDTO loginUserDTO) throws BadCredentialsException {
+    public String login(LoginRequest loginRequest) throws BadCredentialsException {
         try {
             Authentication auth = authManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginUserDTO.getEmail(), loginUserDTO.getPassword()));
-            return jwtService.generateToken(loginUserDTO.getEmail());
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+            return jwtService.generateToken(loginRequest.getEmail());
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }

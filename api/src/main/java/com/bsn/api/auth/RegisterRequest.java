@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterUserDTO {
+public class RegisterRequest {
 
     @NotBlank(message = "First name is mandatory")
     private String firstname;
@@ -26,7 +26,7 @@ public class RegisterUserDTO {
     @Size(min = 8, max = 50, message = "Password should be between 8 and 50 characters long")
     private String password;
 
-    @NotNull(message = "Birth date is mandatory")
+    @NotBlank(message = "Birth date is mandatory")
     @Past(message = "Invalid date")
     private LocalDate birthDate;
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 @RequiredArgsConstructor
 @Tag(name = "Authentication")
 public class AuthenticationController {
@@ -22,10 +22,10 @@ public class AuthenticationController {
     private final AuthenticationService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterUserDTO registerRequest) {
+    public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterRequest registerRequest) {
         try {
             User user = authService.registerUser(registerRequest);
-            RegisterResponseDTO response = new RegisterResponseDTO(user);
+            RegisterResponse response = new RegisterResponse(user);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
@@ -36,9 +36,9 @@ public class AuthenticationController {
 
 //    need to return a more suitable object and implement better exception handling
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginUserDTO loginUserDTO) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
         try {
-            String token = authService.login(loginUserDTO);
+            String token = authService.login(loginRequest);
             return new ResponseEntity<>(token, HttpStatus.OK);
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED);
