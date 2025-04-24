@@ -35,12 +35,11 @@ public class BookService {
 
     private FileStorageService fileService;
 
-    public BookResponse save(BookRequest bookRequest, Authentication authentication) {
+    public Book save(BookRequest bookRequest, Authentication authentication) {
         User user = authenticationService.getAuthenticatedUser(authentication);
         Book book = new Book(bookRequest);
         book.setOwner(user);
-        Book savedBook = bookRepository.save(book);
-        return new BookResponse(savedBook);
+        return bookRepository.save(book);
     }
 
     public BookResponse findById(Long id) {

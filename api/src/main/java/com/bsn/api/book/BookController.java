@@ -15,7 +15,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("books")
 @RequiredArgsConstructor
 @Tag(name = "Book")
 public class BookController {
@@ -23,14 +23,10 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> saveBook(@RequestBody @Valid BookRequest bookRequest, Authentication authentication) {
-        try {
-            BookResponse savedBook = bookService.save(bookRequest, authentication);
-            return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
-        } catch (UsernameNotFoundException e) {
-            String errorMessage = "Authenticated user not found";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
+    public ResponseEntity<BookResponse> saveBook(@RequestBody @Valid BookRequest bookRequest, Authentication authentication) {
+        Book savedBook = bookService.save(bookRequest, authentication);
+        BookResponse bookResponse = new BookResponse(savedBook);
+        return new ResponseEntity<>(bookResponse, HttpStatus.CREATED);
     }
 
     @GetMapping("/get/{id}")
