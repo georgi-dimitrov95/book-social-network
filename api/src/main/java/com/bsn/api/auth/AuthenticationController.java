@@ -34,14 +34,9 @@ public class AuthenticationController {
         }
     }
 
-//    need to return a more suitable object and implement better exception handling
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
-        try {
-            String token = authService.login(loginRequest);
-            return new ResponseEntity<>(token, HttpStatus.OK);
-        } catch (BadCredentialsException e) {
-            return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
+        String token = authService.login(loginRequest);
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 }

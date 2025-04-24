@@ -52,7 +52,7 @@ public class AuthenticationService {
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
             return jwtService.generateToken(loginRequest.getEmail());
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException("Invalid email or password");
         }
     }
 
