@@ -1,5 +1,6 @@
 package com.bsn.api.misc;
 
+import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -33,5 +34,19 @@ public class GlobalExceptionHandler {
         ExceptionResponse response = new ExceptionResponse();
         response.setError(e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setError(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(InternalException.class)
+    public ResponseEntity<ExceptionResponse> handleInternalException(InternalException e) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setError(e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }

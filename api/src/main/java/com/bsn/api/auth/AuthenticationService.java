@@ -40,9 +40,9 @@ public class AuthenticationService {
             user.getRoles().add(role);
             return userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The email is already in use");
         } catch (EntityNotFoundException e) {
-            throw new InternalException("User role not present in DB");
+            throw new InternalException("Something went wrong. Please try again later");
         }
     }
 

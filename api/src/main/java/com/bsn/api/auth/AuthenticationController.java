@@ -22,16 +22,10 @@ public class AuthenticationController {
     private final AuthenticationService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterRequest registerRequest) {
-        try {
-            User user = authService.registerUser(registerRequest);
-            RegisterResponse response = new RegisterResponse(user);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
-        } catch (InternalException e) {
-            return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<RegisterResponse> registerUser(@RequestBody @Valid RegisterRequest registerRequest) {
+        User user = authService.registerUser(registerRequest);
+        RegisterResponse response = new RegisterResponse(user);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
