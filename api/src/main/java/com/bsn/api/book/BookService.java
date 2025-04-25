@@ -2,6 +2,7 @@ package com.bsn.api.book;
 
 import com.bsn.api.auth.AuthenticationService;
 import com.bsn.api.book_transaction.BookTransaction;
+import com.bsn.api.exception.BookNotFoundException;
 import com.bsn.api.file.FileStorageService;
 import com.bsn.api.misc.*;
 import com.bsn.api.book_transaction.BookTransactionRepository;
@@ -42,9 +43,8 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public BookResponse findById(Long id) {
-        Book book = bookRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return new BookResponse(book);
+    public Book findById(Long id) {
+        return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
     public PageResponse<BookResponse> findALlBooksFromOtherOwners(int page, int size, Authentication authentication) {

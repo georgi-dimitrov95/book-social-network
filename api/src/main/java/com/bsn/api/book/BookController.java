@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,14 +29,10 @@ public class BookController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<?> findBookById(@PathVariable Long id) {
-        try {
-            BookResponse book = bookService.findById(id);
-            return new ResponseEntity<>(book, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            String errorMessage = "Book not found with ID: " + id;
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
+    public ResponseEntity<BookResponse> findBookById(@PathVariable Long id) {
+        Book foundBook = bookService.findById(id);
+        BookResponse bookResponse = new BookResponse(foundBook);
+        return new ResponseEntity<>(bookResponse, HttpStatus.OK);
     }
 
     @GetMapping("/get/all")

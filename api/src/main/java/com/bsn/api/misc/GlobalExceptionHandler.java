@@ -1,5 +1,6 @@
 package com.bsn.api.misc;
 
+import com.bsn.api.exception.BookNotFoundException;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleUsernameNotFoundException(UsernameNotFoundException e) {
         ExceptionResponse response = new ExceptionResponse();
         response.setError("User not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleBookNotFoundException(BookNotFoundException e) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setError("No book found with such an ID");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 }
