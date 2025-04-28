@@ -1,6 +1,6 @@
 package com.bsn.api.user;
 
-import com.bsn.api.auth.RegisterUserDTO;
+import com.bsn.api.auth.RegisterRequest;
 import com.bsn.api.book.Book;
 import com.bsn.api.book_transaction.BookTransaction;
 import com.bsn.api.role.Role;
@@ -51,12 +51,12 @@ public class User {
     @OneToMany(mappedBy = "borrower")
     private List<BookTransaction> bookTransactions = new ArrayList<>();
 
-    public User(RegisterUserDTO registerUserDTO) {
-        this.firstname = registerUserDTO.getFirstname();
-        this.lastname = registerUserDTO.getLastname();
-        this.email = registerUserDTO.getEmail();
-        this.password = registerUserDTO.getPassword();
-        this.birthDate = registerUserDTO.getBirthDate();
+    public User(RegisterRequest registerRequest) {
+        this.firstname = registerRequest.getFirstname();
+        this.lastname = registerRequest.getLastname();
+        this.email = registerRequest.getEmail();
+        this.password = registerRequest.getPassword();
+        this.birthDate = registerRequest.getBirthDate();
     }
 
     public String getFullName() {
