@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/feedbacks")
+@RequestMapping("feedbacks")
 @RequiredArgsConstructor
 @Tag(name = "Feedback")
 public class FeedbackController {
