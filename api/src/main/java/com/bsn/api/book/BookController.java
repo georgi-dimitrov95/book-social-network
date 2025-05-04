@@ -22,8 +22,8 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping("/add")
-    public ResponseEntity<BookResponse> saveBook(@RequestBody @Valid BookRequest bookRequest, Authentication authentication) {
-        Book savedBook = bookService.save(bookRequest, authentication);
+    public ResponseEntity<BookResponse> saveBook(@RequestBody @Valid BookRequest bookRequest) {
+        Book savedBook = bookService.save(bookRequest);
         BookResponse bookResponse = new BookResponse(savedBook);
         return new ResponseEntity<>(bookResponse, HttpStatus.CREATED);
     }
@@ -38,47 +38,43 @@ public class BookController {
     @GetMapping("/get/all")
     public ResponseEntity<PageResponse<BookResponse>> findAllBooksFromOtherOwners(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "5", required = false) int size,
-            Authentication authentication
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size
     ) {
-        PageResponse<BookResponse> pageResponse = bookService.findALlBooksFromOtherOwners(page, size, authentication);
+        PageResponse<BookResponse> pageResponse = bookService.findALlBooksFromOtherOwners(page, size);
         return ResponseEntity.ok(pageResponse);
     }
 
     @GetMapping("/user")
     public ResponseEntity<PageResponse<BookResponse>> findAllBooksOfCurrentUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "5", required = false) int size,
-            Authentication authentication
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size
     ) {
-       PageResponse<BookResponse> pageResponse = bookService.findAllBooksOfCurrentUser(page, size, authentication);
+       PageResponse<BookResponse> pageResponse = bookService.findAllBooksOfCurrentUser(page, size);
        return ResponseEntity.ok(pageResponse);
     }
 
     @GetMapping("/borrowed")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooksByCurrentUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "5", required = false) int size,
-            Authentication authentication
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size
     ) {
-        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksByCurrentUser(page, size, authentication);
+        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksByCurrentUser(page, size);
         return ResponseEntity.ok(pageResponse);
     }
 
     @GetMapping("/loaned")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooksFromCurrentUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "5", required = false) int size,
-            Authentication authentication
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size
     ) {
-        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksFromCurrentUser(page, size, authentication);
+        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksFromCurrentUser(page, size);
         return ResponseEntity.ok(pageResponse);
     }
 
     @PatchMapping("/shareable/{bookId}")
-    public ResponseEntity<?> updateBookShareableStatus(@RequestParam("bookId") Long bookId, Authentication authentication) {
+    public ResponseEntity<?> updateBookShareableStatus(@RequestParam("bookId") Long bookId) {
         try {
-            BookResponse book = bookService.updateBookShareableStatus(bookId, authentication);
+            BookResponse book = bookService.updateBookShareableStatus(bookId);
             return new ResponseEntity<>(book, HttpStatus.OK);
         } catch (AccessDeniedException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
@@ -89,9 +85,9 @@ public class BookController {
     }
 
     @PatchMapping("/archived/{bookId}")
-    public ResponseEntity<?> updateBookArchivedStatus(@RequestParam("bookId") Long bookId, Authentication authentication) {
+    public ResponseEntity<?> updateBookArchivedStatus(@RequestParam("bookId") Long bookId) {
         try {
-            BookResponse book = bookService.updateBookArchivedStatus(bookId, authentication);
+            BookResponse book = bookService.updateBookArchivedStatus(bookId);
             return new ResponseEntity<>(book, HttpStatus.OK);
         } catch (AccessDeniedException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
@@ -102,9 +98,9 @@ public class BookController {
     }
 
     @PostMapping("/borrow/{bookId}")
-    public ResponseEntity<?> borrowBook(@RequestParam("bookId") Long bookId, Authentication authentication) {
+    public ResponseEntity<?> borrowBook(@RequestParam("bookId") Long bookId) {
         try {
-            BorrowedBookResponse borrowedBook = bookService.borrowBook(bookId, authentication);
+            BorrowedBookResponse borrowedBook = bookService.borrowBook(bookId);
             return new ResponseEntity<>(borrowedBook, HttpStatus.OK);
         } catch (AccessDeniedException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
@@ -115,9 +111,9 @@ public class BookController {
     }
 
     @PatchMapping("/return/{bookId}")
-    public ResponseEntity<?> returnBook(@RequestParam("bookId") Long bookId, Authentication authentication) {
+    public ResponseEntity<?> returnBook(@RequestParam("bookId") Long bookId) {
         try {
-            BorrowedBookResponse returnedBook = bookService.returnBook(bookId, authentication);
+            BorrowedBookResponse returnedBook = bookService.returnBook(bookId);
             return new ResponseEntity<>(returnedBook, HttpStatus.OK);
         } catch (AccessDeniedException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
@@ -131,10 +127,9 @@ public class BookController {
     public ResponseEntity<?> uploadBookCoverPicture(
             @PathVariable("bookId") Long bookId,
             @Parameter()
-            @RequestPart("file")MultipartFile file,
-            Authentication authentication
+            @RequestPart("file")MultipartFile file
     ) {
-        bookService.uploadBookCoverPicture(file, bookId, authentication);
+        bookService.uploadBookCoverPicture(file, bookId);
         return ResponseEntity.accepted().build();
     }
 }
