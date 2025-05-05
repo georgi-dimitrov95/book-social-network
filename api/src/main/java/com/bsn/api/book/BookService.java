@@ -52,38 +52,28 @@ public class BookService {
         User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
         Page<Book> booksPage = bookRepository.findByArchivedFalseAndShareableTrueAndOwnerIdNot(user.getId(), pageable);
-        return convertBooksPageToPageResponse(booksPage);
+        return convertPageToPageResponse(booksPage, BookResponse::new);
     }
 
     public PageResponse<BookResponse> findAllBooksOfCurrentUser(int page, int size) {
         User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
         Page<Book> booksPage = bookRepository.findByOwnerId(user.getId(), pageable);
-        return convertBooksPageToPageResponse(booksPage);
+        return convertPageToPageResponse(booksPage, BookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksByCurrentUser(int page, int size) {
         User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(user.getId(), pageable);
-        List<BorrowedBookResponse> borrowedBookResponses = bookTransactionsPage.getContent()
-                .stream()
-                .map(BorrowedBookResponse::new)
-                .toList();
-
-        return new PageResponse<>(borrowedBookResponses, bookTransactionsPage);
+        return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksFromCurrentUser(int page, int size) {
         User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerId(user.getId(), pageable);
-        List<BorrowedBookResponse> borrowedBookResponses = bookTransactionsPage.getContent()
-                .stream()
-                .map(BorrowedBookResponse::new)
-                .toList();
-
-        return new PageResponse<>(borrowedBookResponses, bookTransactionsPage);
+        return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public BookResponse updateBookShareableStatus(Long bookId) throws AccessDeniedException {
