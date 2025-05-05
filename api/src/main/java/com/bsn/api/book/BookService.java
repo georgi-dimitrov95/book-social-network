@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -163,12 +164,12 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    private PageResponse<BookResponse> convertBooksPageToPageResponse(Page<Book> booksPage) {
-        List<BookResponse> bookResponses = booksPage.getContent()
+    private <V, R> PageResponse<R> convertPageToPageResponse(Page<V> page, Function<V, R> mapper) {
+        List<R> responses = page.getContent()
                 .stream()
-                .map(BookResponse::new)
+                .map(mapper)
                 .toList();
 
-        return new PageResponse<>(bookResponses, booksPage);
+        return new PageResponse<>(responses, page);
     }
 }
