@@ -49,30 +49,26 @@ public class BookService {
     }
 
     public PageResponse<BookResponse> findALlBooksFromOtherOwners(int page, int size) {
-        User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
-        Page<Book> booksPage = bookRepository.findByArchivedFalseAndShareableTrueAndOwnerIdNot(user.getId(), pageable);
+        Page<Book> booksPage = bookRepository.findByArchivedFalseAndShareableTrueAndOwnerIdNot(authenticationService.getAuthenticatedUser().getId(), pageable);
         return convertPageToPageResponse(booksPage, BookResponse::new);
     }
 
     public PageResponse<BookResponse> findAllBooksOfCurrentUser(int page, int size) {
-        User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
-        Page<Book> booksPage = bookRepository.findByOwnerId(user.getId(), pageable);
+        Page<Book> booksPage = bookRepository.findByOwnerId(authenticationService.getAuthenticatedUser().getId(), pageable);
         return convertPageToPageResponse(booksPage, BookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksByCurrentUser(int page, int size) {
-        User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
-        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(user.getId(), pageable);
+        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(authenticationService.getAuthenticatedUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksFromCurrentUser(int page, int size) {
-        User user = authenticationService.getAuthenticatedUser();
         Pageable pageable = PageRequest.of(page, size);
-        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerId(user.getId(), pageable);
+        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerId(authenticationService.getAuthenticatedUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
@@ -90,9 +86,8 @@ public class BookService {
 
     public BookResponse updateBookArchivedStatus(Long bookId) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
-        User user = authenticationService.getAuthenticatedUser();
 
-        if (!Objects.equals(user.getId(), book.getOwner().getId())) {
+        if (!Objects.equals(authenticationService.getAuthenticatedUser().getId(), book.getOwner().getId())) {
             throw new AccessDeniedException("You can't make changes to other users' books");
         }
 
@@ -126,9 +121,6 @@ public class BookService {
         return new BorrowedBookResponse(bookTransactionRepository.save(bookTransaction));
     }
 
-
-//    update the bookTransaction
-//    update the BorrowedBookResponse (returned = true, returnedAt = new Date)
     public BorrowedBookResponse returnBook(Long bookId) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
         User user = authenticationService.getAuthenticatedUser();
@@ -148,8 +140,7 @@ public class BookService {
 
     public void uploadBookCoverPicture(MultipartFile file, Long bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
-        User user = authenticationService.getAuthenticatedUser();
-        var bookPicturePath = fileService.saveFile(file, user.getId());
+        var bookPicturePath = fileService.saveFile(file, authenticationService.getAuthenticatedUser().getId());
         book.setBookCoverPath(bookPicturePath);
         bookRepository.save(book);
     }
