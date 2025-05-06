@@ -74,9 +74,8 @@ public class BookService {
 
     public BookResponse updateBookShareableStatus(Long bookId) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
-        User user = authenticationService.getAuthenticatedUser();
 
-        if (!Objects.equals(user.getId(), book.getOwner().getId())) {
+        if (!Objects.equals(authenticationService.getAuthenticatedUser().getId(), book.getOwner().getId())) {
             throw new AccessDeniedException("You can't make changes to other users' books");
         }
 
