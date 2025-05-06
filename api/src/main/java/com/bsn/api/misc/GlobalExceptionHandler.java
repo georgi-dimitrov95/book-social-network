@@ -34,30 +34,22 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ExceptionResponse> handleBadCredentialsException(BadCredentialsException e) {
-        ExceptionResponse response = new ExceptionResponse();
-        response.setError(e.getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(createExceptionResponse(e));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionResponse> handleIllegalArgumentException(IllegalArgumentException e) {
-        ExceptionResponse response = new ExceptionResponse();
-        response.setError(e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(createExceptionResponse(e));
     }
 
     @ExceptionHandler(InternalException.class)
     public ResponseEntity<ExceptionResponse> handleInternalException(InternalException e) {
-        ExceptionResponse response = new ExceptionResponse();
-        response.setError(e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(createExceptionResponse(e));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleUsernameNotFoundException(UsernameNotFoundException e) {
-        ExceptionResponse response = new ExceptionResponse();
-        response.setError(e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createExceptionResponse(e));
     }
 
     @ExceptionHandler(BookNotFoundException.class)
@@ -69,9 +61,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ExceptionResponse> handleAccessDeniedException(AccessDeniedException e) {
-        ExceptionResponse response = new ExceptionResponse();
-        response.setError(e.getMessage());
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(createExceptionResponse(e));
     }
 
     private ExceptionResponse createExceptionResponse(Exception e) {
