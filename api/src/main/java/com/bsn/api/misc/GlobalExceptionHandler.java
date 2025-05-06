@@ -73,4 +73,10 @@ public class GlobalExceptionHandler {
         response.setError(e.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
+
+    private ExceptionResponse createExceptionResponse(Exception e) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setError(e.getMessage());
+        return response;
+    }
 }
