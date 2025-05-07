@@ -152,4 +152,8 @@ public class BookService {
 
         return new PageResponse<>(responses, page);
     }
+
+    private User getCurrentUser() {
+        return authenticationService.getAuthenticatedUser();
+    }
 }
