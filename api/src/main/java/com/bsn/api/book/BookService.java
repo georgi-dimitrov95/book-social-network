@@ -83,8 +83,8 @@ public class BookService {
         return new BookResponse(bookRepository.save(book));
     }
 
-    public BookResponse updateBookArchivedStatus(Long bookId) throws AccessDeniedException {
-        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+    public BookResponse updateBookArchivedStatus(Long bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
 
         if (!Objects.equals(getCurrentUser().getId(), book.getOwner().getId())) {
             throw new AccessDeniedException("You can't make changes to other users' books");

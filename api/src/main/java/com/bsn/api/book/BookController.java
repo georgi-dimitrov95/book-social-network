@@ -78,16 +78,9 @@ public class BookController {
     }
 
     @PatchMapping("/archived/{bookId}")
-    public ResponseEntity<?> updateBookArchivedStatus(@RequestParam("bookId") Long bookId) {
-        try {
-            BookResponse book = bookService.updateBookArchivedStatus(bookId);
-            return new ResponseEntity<>(book, HttpStatus.OK);
-        } catch (AccessDeniedException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        } catch (EntityNotFoundException e) {
-            String errorMessage = "Book not found with ID: " + bookId;
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
+    public ResponseEntity<BookResponse> updateBookArchivedStatus(@RequestParam("bookId") Long bookId) {
+        BookResponse bookResponse = bookService.updateBookArchivedStatus(bookId);
+        return new ResponseEntity<>(bookResponse, HttpStatus.OK);
     }
 
     @PostMapping("/borrow/{bookId}")
