@@ -72,8 +72,8 @@ public class BookService {
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
-    public BookResponse updateBookShareableStatus(Long bookId) throws AccessDeniedException {
-        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+    public BookResponse updateBookShareableStatus(Long bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
 
         if (!Objects.equals(getCurrentUser().getId(), book.getOwner().getId())) {
             throw new AccessDeniedException("You can't make changes to other users' books");

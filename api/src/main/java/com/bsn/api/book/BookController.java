@@ -72,16 +72,9 @@ public class BookController {
     }
 
     @PatchMapping("/shareable/{bookId}")
-    public ResponseEntity<?> updateBookShareableStatus(@RequestParam("bookId") Long bookId) {
-        try {
-            BookResponse book = bookService.updateBookShareableStatus(bookId);
-            return new ResponseEntity<>(book, HttpStatus.OK);
-        } catch (AccessDeniedException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        } catch (EntityNotFoundException e) {
-            String errorMessage = "Book not found with ID: " + bookId;
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
+    public ResponseEntity<BookResponse> updateBookShareableStatus(@RequestParam("bookId") Long bookId) {
+        BookResponse bookResponse = bookService.updateBookShareableStatus(bookId);
+        return new ResponseEntity<>(bookResponse, HttpStatus.OK);
     }
 
     @PatchMapping("/archived/{bookId}")
