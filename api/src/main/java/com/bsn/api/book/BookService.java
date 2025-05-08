@@ -138,7 +138,7 @@ public class BookService {
     }
 
     public void uploadBookCoverPicture(MultipartFile file, Long bookId) {
-        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
         var bookPicturePath = fileService.saveFile(file, getCurrentUser().getId());
         book.setBookCoverPath(bookPicturePath);
         bookRepository.save(book);
