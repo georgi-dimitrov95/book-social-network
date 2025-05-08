@@ -121,7 +121,7 @@ public class BookService {
     }
 
     public BorrowedBookResponse returnBook(Long bookId) throws AccessDeniedException {
-        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
         User user = getCurrentUser();
 
         if (Objects.equals(user.getId(), book.getOwner().getId())) {

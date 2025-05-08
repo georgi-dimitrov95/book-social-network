@@ -90,16 +90,9 @@ public class BookController {
     }
 
     @PatchMapping("/return/{bookId}")
-    public ResponseEntity<?> returnBook(@RequestParam("bookId") Long bookId) {
-        try {
-            BorrowedBookResponse returnedBook = bookService.returnBook(bookId);
-            return new ResponseEntity<>(returnedBook, HttpStatus.OK);
-        } catch (AccessDeniedException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        } catch (EntityNotFoundException e) {
-            String errorMessage = "Book not found with ID: " + bookId;
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
+    public ResponseEntity<BorrowedBookResponse> returnBook(@RequestParam("bookId") Long bookId) {
+        BorrowedBookResponse returnedBook = bookService.returnBook(bookId);
+        return new ResponseEntity<>(returnedBook, HttpStatus.OK);
     }
 
     @PostMapping(value = "/cover/{bookId}", consumes = "multipart/form-data")
