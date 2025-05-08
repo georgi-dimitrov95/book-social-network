@@ -95,7 +95,7 @@ public class BookService {
     }
 
     public BorrowedBookResponse borrowBook(Long bookId) throws AccessDeniedException {
-        Book book = bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
         User user = getCurrentUser();
 
         if (book.isArchived() || !book.isShareable()) {
