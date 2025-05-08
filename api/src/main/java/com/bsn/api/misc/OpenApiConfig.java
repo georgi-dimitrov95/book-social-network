@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
         servers = {
                 @Server(
                         description = "Local",
-                        url = "http://localhost:8080/"
+                        url = "http://localhost:8080"
                 )
         },
         security = {

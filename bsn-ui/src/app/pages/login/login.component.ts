@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginUserDto } from '../../services/models/login-user-dto';
+import { LoginRequest } from '../../services/models/login-request';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/services/authentication.service'
 
@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../services/services/authentication.se
 })
 export class LoginComponent {
 
-  authRequest: LoginUserDto = {email: '', password: ''};
+  authRequest: LoginRequest = {email: '', password: ''};
   errorMsg: Array<string> = [];
 
   constructor(

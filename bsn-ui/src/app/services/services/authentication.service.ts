@@ -13,6 +13,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { login } from '../fn/authentication/login';
 import { Login$Params } from '../fn/authentication/login';
+import { LoginResponse } from '../models/login-response';
+import { RegisterResponse } from '../models/register-response';
 import { registerUser } from '../fn/authentication/register-user';
 import { RegisterUser$Params } from '../fn/authentication/register-user';
 
@@ -31,8 +33,7 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  registerUser$Response(params: RegisterUser$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+  registerUser$Response(params: RegisterUser$Params, context?: HttpContext): Observable<StrictHttpResponse<RegisterResponse>> {
     return registerUser(this.http, this.rootUrl, params, context);
   }
 
@@ -42,12 +43,9 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  registerUser(params: RegisterUser$Params, context?: HttpContext): Observable<{
-}> {
+  registerUser(params: RegisterUser$Params, context?: HttpContext): Observable<RegisterResponse> {
     return this.registerUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
+      map((r: StrictHttpResponse<RegisterResponse>): RegisterResponse => r.body)
     );
   }
 
@@ -60,8 +58,7 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<LoginResponse>> {
     return login(this.http, this.rootUrl, params, context);
   }
 
@@ -71,12 +68,9 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login(params: Login$Params, context?: HttpContext): Observable<{
-}> {
+  login(params: Login$Params, context?: HttpContext): Observable<LoginResponse> {
     return this.login$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
+      map((r: StrictHttpResponse<LoginResponse>): LoginResponse => r.body)
     );
   }
 

@@ -8,6 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { PageResponseFeedbackResponse } from '../../models/page-response-feedback-response';
 
 export interface FindAllFeedbacksByBook$Params {
   bookId: number;
@@ -15,8 +16,7 @@ export interface FindAllFeedbacksByBook$Params {
   size?: number;
 }
 
-export function findAllFeedbacksByBook(http: HttpClient, rootUrl: string, params: FindAllFeedbacksByBook$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+export function findAllFeedbacksByBook(http: HttpClient, rootUrl: string, params: FindAllFeedbacksByBook$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFeedbackResponse>> {
   const rb = new RequestBuilder(rootUrl, findAllFeedbacksByBook.PATH, 'get');
   if (params) {
     rb.path('bookId', params.bookId, {});
@@ -29,8 +29,7 @@ export function findAllFeedbacksByBook(http: HttpClient, rootUrl: string, params
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<{
-      }>;
+      return r as StrictHttpResponse<PageResponseFeedbackResponse>;
     })
   );
 }

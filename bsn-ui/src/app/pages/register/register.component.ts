@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegisterUserDto } from '../../services/models/register-user-dto';
+import { RegisterRequest } from '../../services/models/register-request';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/services/authentication.service'
 
@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../services/services/authentication.se
 })
 export class RegisterComponent {
 
-  registerRequest: RegisterUserDto = {email: '', firstname: '', lastname: '', password: ''};
+  registerRequest: RegisterRequest = {email: '', firstname: '', lastname: '', password: ''};
   errorMsg: Array<string> = [];
 
   constructor(

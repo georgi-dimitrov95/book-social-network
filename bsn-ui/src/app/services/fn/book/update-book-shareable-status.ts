@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { BookResponse } from '../../models/book-response';
 
 export interface UpdateBookShareableStatus$Params {
   bookId: number;
 }
 
-export function updateBookShareableStatus(http: HttpClient, rootUrl: string, params: UpdateBookShareableStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+export function updateBookShareableStatus(http: HttpClient, rootUrl: string, params: UpdateBookShareableStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<BookResponse>> {
   const rb = new RequestBuilder(rootUrl, updateBookShareableStatus.PATH, 'patch');
   if (params) {
     rb.query('bookId', params.bookId, {});
@@ -25,8 +25,7 @@ export function updateBookShareableStatus(http: HttpClient, rootUrl: string, par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<{
-      }>;
+      return r as StrictHttpResponse<BookResponse>;
     })
   );
 }

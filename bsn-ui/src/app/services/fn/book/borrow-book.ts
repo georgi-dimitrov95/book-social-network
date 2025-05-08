@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { BorrowedBookResponse } from '../../models/borrowed-book-response';
 
 export interface BorrowBook$Params {
   bookId: number;
 }
 
-export function borrowBook(http: HttpClient, rootUrl: string, params: BorrowBook$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+export function borrowBook(http: HttpClient, rootUrl: string, params: BorrowBook$Params, context?: HttpContext): Observable<StrictHttpResponse<BorrowedBookResponse>> {
   const rb = new RequestBuilder(rootUrl, borrowBook.PATH, 'post');
   if (params) {
     rb.query('bookId', params.bookId, {});
@@ -25,8 +25,7 @@ export function borrowBook(http: HttpClient, rootUrl: string, params: BorrowBook
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<{
-      }>;
+      return r as StrictHttpResponse<BorrowedBookResponse>;
     })
   );
 }

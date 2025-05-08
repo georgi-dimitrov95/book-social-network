@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { BookResponse } from '../../models/book-response';
 
 export interface FindBookById$Params {
   id: number;
 }
 
-export function findBookById(http: HttpClient, rootUrl: string, params: FindBookById$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+export function findBookById(http: HttpClient, rootUrl: string, params: FindBookById$Params, context?: HttpContext): Observable<StrictHttpResponse<BookResponse>> {
   const rb = new RequestBuilder(rootUrl, findBookById.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {});
@@ -25,8 +25,7 @@ export function findBookById(http: HttpClient, rootUrl: string, params: FindBook
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<{
-      }>;
+      return r as StrictHttpResponse<BookResponse>;
     })
   );
 }

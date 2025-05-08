@@ -8,14 +8,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { LoginUserDto } from '../../models/login-user-dto';
+import { LoginRequest } from '../../models/login-request';
+import { LoginResponse } from '../../models/login-response';
 
 export interface Login$Params {
-      body: LoginUserDto
+      body: LoginRequest
 }
 
-export function login(http: HttpClient, rootUrl: string, params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+export function login(http: HttpClient, rootUrl: string, params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<LoginResponse>> {
   const rb = new RequestBuilder(rootUrl, login.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -26,8 +26,7 @@ export function login(http: HttpClient, rootUrl: string, params: Login$Params, c
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<{
-      }>;
+      return r as StrictHttpResponse<LoginResponse>;
     })
   );
 }

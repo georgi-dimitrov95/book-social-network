@@ -9,13 +9,13 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { FeedbackRequest } from '../../models/feedback-request';
+import { FeedbackResponse } from '../../models/feedback-response';
 
 export interface SaveFeedback$Params {
       body: FeedbackRequest
 }
 
-export function saveFeedback(http: HttpClient, rootUrl: string, params: SaveFeedback$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+export function saveFeedback(http: HttpClient, rootUrl: string, params: SaveFeedback$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackResponse>> {
   const rb = new RequestBuilder(rootUrl, saveFeedback.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -26,8 +26,7 @@ export function saveFeedback(http: HttpClient, rootUrl: string, params: SaveFeed
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<{
-      }>;
+      return r as StrictHttpResponse<FeedbackResponse>;
     })
   );
 }
