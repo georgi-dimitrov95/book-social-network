@@ -25,7 +25,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/book/{bookId}")
-    public ResponseEntity<?> findAllFeedbacksByBook(
+    public ResponseEntity<PageResponse<FeedbackResponse>> findAllFeedbacksByBook(
             @PathVariable("bookId") Long bookId,
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size
