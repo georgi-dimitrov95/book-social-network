@@ -19,14 +19,9 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> saveFeedback( @RequestBody @Valid FeedbackRequest feedbackRequest, Authentication authentication) {
-        try {
-            FeedbackResponse savedFeedback = feedbackService.saveFeedback(feedbackRequest, authentication);
-            return new ResponseEntity<>(savedFeedback, HttpStatus.CREATED);
-        } catch (UsernameNotFoundException e) {
-            String errorMessage = "Authenticated user not found";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
+    public ResponseEntity<FeedbackResponse> saveFeedback( @RequestBody @Valid FeedbackRequest feedbackRequest) {
+        FeedbackResponse savedFeedback = feedbackService.saveFeedback(feedbackRequest);
+        return new ResponseEntity<>(savedFeedback, HttpStatus.CREATED);
     }
 
     @GetMapping("/book/{bookId}")

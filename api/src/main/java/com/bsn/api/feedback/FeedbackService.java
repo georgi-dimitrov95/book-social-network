@@ -2,6 +2,7 @@ package com.bsn.api.feedback;
 
 import com.bsn.api.auth.AuthenticationService;
 import com.bsn.api.book.Book;
+import com.bsn.api.exception.BookNotFoundException;
 import com.bsn.api.misc.*;
 import com.bsn.api.book.BookRepository;
 import com.bsn.api.user.User;
@@ -27,9 +28,9 @@ public class FeedbackService {
 
     private final BookRepository bookRepository;
 
-    public FeedbackResponse saveFeedback(FeedbackRequest feedbackRequest, Authentication authentication) {
-        User user = authenticationService.getAuthenticatedUser(authentication);
-        Book book = bookRepository.findById(feedbackRequest.bookId()).orElseThrow(EntityExistsException::new);
+    public FeedbackResponse saveFeedback(FeedbackRequest feedbackRequest) {
+        User user = authenticationService.getAuthenticatedUser();
+        Book book = bookRepository.findById(feedbackRequest.bookId()).orElseThrow(BookNotFoundException::new);
 
         if (book.isArchived() || !book.isShareable()) {
             throw new AccessDeniedException("You can't give a feedback to an archived or non-shareable book");
@@ -48,7 +49,6 @@ public class FeedbackService {
     }
 
     public PageResponse<FeedbackResponse> findAllFeedbacksByBook(Long bookId, int page, int size) {
-//        User user = authenticationService.getAuthenticatedUser(authentication);
         Pageable pageable = PageRequest.of(page, size);
         Page<Feedback> feedbacksPage = feedbackRepository.findByBookId(bookId, pageable);
         List<FeedbackResponse> feedbackResponses = feedbacksPage.getContent()
