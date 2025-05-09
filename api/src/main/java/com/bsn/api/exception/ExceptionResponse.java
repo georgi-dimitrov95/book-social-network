@@ -1,4 +1,4 @@
-package com.bsn.api.misc;
+package com.bsn.api.exception;
 
 import lombok.*;
 

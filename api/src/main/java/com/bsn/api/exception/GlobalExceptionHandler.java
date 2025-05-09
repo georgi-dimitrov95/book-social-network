@@ -1,6 +1,5 @@
-package com.bsn.api.misc;
+package com.bsn.api.exception;
 
-import com.bsn.api.exception.BookNotFoundException;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
