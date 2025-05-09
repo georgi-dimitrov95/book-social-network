@@ -26,7 +26,7 @@ public class RegisterRequest {
     @Size(min = 8, max = 50, message = "Password should be between 8 and 50 characters long")
     private String password;
 
-    @NotBlank(message = "Birth date is mandatory")
+    @NotNull(message = "Birth date is mandatory")
     @Past(message = "Invalid date")
     private LocalDate birthDate;
 }
