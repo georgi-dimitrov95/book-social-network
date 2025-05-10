@@ -24,6 +24,7 @@ export class LoginComponent {
       this.authService.login({body: this.authRequest})
       .subscribe({next: (res) => {
 //           this.tokenService.token = res.token as string;
+//            mai nqmam roli i shte gurmi pri registraciq na nov user
           this.router.navigate(['books']);
         },
         error: (err) => {
@@ -31,7 +32,7 @@ export class LoginComponent {
           if (err.error.validationErrors) {
             this.errorMsg = err.error.validationErrors;
           } else {
-            this.errorMsg.push("Invalid email or password");
+            this.errorMsg.push(err.error.error);
           }
         }
       });
