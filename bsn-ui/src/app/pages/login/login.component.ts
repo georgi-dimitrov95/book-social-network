@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../services/services/authentication.se
 })
 export class LoginComponent {
 
-  authRequest: LoginRequest = {email: '', password: ''};
+  loginRequest: LoginRequest = {email: '', password: ''};
   errorMsg: Array<string> = [];
 
   constructor(
@@ -19,12 +19,11 @@ export class LoginComponent {
     private authService: AuthenticationService
   ) {}
 
-  login() {
+  login(): void {
       this.errorMsg = [];
-      this.authService.login({body: this.authRequest})
+      this.authService.login({body: this.loginRequest})
       .subscribe({next: (res) => {
 //           this.tokenService.token = res.token as string;
-//            mai nqmam roli i shte gurmi pri registraciq na nov user
           this.router.navigate(['books']);
         },
         error: (err) => {
