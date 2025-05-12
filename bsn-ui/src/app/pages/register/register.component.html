@@ -1,4 +1,4 @@
-<div class="container-fluid card login-container">
+<div class="container-fluid card login-container" *ngIf="!success else successfulRegistration">
   <h3 class="text-center">Create an account</h3>
   <hr>
   <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
@@ -36,3 +36,13 @@
     </div>
   </div>
 </div>
+
+<ng-template #successfulRegistration>
+  <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="text-center">
+      <h2>Registration Successful!</h2>
+      <p>Your account has been successfully registered.</p>
+      <button class="btn btn-primary" (click)="redirectToLogin()">Proceed to the Login page</button>
+    </div>
+  </div>
+</ng-template>

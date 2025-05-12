@@ -13,6 +13,7 @@ export class RegisterComponent {
 
   registerRequest: RegisterRequest = {email: '', firstname: '', lastname: '', password: ''};
   errorMsg: Array<string> = [];
+  success: boolean =  false;
 
   constructor(
       private router: Router,
@@ -27,8 +28,7 @@ export class RegisterComponent {
       this.errorMsg = [];
       this.authService.registerUser({body: this.registerRequest})
       .subscribe({next: (res) => {
-//           green window with success if a RegisterResponse object was successfully returned or mayeb just check the status code?
-// + button redirecting to Login page; probably need to introduce a boolean for deciding what to display on success/error
+          this.success = true;
         },
         error: (err) => {
           console.log(err);
@@ -39,5 +39,9 @@ export class RegisterComponent {
           }
         }
       });
+    }
+
+    redirectToLogin() {
+      this.router.navigate(['login']);
     }
 }
