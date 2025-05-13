@@ -22,7 +22,7 @@ public record BookRequest(
 
         @NotNull(message = "Synopsis is mandatory")
         @NotEmpty(message = "Synopsis is mandatory")
-        @Size(min = 20, max = 100, message = "Should be between 20 and 100 characters long")
+        @Size(min = 100, max = 500, message = "Should be between 100 and 500 characters long")
         String synopsis,
 
         boolean shareable
