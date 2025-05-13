@@ -27,6 +27,7 @@ public class Book {
 
     private String isbn;
 
+    @Column(columnDefinition = "TEXT")
     private String synopsis;
 
     private String bookCoverPath;
