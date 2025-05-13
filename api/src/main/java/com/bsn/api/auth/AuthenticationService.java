@@ -3,6 +3,7 @@ package com.bsn.api.auth;
 import com.bsn.api.role.Role;
 import com.bsn.api.user.User;
 import com.bsn.api.role.RoleRepository;
+import com.bsn.api.user.UserPrincipal;
 import com.bsn.api.user.UserRepository;
 import com.bsn.api.security.JwtService;
 import jakarta.persistence.EntityNotFoundException;
@@ -59,7 +60,7 @@ public class AuthenticationService {
 
     public User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = (String) authentication.getPrincipal();
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        return userRepository.findByEmail(principal.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
