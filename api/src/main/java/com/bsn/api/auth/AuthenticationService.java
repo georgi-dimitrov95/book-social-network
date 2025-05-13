@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthenticationService {
 
-    private AuthenticationManager authManager;
+    private final AuthenticationManager authManager;
 
     private final UserRepository userRepository;
 

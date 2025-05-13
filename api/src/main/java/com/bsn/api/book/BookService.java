@@ -27,15 +27,15 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class BookService {
 
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private BookTransactionRepository bookTransactionRepository;
+    private final BookTransactionRepository bookTransactionRepository;
 
-    private FileStorageService fileService;
+    private final FileStorageService fileService;
 
     public Book save(BookRequest bookRequest) {
         User user = getCurrentUser();
