@@ -29,7 +29,7 @@ export class BookListComponent implements OnInit {
   }
 
   private findAllBooks() {
-    this.bookService.findAllBooksOfCurrentUser({
+    this.bookService.findAllBooksFromOtherOwners({
       page: this.page,
       size: this.size
     })
