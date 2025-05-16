@@ -3,6 +3,8 @@ import {PageResponseBorrowedBookResponse} from '../../../../services/models/page
 import {BorrowedBookResponse} from '../../../../services/models/borrowed-book-response';
 import {FeedbackService} from '../../../../services/services/feedback.service';
 import {BookService} from '../../../../services/services/book.service';
+import {BookResponse} from '../../../../services/models/book-response';
+import {FeedbackRequest} from '../../../../services/models/feedback-request';
 
 @Component({
   selector: 'app-borrowed-books',
@@ -16,6 +18,8 @@ export class BorrowedBooksComponent implements OnInit {
   size = 3;
   pages: any = [];
   borrowedBooks: PageResponseBorrowedBookResponse = {};
+  selectedBook: BookResponse | undefined = undefined;
+  feedbackRequest: FeedbackRequest = {bookId: 0, comment: '', rating: 0};
 
   constructor(
     private bookService: BookService,
@@ -41,7 +45,8 @@ export class BorrowedBooksComponent implements OnInit {
   }
 
   returnBorrowedBook(book: BorrowedBookResponse) {
-
+    this.selectedBook = book;
+    // this.feedbackRequest.bookId = book.id as number;
   }
 
   goToPage(pageIndex: any) {
