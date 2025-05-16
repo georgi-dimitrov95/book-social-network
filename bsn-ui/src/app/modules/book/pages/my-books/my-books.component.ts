@@ -70,15 +70,15 @@ export class MyBooksComponent implements OnInit {
     return this.page === this.bookResponse.totalPages as number - 1;
   }
 
-  archiveBook($event: BookResponse) {
+  archiveBook(book: BookResponse) {
 
   }
 
-  shareBook($event: BookResponse) {
-
+  shareBook(book: BookResponse) {
+    
   }
 
-  editBook($event: BookResponse) {
-
+  editBook(book: BookResponse) {
+    this.router.navigate(['books', 'manage-book', book.id]);
   }
 }
