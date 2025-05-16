@@ -43,4 +43,33 @@ export class BorrowedBooksComponent implements OnInit {
   returnBorrowedBook(book: BorrowedBookResponse) {
 
   }
+
+  goToPage(pageIndex: any) {
+    this.page = pageIndex;
+    this.findAllBorrowedBooks();
+  }
+
+  goToFirstPage() {
+    this.page = 0;
+    this.findAllBorrowedBooks();
+  }
+
+  goToLastPage() {
+    this.page = this.borrowedBooks.totalPages as number - 1;
+    this.findAllBorrowedBooks();
+  }
+
+  goToNextPage() {
+    this.page++;
+    this.findAllBorrowedBooks();
+  }
+
+  goToPreviousPage() {
+    this.page--;
+    this.findAllBorrowedBooks();
+  }
+
+  get isLastPage() {
+    return this.page === this.borrowedBooks.totalPages as number - 1;
+  }
 }
