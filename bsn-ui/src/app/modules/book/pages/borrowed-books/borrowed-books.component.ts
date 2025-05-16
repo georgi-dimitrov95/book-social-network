@@ -1,0 +1,46 @@
+import {Component, OnInit} from '@angular/core';
+import {PageResponseBorrowedBookResponse} from '../../../../services/models/page-response-borrowed-book-response';
+import {BorrowedBookResponse} from '../../../../services/models/borrowed-book-response';
+import {FeedbackService} from '../../../../services/services/feedback.service';
+import {BookService} from '../../../../services/services/book.service';
+
+@Component({
+  selector: 'app-borrowed-books',
+  standalone: false,
+  templateUrl: './borrowed-books.component.html',
+  styleUrl: './borrowed-books.component.scss'
+})
+export class BorrowedBooksComponent implements OnInit {
+
+  page = 0;
+  size = 3;
+  pages: any = [];
+  borrowedBooks: PageResponseBorrowedBookResponse = {};
+
+  constructor(
+    private bookService: BookService,
+    private feedbackService: FeedbackService
+  ) {}
+
+  ngOnInit(): void {
+    this.findAllBorrowedBooks();
+  }
+
+  private findAllBorrowedBooks() {
+    this.bookService.findAllBorrowedBooksByCurrentUser({
+      page: this.page,
+      size: this.size
+    }).subscribe({
+      next: (response) => {
+        this.borrowedBooks = response;
+        this.pages = Array(this.borrowedBooks.totalPages)
+          .fill(0)
+          .map((x, i) => i);
+      }
+    });
+  }
+
+  returnBorrowedBook(book: BorrowedBookResponse) {
+
+  }
+}
