@@ -31,7 +31,7 @@ const routes: Routes = [
         component: ManageBookComponent
       },
       {
-        path: 'my-borrowed-books',
+        path: 'borrowed-books',
         component: BorrowedBooksComponent
       },
       {
