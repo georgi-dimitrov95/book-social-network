@@ -15,7 +15,7 @@ import {FeedbackRequest} from '../../../../services/models/feedback-request';
 export class BorrowedBooksComponent implements OnInit {
 
   page = 0;
-  size = 3;
+  size = 5;
   pages: any = [];
   borrowedBooks: PageResponseBorrowedBookResponse = {};
   selectedBook: BookResponse | undefined = undefined;
@@ -44,9 +44,32 @@ export class BorrowedBooksComponent implements OnInit {
     });
   }
 
-  returnBorrowedBook(book: BorrowedBookResponse) {
+  selectBook(book: BorrowedBookResponse) {
     this.selectedBook = book;
-    // this.feedbackRequest.bookId = book.id as number;
+    this.feedbackRequest.bookId = book.id as number;
+  }
+
+  returnBook(withFeedback: boolean) {
+    this.bookService.returnBook({
+      'bookId': this.selectedBook?.id as number
+    }).subscribe({
+      next: () => {
+        if (withFeedback) {
+          this.giveFeedback();
+        }
+        this.selectedBook = undefined;
+        this.findAllBorrowedBooks();
+      }
+    });
+  }
+
+  private giveFeedback() {
+    this.feedbackService.saveFeedback({
+      body: this.feedbackRequest
+    }).subscribe({
+      next: () => {
+      }
+    });
   }
 
   goToPage(pageIndex: any) {
