@@ -58,7 +58,7 @@ public class BookController {
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size
     ) {
-        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksByCurrentUser(page, size);
+        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllCurrentlyBorrowedBooksByUser(page, size);
         return ResponseEntity.ok(pageResponse);
     }
 

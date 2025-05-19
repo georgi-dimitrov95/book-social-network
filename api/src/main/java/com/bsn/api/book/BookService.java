@@ -60,9 +60,9 @@ public class BookService {
         return convertPageToPageResponse(booksPage, BookResponse::new);
     }
 
-    public PageResponse<BorrowedBookResponse> findAllBorrowedBooksByCurrentUser(int page, int size) {
+    public PageResponse<BorrowedBookResponse> findAllCurrentlyBorrowedBooksByUser(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(getCurrentUser().getId(), pageable);
+        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerIdAndReturnedFalse(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
