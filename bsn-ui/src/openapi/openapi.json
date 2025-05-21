@@ -370,7 +370,7 @@
         "tags": [
           "Book"
         ],
-        "operationId": "findAllBooksOfCurrentUser",
+        "operationId": "findAllBooksOfUser",
         "parameters": [
           {
             "name": "page",
@@ -407,12 +407,54 @@
         }
       }
     },
+    "/books/returned": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "findAllReturnedBooksByUser",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBorrowedBookResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/books/loaned": {
       "get": {
         "tags": [
           "Book"
         ],
-        "operationId": "findAllBorrowedBooksFromCurrentUser",
+        "operationId": "findAllBorrowedBooksFromUser",
         "parameters": [
           {
             "name": "page",
@@ -527,7 +569,7 @@
         "tags": [
           "Book"
         ],
-        "operationId": "findAllBorrowedBooksByCurrentUser",
+        "operationId": "findAllCurrentlyBorrowedBooksByUser",
         "parameters": [
           {
             "name": "page",
@@ -679,8 +721,8 @@
           },
           "synopsis": {
             "type": "string",
-            "maxLength": 100,
-            "minLength": 20
+            "maxLength": 500,
+            "minLength": 100
           },
           "shareable": {
             "type": "boolean"
@@ -689,7 +731,6 @@
         "required": [
           "authorName",
           "isbn",
-          "synopsis",
           "title"
         ]
       },
@@ -753,10 +794,12 @@
           },
           "birthDate": {
             "type": "string",
-            "format": "date",
-            "minLength": 1
+            "format": "date"
           }
-        }
+        },
+        "required": [
+          "birthDate"
+        ]
       },
       "RegisterResponse": {
         "type": "object",

@@ -8,15 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PageResponseBookResponse } from '../../models/page-response-book-response';
+import { PageResponseBorrowedBookResponse } from '../../models/page-response-borrowed-book-response';
 
-export interface FindAllBooksOfCurrentUser$Params {
+export interface FindAllCurrentlyBorrowedBooksByUser$Params {
   page?: number;
   size?: number;
 }
 
-export function findAllBooksOfCurrentUser(http: HttpClient, rootUrl: string, params?: FindAllBooksOfCurrentUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBookResponse>> {
-  const rb = new RequestBuilder(rootUrl, findAllBooksOfCurrentUser.PATH, 'get');
+export function findAllCurrentlyBorrowedBooksByUser(http: HttpClient, rootUrl: string, params?: FindAllCurrentlyBorrowedBooksByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBorrowedBookResponse>> {
+  const rb = new RequestBuilder(rootUrl, findAllCurrentlyBorrowedBooksByUser.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
@@ -27,9 +27,9 @@ export function findAllBooksOfCurrentUser(http: HttpClient, rootUrl: string, par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PageResponseBookResponse>;
+      return r as StrictHttpResponse<PageResponseBorrowedBookResponse>;
     })
   );
 }
 
-findAllBooksOfCurrentUser.PATH = '/books/user';
+findAllCurrentlyBorrowedBooksByUser.PATH = '/books/borrowed';

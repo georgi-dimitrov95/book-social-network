@@ -10,13 +10,13 @@ import { RequestBuilder } from '../../request-builder';
 
 import { PageResponseBorrowedBookResponse } from '../../models/page-response-borrowed-book-response';
 
-export interface FindAllBorrowedBooksFromCurrentUser$Params {
+export interface FindAllReturnedBooksByUser$Params {
   page?: number;
   size?: number;
 }
 
-export function findAllBorrowedBooksFromCurrentUser(http: HttpClient, rootUrl: string, params?: FindAllBorrowedBooksFromCurrentUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBorrowedBookResponse>> {
-  const rb = new RequestBuilder(rootUrl, findAllBorrowedBooksFromCurrentUser.PATH, 'get');
+export function findAllReturnedBooksByUser(http: HttpClient, rootUrl: string, params?: FindAllReturnedBooksByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBorrowedBookResponse>> {
+  const rb = new RequestBuilder(rootUrl, findAllReturnedBooksByUser.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
@@ -32,4 +32,4 @@ export function findAllBorrowedBooksFromCurrentUser(http: HttpClient, rootUrl: s
   );
 }
 
-findAllBorrowedBooksFromCurrentUser.PATH = '/books/loaned';
+findAllReturnedBooksByUser.PATH = '/books/returned';
