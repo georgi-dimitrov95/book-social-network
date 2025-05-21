@@ -18,8 +18,6 @@ export class ReturnedBooksComponent implements OnInit {
   size = 5;
   pages: any = [];
   returnedBooks: PageResponseBorrowedBookResponse = {};
-  message = '';
-  level: 'success' | 'error' = 'success';
 
   constructor(
     private bookService: BookService,
