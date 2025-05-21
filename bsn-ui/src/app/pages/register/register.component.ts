@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../services/services/authentication.se
 })
 export class RegisterComponent {
 
-  registerRequest: RegisterRequest = {email: '', firstname: '', lastname: '', password: ''};
+  registerRequest: RegisterRequest = {birthDate: '', email: '', firstname: '', lastname: '', password: ''};
   errorMsg: Array<string> = [];
   success: boolean =  false;
 

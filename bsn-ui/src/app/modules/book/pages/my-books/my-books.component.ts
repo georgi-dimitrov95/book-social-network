@@ -27,7 +27,7 @@ export class MyBooksComponent implements OnInit {
   }
 
   private findAllBooks() {
-    this.bookService.findAllBooksOfCurrentUser({
+    this.bookService.findAllBooksOfUser({
       page: this.page,
       size: this.size
     })
