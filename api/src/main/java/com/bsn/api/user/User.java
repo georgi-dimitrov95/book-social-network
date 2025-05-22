@@ -60,6 +60,6 @@ public class User {
     }
 
     public String getFullName() {
-        return STR."\{firstname} \{lastname}";
+        return firstname + " " + lastname;
     }
 }
