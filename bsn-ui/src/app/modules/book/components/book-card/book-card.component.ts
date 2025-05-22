@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookResponse } from '../../../../services/models/book-response';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-book-card',
@@ -12,6 +13,10 @@ export class BookCardComponent {
   private _book: BookResponse = {};
   private _manage = false;
   private _bookCover: string | undefined;
+
+  constructor(
+    private router: Router
+  ) {}
 
   @Input()
   set book(value: BookResponse) {
@@ -66,6 +71,6 @@ export class BookCardComponent {
     }
 
     onShowDetails() {
-      this.details.emit(this._book);
+      this.router.navigate(['books', 'book-details'], {queryParams: {bookId: this._book.id}});
     }
 }
