@@ -27,7 +27,7 @@ export class BookDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.bookId = this.activatedRoute.snapshot.params['bookId'];
+    this.bookId = this.activatedRoute.snapshot.queryParams['bookId'];
     if (this.bookId) {
       this.bookService.findBookById({
         'id': this.bookId
