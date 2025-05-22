@@ -8,6 +8,7 @@ import {BorrowedBooksComponent} from './pages/borrowed-books/borrowed-books.comp
 import {LoanedBooksComponent} from './pages/loaned-books/loaned-books.component';
 import {ReturnedBooksComponent} from './pages/returned-books/returned-books.component';
 import {WishlistComponent} from './pages/wishlist/wishlist.component';
+import {BookDetailsComponent} from './pages/book-details/book-details.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: '',
         component: BookListComponent
+      },
+      {
+        path: 'book-details',
+        component: BookDetailsComponent
       },
       {
         path: 'my-books',

@@ -14,6 +14,7 @@ import { BorrowedBooksComponent } from './pages/borrowed-books/borrowed-books.co
 import { LoanedBooksComponent } from './pages/loaned-books/loaned-books.component';
 import { ReturnedBooksComponent } from './pages/returned-books/returned-books.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { BookDetailsComponent } from './pages/book-details/book-details.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
     BorrowedBooksComponent,
     LoanedBooksComponent,
     ReturnedBooksComponent,
-    WishlistComponent
+    WishlistComponent,
+    BookDetailsComponent
   ],
   imports: [
     CommonModule,
