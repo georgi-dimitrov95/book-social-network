@@ -5,6 +5,7 @@ import {FeedbackService} from '../../../../services/services/feedback.service';
 import {BookService} from '../../../../services/services/book.service';
 import {BookResponse} from '../../../../services/models/book-response';
 import {FeedbackRequest} from '../../../../services/models/feedback-request';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-borrowed-books',
@@ -23,7 +24,8 @@ export class BorrowedBooksComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +72,10 @@ export class BorrowedBooksComponent implements OnInit {
       next: () => {
       }
     });
+  }
+
+  goToBookDetails(bookId: number | undefined) {
+    this.router.navigate(['books', 'book-details'], {queryParams: {bookId}});
   }
 
   goToPage(pageIndex: any) {
