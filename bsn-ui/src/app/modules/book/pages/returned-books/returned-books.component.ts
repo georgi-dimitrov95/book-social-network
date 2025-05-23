@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PageResponseBorrowedBookResponse} from '../../../../services/models/page-response-borrowed-book-response';
-import {BookResponse} from '../../../../services/models/book-response';
-import {FeedbackRequest} from '../../../../services/models/feedback-request';
 import {BookService} from '../../../../services/services/book.service';
-import {FeedbackService} from '../../../../services/services/feedback.service';
-import {BorrowedBookResponse} from '../../../../services/models/borrowed-book-response';
 
 @Component({
   selector: 'app-returned-books',
