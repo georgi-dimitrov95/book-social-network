@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PageResponseBorrowedBookResponse} from '../../../../services/models/page-response-borrowed-book-response';
 import {BookService} from '../../../../services/services/book.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-returned-books',
@@ -17,6 +18,7 @@ export class ReturnedBooksComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +37,10 @@ export class ReturnedBooksComponent implements OnInit {
           .map((x, i) => i);
       }
     });
+  }
+
+  goToBookDetails(bookId: number | undefined) {
+    this.router.navigate(['books', 'book-details'], {queryParams: {bookId}});
   }
 
   goToPage(pageIndex: any) {
