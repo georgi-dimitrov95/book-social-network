@@ -93,4 +93,9 @@ export class MyBooksComponent implements OnInit {
   editBook(book: BookResponse) {
     this.router.navigate(['books', 'manage-book', book.id]);
   }
+
+  onPageChange(page: number) {
+    this.page = page;
+    this.findAllBooks();
+  }
 }
