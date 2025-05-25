@@ -43,38 +43,9 @@ export class BookListComponent implements OnInit {
       });
   }
 
-  gotToPage(page: number) {
+  onPageChange(page: number) {
     this.page = page;
-    this.message = '';
     this.findAllBooks();
-  }
-
-  goToFirstPage() {
-    this.page = 0;
-    this.message = '';
-    this.findAllBooks();
-  }
-
-  goToLastPage() {
-    this.page = this.bookResponse.totalPages as number - 1;
-    this.message = '';
-    this.findAllBooks();
-  }
-
-  goToNextPage() {
-    this.page++;
-    this.message = '';
-    this.findAllBooks();
-  }
-
-  goToPreviousPage() {
-    this.page--;
-    this.message = '';
-    this.findAllBooks();
-  }
-
-  get isLastPage() {
-    return this.page === this.bookResponse.totalPages as number - 1;
   }
 
   borrowBook(book: BookResponse) {
