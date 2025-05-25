@@ -41,7 +41,7 @@ export class MyBooksComponent implements OnInit {
       });
   }
 
-  gotToPage(page: number) {
+  goToPage(page: number) {
     this.page = page;
     this.findAllBooks();
   }
