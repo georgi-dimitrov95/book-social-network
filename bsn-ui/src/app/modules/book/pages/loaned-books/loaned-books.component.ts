@@ -39,36 +39,12 @@ export class LoanedBooksComponent implements OnInit{
     });
   }
 
+  onPageChange(page: number) {
+    this.page = page;
+    this.findAllLoanedBooks();
+  }
+
   goToBookDetails(bookId: number | undefined) {
     this.router.navigate(['books', 'book-details'], {queryParams: {bookId}});
-  }
-
-  goToPage(pageIndex: any) {
-    this.page = pageIndex;
-    this.findAllLoanedBooks();
-  }
-
-  goToFirstPage() {
-    this.page = 0;
-    this.findAllLoanedBooks();
-  }
-
-  goToLastPage() {
-    this.page = this.loanedBooks.totalPages as number - 1;
-    this.findAllLoanedBooks();
-  }
-
-  goToNextPage() {
-    this.page++;
-    this.findAllLoanedBooks();
-  }
-
-  goToPreviousPage() {
-    this.page--;
-    this.findAllLoanedBooks();
-  }
-
-  get isLastPage() {
-    return this.page === this.loanedBooks.totalPages as number - 1;
   }
 }
