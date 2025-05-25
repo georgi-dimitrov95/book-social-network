@@ -15,6 +15,7 @@ import { LoanedBooksComponent } from './pages/loaned-books/loaned-books.componen
 import { ReturnedBooksComponent } from './pages/returned-books/returned-books.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { BookDetailsComponent } from './pages/book-details/book-details.componen
   imports: [
     CommonModule,
     BookRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class BookModule { }

@@ -10,6 +10,7 @@ import { RegisterComponent } from './pages/register/register.component';
 
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
+import {SharedModule} from './modules/shared/shared.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HttpTokenInterceptor } from './services/interceptor/http-token.intercep
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [
     HttpClient,
