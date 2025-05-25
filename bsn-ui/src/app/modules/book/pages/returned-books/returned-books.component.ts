@@ -39,36 +39,12 @@ export class ReturnedBooksComponent implements OnInit {
     });
   }
 
+  onPageChange(page: number) {
+    this.page = page;
+    this.findAllReturnedBooks();
+  }
+
   goToBookDetails(bookId: number | undefined) {
     this.router.navigate(['books', 'book-details'], {queryParams: {bookId}});
-  }
-
-  goToPage(pageIndex: any) {
-    this.page = pageIndex;
-    this.findAllReturnedBooks();
-  }
-
-  goToFirstPage() {
-    this.page = 0;
-    this.findAllReturnedBooks();
-  }
-
-  goToLastPage() {
-    this.page = this.returnedBooks.totalPages as number - 1;
-    this.findAllReturnedBooks();
-  }
-
-  goToNextPage() {
-    this.page++;
-    this.findAllReturnedBooks();
-  }
-
-  goToPreviousPage() {
-    this.page--;
-    this.findAllReturnedBooks();
-  }
-
-  get isLastPage() {
-    return this.page === this.returnedBooks.totalPages as number - 1;
   }
 }
