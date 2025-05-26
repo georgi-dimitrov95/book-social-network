@@ -9,3 +9,9 @@ li > a {
     border-radius: 5px;
   }
 }
+
+@media (max-width: 950px) {
+  .menu-text {
+    display: none;
+  }
+}
