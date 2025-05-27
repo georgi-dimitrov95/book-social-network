@@ -1,4 +1,9 @@
-<h3 class="text-center mt-4">Currently borrowed books</h3>
+<h1 class="text-center mt-4">Borrowed books</h1>
+<div class="d-flex justify-content-center gap-3 my-3">
+  <button class="btn btn-success">Returned books</button>
+  <button class="btn btn-danger">Currently borrowed</button>
+  <button class="btn btn-primary">All borrowed books</button>
+</div>
 <hr>
 <div class="d-flex flex-column col-6" *ngIf="selectedBook">
   <h3>Return and share feedback</h3>
@@ -63,7 +68,7 @@
 </div>
 
 <div *ngIf="!selectedBook">
-  <table class="table">
+  <table class="table text-center">
     <thead>
     <tr>
       <th scope="col">#</th>
@@ -71,9 +76,8 @@
       <th scope="col">Author</th>
       <th scope="col">Owner</th>
       <th scope="col">Borrowed at</th>
-      <th scope="col">ISBN</th>
       <th scope="col">Rating</th>
-      <th scope="col"><i class="fas fa-cogs"></i></th>
+      <th scope="col">Return</th>
     </tr>
     </thead>
     <tbody>
@@ -84,14 +88,10 @@
       <td><span class="clickable">{{ book.authorName }}</span></td>
       <td><span class="clickable">{{ book.owner }}</span></td>
       <td>{{ book.borrowedAt | date }}</td>
-      <td>{{ book.isbn }}</td>
       <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
       <td>
-        <div class="d-flex gap-2">
-          <i *ngIf="book.returned" class="fa-regular fa-paper-plane text-primary"></i>
-          <i *ngIf="!book.returned" (click)="selectBook(book)" class="fa-solid fa-paper-plane text-success"></i>
-<!--          <i class="fa-solid fa-circle-check" [class.text-success]="book.returnApproved"></i>-->
-        </div>
+        <i *ngIf="book.returned" class="fa-regular fa-paper-plane fa-xl" style="color: green;"></i>
+        <i *ngIf="!book.returned" (click)="selectBook(book)" class="fa-solid fa-paper-plane fa-xl" style="color: dodgerblue;"></i>
       </td>
     </tr>
     </tbody>
