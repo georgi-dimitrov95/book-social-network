@@ -1,7 +1,12 @@
-<h3 class="text-center mt-4">Loaned books</h3>
+<h1 class="text-center mt-4">Loaned books</h1>
+<div class="d-flex justify-content-center gap-3 my-3">
+  <button class="btn btn-success">Already returned</button>
+  <button class="btn btn-danger">Currently on loan</button>
+  <button class="btn btn-primary">All loaned books</button>
+</div>
 <hr>
 <div>
-  <table class="table">
+  <table class="table text-center">
     <thead>
     <tr>
       <th scope="col">#</th>
@@ -10,8 +15,8 @@
       <th scope="col">Borrower</th>
       <th scope="col">Borrowed at</th>
       <th scope="col">Returned at</th>
-      <th scope="col">Rate</th>
-      <th scope="col"><i class="fas fa-cogs"></i></th>
+      <th scope="col">Feedback</th>
+      <th scope="col">Returned</th>
     </tr>
     </thead>
     <tbody>
@@ -25,11 +30,8 @@
       <td>{{ book.returnedAt | date }}</td>
       <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
       <td>
-        <div class="d-flex gap-2">
-          <i *ngIf="book.returned" class="fa-regular fa-paper-plane text-success"></i>
-          <i *ngIf="!book.returned" class="fa-regular fa-paper-plane text-primary"></i>
-          <!--          <i class="fa-solid fa-circle-check" [class.text-success]="book.returnApproved"></i>-->
-        </div>
+        <i *ngIf="book.returned" class="fa-solid fa-circle-check fa-xl" style="color: green;"></i>
+        <i *ngIf="!book.returned" class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i>
       </td>
     </tr>
     </tbody>
