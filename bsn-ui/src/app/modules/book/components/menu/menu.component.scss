@@ -10,14 +10,6 @@ li > a {
   }
 }
 
-.navbar-brand,
-.navbar-collapse,
-form {
-  margin: 0;
-  padding: 0;
-  align-self: center;
-}
-
 @media (max-width: 425px) {
   .navbar-brand {
     display: none;
