@@ -10,13 +10,13 @@ import { RequestBuilder } from '../../request-builder';
 
 import { PageResponseBorrowedBookResponse } from '../../models/page-response-borrowed-book-response';
 
-export interface FindAllCurrentlyBorrowedBooksByUser$Params {
+export interface FindAllCurrentlyLoanedBooksByUser$Params {
   page?: number;
   size?: number;
 }
 
-export function findAllCurrentlyBorrowedBooksByUser(http: HttpClient, rootUrl: string, params?: FindAllCurrentlyBorrowedBooksByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBorrowedBookResponse>> {
-  const rb = new RequestBuilder(rootUrl, findAllCurrentlyBorrowedBooksByUser.PATH, 'get');
+export function findAllCurrentlyLoanedBooksByUser(http: HttpClient, rootUrl: string, params?: FindAllCurrentlyLoanedBooksByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBorrowedBookResponse>> {
+  const rb = new RequestBuilder(rootUrl, findAllCurrentlyLoanedBooksByUser.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
@@ -32,4 +32,4 @@ export function findAllCurrentlyBorrowedBooksByUser(http: HttpClient, rootUrl: s
   );
 }
 
-findAllCurrentlyBorrowedBooksByUser.PATH = '/books/borrowed-currently';
+findAllCurrentlyLoanedBooksByUser.PATH = '/books/loaned-currently';

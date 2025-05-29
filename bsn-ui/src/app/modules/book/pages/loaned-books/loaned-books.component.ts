@@ -26,7 +26,7 @@ export class LoanedBooksComponent implements OnInit{
   }
 
   private findAllLoanedBooks() {
-    this.bookService.findAllBorrowedBooksFromUser({
+    this.bookService.findAllLoanedBooksByUser({
       page: this.page,
       size: this.size
     }).subscribe({

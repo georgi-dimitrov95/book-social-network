@@ -407,12 +407,12 @@
         }
       }
     },
-    "/books/returned": {
+    "/books/loaned-returned": {
       "get": {
         "tags": [
           "Book"
         ],
-        "operationId": "findAllReturnedBooksByUser",
+        "operationId": "findAllLoanedAndReturnedBooksByUser",
         "parameters": [
           {
             "name": "page",
@@ -449,12 +449,54 @@
         }
       }
     },
-    "/books/loaned": {
+    "/books/loaned-currently": {
       "get": {
         "tags": [
           "Book"
         ],
-        "operationId": "findAllBorrowedBooksFromUser",
+        "operationId": "findAllCurrentlyLoanedBooksByUser",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBorrowedBookResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/loaned-all": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "findAllLoanedBooksByUser",
         "parameters": [
           {
             "name": "page",
@@ -564,12 +606,96 @@
         }
       }
     },
-    "/books/borrowed": {
+    "/books/borrowed-returned": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "findAllReturnedBooksByUser",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBorrowedBookResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/borrowed-currently": {
       "get": {
         "tags": [
           "Book"
         ],
         "operationId": "findAllCurrentlyBorrowedBooksByUser",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBorrowedBookResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/borrowed-all": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "findAllBorrowedBooksByUser",
         "parameters": [
           {
             "name": "page",
