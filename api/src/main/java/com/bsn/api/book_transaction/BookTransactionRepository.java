@@ -21,4 +21,6 @@ public interface BookTransactionRepository extends JpaRepository<BookTransaction
     Page<BookTransaction> findByBorrowerIdAndReturnedFalse(Long id, Pageable pageable);
 
     Page<BookTransaction> findByBorrowerIdAndReturnedTrue(Long id, Pageable pageable);
+
+    Page<BookTransaction> findByBookOwnerIdAndReturnedFalse(Long id, Pageable pageable);
 }

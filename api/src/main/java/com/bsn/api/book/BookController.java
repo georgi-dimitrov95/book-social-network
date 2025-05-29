@@ -86,6 +86,15 @@ public class BookController {
         return ResponseEntity.ok(pageResponse);
     }
 
+    @GetMapping("/loaned-currently")
+    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllCurrentlyLoanedBooksByUser(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size
+    ) {
+        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllLoanedBooksByUser(page, size);
+        return ResponseEntity.ok(pageResponse);
+    }
+
     @PatchMapping("/shareable/{bookId}")
     public ResponseEntity<BookResponse> updateBookShareableStatus(@RequestParam("bookId") Long bookId) {
         BookResponse bookResponse = bookService.updateBookShareableStatus(bookId);
