@@ -51,6 +51,15 @@ public class BookController {
     }
 
     @GetMapping("/borrowed")
+    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooksByUser(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size
+    ) {
+        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksByUser(page, size);
+        return ResponseEntity.ok(pageResponse);
+    }
+
+    @GetMapping("/borrowed")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllCurrentlyBorrowedBooksByUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size
