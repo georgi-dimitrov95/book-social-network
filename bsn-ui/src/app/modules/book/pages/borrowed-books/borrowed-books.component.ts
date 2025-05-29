@@ -60,6 +60,20 @@ export class BorrowedBooksComponent implements OnInit {
     });
   }
 
+  displayCurrentlyBorrowedBooks() {
+    this.bookService.findAllCurrentlyBorrowedBooksByUser({
+      page: this.page,
+      size: this.size
+    }).subscribe({
+      next: (response) => {
+        this.borrowedBooks = response;
+        this.pages = Array(this.borrowedBooks.totalPages)
+          .fill(0)
+          .map((x, i) => i);
+      }
+    });
+  }
+
   selectBook(book: BorrowedBookResponse) {
     this.selectedBook = book;
     this.feedbackRequest.bookId = book.id as number;
