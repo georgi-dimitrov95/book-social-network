@@ -22,10 +22,10 @@ export class LoanedBooksComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.findAllLoanedBooks();
+    this.displayAllLoanedBooks();
   }
 
-  private findAllLoanedBooks() {
+  protected displayAllLoanedBooks() {
     this.bookService.findAllLoanedBooksByUser({
       page: this.page,
       size: this.size
@@ -65,12 +65,12 @@ export class LoanedBooksComponent implements OnInit{
            .map((x, i) => i);
        }
     });
-    console.log(this.loanedBooks);
   }
 
+  // gonna bring trouble
   onPageChange(page: number) {
     this.page = page;
-    this.findAllLoanedBooks();
+    this.displayAllLoanedBooks();
   }
 
   goToBookDetails(bookId: number | undefined) {
