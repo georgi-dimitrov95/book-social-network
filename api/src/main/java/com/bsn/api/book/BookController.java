@@ -50,7 +50,7 @@ public class BookController {
        return ResponseEntity.ok(pageResponse);
     }
 
-    @GetMapping("/borrowed")
+    @GetMapping("/borrowed-all")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooksByUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size
@@ -59,7 +59,7 @@ public class BookController {
         return ResponseEntity.ok(pageResponse);
     }
 
-    @GetMapping("/borrowed")
+    @GetMapping("/borrowed-currently")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllCurrentlyBorrowedBooksByUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size
@@ -68,7 +68,7 @@ public class BookController {
         return ResponseEntity.ok(pageResponse);
     }
 
-    @GetMapping("/returned")
+    @GetMapping("/borrowed-returned")
     public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllReturnedBooksByUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size
@@ -77,12 +77,12 @@ public class BookController {
         return ResponseEntity.ok(pageResponse);
     }
 
-    @GetMapping("/loaned")
-    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooksFromUser(
+    @GetMapping("/loaned-all")
+    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllLoanedBooksByUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size
     ) {
-        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllBorrowedBooksFromCurrentUser(page, size);
+        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllLoanedBooksByUser(page, size);
         return ResponseEntity.ok(pageResponse);
     }
 

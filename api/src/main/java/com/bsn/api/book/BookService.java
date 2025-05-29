@@ -8,12 +8,10 @@ import com.bsn.api.misc.*;
 import com.bsn.api.book_transaction.BookTransactionRepository;
 import com.bsn.api.user.UserRepository;
 import com.bsn.api.user.User;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,9 +76,7 @@ public class BookService {
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
-
-
-    public PageResponse<BorrowedBookResponse> findAllBorrowedBooksFromCurrentUser(int page, int size) {
+    public PageResponse<BorrowedBookResponse> findAllLoanedBooksByUser(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerId(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
