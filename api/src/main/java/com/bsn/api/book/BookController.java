@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.SQLOutput;
+
 @RestController
 @RequestMapping("books")
 @RequiredArgsConstructor
@@ -91,7 +93,7 @@ public class BookController {
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size
     ) {
-        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllLoanedBooksByUser(page, size);
+        PageResponse<BorrowedBookResponse> pageResponse = bookService.findAllCurrentlyLoanedBooksByUser(page, size);
         return ResponseEntity.ok(pageResponse);
     }
 
