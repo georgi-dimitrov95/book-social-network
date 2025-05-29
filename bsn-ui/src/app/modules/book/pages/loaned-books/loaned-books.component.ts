@@ -39,6 +39,20 @@ export class LoanedBooksComponent implements OnInit{
     });
   }
 
+  displayLoanedAndReturnedBooks() {
+    this.bookService.findAllLoanedAndReturnedBooksByUser({
+      page: this.page,
+      size: this.size
+    }).subscribe({
+      next: (response) => {
+        this.loanedBooks = response;
+        this.pages = Array(this.loanedBooks.totalPages)
+          .fill(0)
+          .map((x, i) => i);
+      }
+    });
+  }
+
   displayCurrentlyBorrowedBooks() {
     this.bookService.findAllCurrentlyLoanedBooksByUser({
       page: this.page,
