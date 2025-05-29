@@ -29,11 +29,11 @@ export class BorrowedBooksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.findAllBorrowedBooks();
+    this.displayAllBorrowedBooks();
   }
 
-  private findAllBorrowedBooks() {
-    this.bookService.findAllCurrentlyBorrowedBooksByUser({
+  protected displayAllBorrowedBooks() {
+    this.bookService.findAllBorrowedBooksByUser({
       page: this.page,
       size: this.size
     }).subscribe({
@@ -88,7 +88,7 @@ export class BorrowedBooksComponent implements OnInit {
           this.giveFeedback();
         }
         this.selectedBook = undefined;
-        this.findAllBorrowedBooks();
+        this.displayAllBorrowedBooks();
       }
     });
   }
@@ -102,9 +102,10 @@ export class BorrowedBooksComponent implements OnInit {
     });
   }
 
+  // this gon bring trouble
   onPageChange(page: number) {
     this.page = page;
-    this.findAllBorrowedBooks();
+    this.displayAllBorrowedBooks();
   }
 
   goToBookDetails(bookId: number | undefined) {

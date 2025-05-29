@@ -2,7 +2,7 @@
 <div class="d-flex justify-content-center gap-3 my-3">
   <button class="btn btn-success" (click)=displayBorrowedAndReturnedBooks()>Borrowed & returned</button>
   <button class="btn btn-danger" (click)=displayCurrentlyBorrowedBooks()>Currently borrowed</button>
-  <button class="btn btn-primary">All borrowed books</button>
+  <button class="btn btn-primary" (click)=displayAllBorrowedBooks()>All borrowed books</button>
 </div>
 <hr>
 <div class="d-flex flex-column col-6" *ngIf="selectedBook">
