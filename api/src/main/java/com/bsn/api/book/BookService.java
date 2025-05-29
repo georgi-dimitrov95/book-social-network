@@ -88,6 +88,12 @@ public class BookService {
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
+    public PageResponse<BorrowedBookResponse> findAllLoanedAndReturnedBooksByUser(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerIdAndReturnedTrue(getCurrentUser().getId(), pageable);
+        return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
+    }
+
     public BookResponse updateBookShareableStatus(Long bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
 
