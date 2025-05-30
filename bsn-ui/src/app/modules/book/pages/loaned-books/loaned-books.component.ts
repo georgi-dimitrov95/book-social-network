@@ -3,6 +3,12 @@ import {PageResponseBorrowedBookResponse} from '../../../../services/models/page
 import {BookService} from '../../../../services/services/book.service';
 import {Router} from '@angular/router';
 
+enum BookFilter {
+  ALL = 'ALL',
+  CURRENTLY = 'CURRENTLY',
+  RETURNED = 'RETURNED'
+}
+
 @Component({
   selector: 'app-loaned-books',
   standalone: false,
@@ -15,6 +21,7 @@ export class LoanedBooksComponent implements OnInit{
   size = 5;
   pages: any = [];
   loanedBooks: PageResponseBorrowedBookResponse = {};
+  currentFilter: BookFilter = BookFilter.ALL;
 
   constructor(
     private bookService: BookService,
@@ -22,58 +29,41 @@ export class LoanedBooksComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.displayAllLoanedBooks();
+    this.fetchBooks();
   }
 
-  protected displayAllLoanedBooks() {
-    this.bookService.findAllLoanedBooksByUser({
-      page: this.page,
-      size: this.size
-    }).subscribe({
+  protected fetchBooks(filter?: BookFilter) {
+    let observable;
+    const params = {page: this.page, size: this.size};
+    this.currentFilter = filter ?? this.currentFilter;
+
+    switch (this.currentFilter) {
+      case BookFilter.RETURNED:
+        observable = this.bookService.findAllLoanedAndReturnedBooksByUser(params);
+        break;
+      case BookFilter.CURRENTLY:
+        observable = this.bookService.findAllCurrentlyLoanedBooksByUser(params);
+        break;
+      default:
+        observable = this.bookService.findAllLoanedBooksByUser(params);
+    }
+
+    observable.subscribe({
       next: (response) => {
         this.loanedBooks = response;
-        this.pages = Array(this.loanedBooks.totalPages)
-          .fill(0)
-          .map((x, i) => i);
+        this.pages = Array(this.loanedBooks.totalPages).fill(0).map((x, i) => i);
       }
-    });
+    })
   }
 
-  displayLoanedAndReturnedBooks() {
-    this.bookService.findAllLoanedAndReturnedBooksByUser({
-      page: this.page,
-      size: this.size
-    }).subscribe({
-      next: (response) => {
-        this.loanedBooks = response;
-        this.pages = Array(this.loanedBooks.totalPages)
-          .fill(0)
-          .map((x, i) => i);
-      }
-    });
-  }
-
-  displayCurrentlyBorrowedBooks() {
-    this.bookService.findAllCurrentlyLoanedBooksByUser({
-      page: this.page,
-      size: this.size
-      }).subscribe({
-       next: (response) => {
-         this.loanedBooks = response;
-         this.pages = Array(this.loanedBooks.totalPages)
-           .fill(0)
-           .map((x, i) => i);
-       }
-    });
-  }
-
-  // gonna bring trouble
   onPageChange(page: number) {
     this.page = page;
-    this.displayAllLoanedBooks();
+    this.fetchBooks();
   }
 
   goToBookDetails(bookId: number | undefined) {
     this.router.navigate(['books', 'book-details'], {queryParams: {bookId}});
   }
+
+  protected readonly BookFilter = BookFilter;
 }

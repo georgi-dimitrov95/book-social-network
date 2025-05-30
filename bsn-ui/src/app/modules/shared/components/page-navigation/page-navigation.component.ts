@@ -9,8 +9,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class PageNavigationComponent implements OnInit{
 
   @Input() pages: any = [];
-  @Output() pageChange = new EventEmitter<number>();
+
+  @Input()
   page = 0;
+
+  @Output() pageChange = new EventEmitter<number>();
 
   ngOnInit(): void {
 

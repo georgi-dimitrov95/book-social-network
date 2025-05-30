@@ -1,8 +1,8 @@
 <h1 class="text-center mt-4">Loaned books</h1>
 <div class="d-flex justify-content-center gap-3 my-3">
-  <button class="btn btn-success" (click)="displayLoanedAndReturnedBooks()">Loaned & returned</button>
-  <button class="btn btn-danger" (click)="displayCurrentlyBorrowedBooks()">Currently on loan</button>
-  <button class="btn btn-primary" (click)="displayAllLoanedBooks()">All loaned books</button>
+  <button class="btn btn-success" (click)="this.page=0; fetchBooks(BookFilter.RETURNED)">Loaned & returned</button>
+  <button class="btn btn-danger" (click)="this.page=0; fetchBooks(BookFilter.CURRENTLY)">Currently on loan</button>
+  <button class="btn btn-primary" (click)="this.page=0; fetchBooks(BookFilter.ALL)">All loaned books</button>
 </div>
 <hr>
 <div>
@@ -38,6 +38,7 @@
   </table>
   <app-page-navigation
     [pages]="pages"
+    [page]="page"
     (pageChange)="onPageChange($event)">
   </app-page-navigation>
 </div>
