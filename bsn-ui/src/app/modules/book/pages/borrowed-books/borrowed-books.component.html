@@ -90,8 +90,8 @@
       <td>{{ book.borrowedAt | date }}</td>
       <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
       <td>
-        <i *ngIf="book.returned" class="fa-regular fa-paper-plane fa-xl" style="color: green;"></i>
-        <i *ngIf="!book.returned" (click)="selectBook(book)" class="fa-solid fa-paper-plane fa-xl" style="color: dodgerblue;"></i>
+        <i *ngIf="book.returned" class="fa-regular fa-paper-plane fa-xl" title="Already returned" style="color: green;"></i>
+        <i *ngIf="!book.returned" (click)="selectBook(book)" class="fa-solid fa-paper-plane fa-xl clickable" title="Return book" style="color: dodgerblue;"></i>
       </td>
     </tr>
     </tbody>

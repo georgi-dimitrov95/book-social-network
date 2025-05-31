@@ -22,7 +22,7 @@ enum BookFilter {
 export class BorrowedBooksComponent implements OnInit {
 
   page = 0;
-  size = 2;
+  size = 5;
   pages: any = [];
   borrowedBooks: PageResponseBorrowedBookResponse = {};
   selectedBook: BookResponse | undefined = undefined;
