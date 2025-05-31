@@ -57,9 +57,11 @@ public class Book {
 
 //    check later - Feeback should have non-null rating field (otherwise this should work fine)
     public double getRate() {
-        return feedbacks.stream()
+        double rating = feedbacks.stream()
                 .mapToDouble(Feedback::getRating)
                 .average()
                 .orElse(0.0);
+
+        return Math.round(rating * 100.0) / 100.0;
     }
 }
