@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,49 +48,49 @@ public class BookService {
     }
 
     public PageResponse<BookResponse> findALlBooksFromOtherOwners(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<Book> booksPage = bookRepository.findByArchivedFalseAndShareableTrueAndOwnerIdNot(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(booksPage, BookResponse::new);
     }
 
     public PageResponse<BookResponse> findAllBooksOfCurrentUser(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<Book> booksPage = bookRepository.findByOwnerId(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(booksPage, BookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooksByUser(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerId(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllCurrentlyBorrowedBooksByUser(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerIdAndReturnedFalse(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllReturnedBooksByUser(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBorrowerIdAndReturnedTrue(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllLoanedBooksByUser(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerId(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllCurrentlyLoanedBooksByUser(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerIdAndReturnedFalse(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }
 
     public PageResponse<BorrowedBookResponse> findAllLoanedAndReturnedBooksByUser(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<BookTransaction> bookTransactionsPage = bookTransactionRepository.findByBookOwnerIdAndReturnedTrue(getCurrentUser().getId(), pageable);
         return convertPageToPageResponse(bookTransactionsPage, BorrowedBookResponse::new);
     }

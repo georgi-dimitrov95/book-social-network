@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   templateUrl: './page-navigation.component.html',
   styleUrl: './page-navigation.component.scss'
 })
-export class PageNavigationComponent implements OnInit{
+export class PageNavigationComponent {
 
   @Input() pages: any = [];
 
@@ -15,33 +15,24 @@ export class PageNavigationComponent implements OnInit{
 
   @Output() pageChange = new EventEmitter<number>();
 
-  ngOnInit(): void {
-
-  }
-
   goToPage(page: number) {
-    this.page = page;
-    this.pageChange.emit(this.page);
+    this.pageChange.emit(page);
   }
 
   goToFirstPage() {
-    this.page = 0;
-    this.pageChange.emit(this.page);
+    this.pageChange.emit(0);
   }
 
   goToLastPage() {
-    this.page = this.pages.length - 1;
-    this.pageChange.emit(this.page);
+    this.pageChange.emit(this.pages.length - 1);
   }
 
   goToNextPage() {
-    this.page++;
-    this.pageChange.emit(this.page);
+    this.pageChange.emit(this.page + 1);
   }
 
   goToPreviousPage() {
-    this.page--;
-    this.pageChange.emit(this.page);
+    this.pageChange.emit(this.page - 1);
   }
 
   get isLastPage() {
