@@ -21,15 +21,15 @@
       </span>
     </div>
     <div class="d-flex gap-3" *ngIf="!manage">
-      <i (click)="onShowDetails()" class="fas fa-circle-info text-primary" title="Book details"></i>
-      <i (click)="onBorrow()" class="fas fa-file-arrow-down" title="Borrow book" style="color: green"></i>
-      <i (click)="onAddToWaitingList()" class="fas fa-heart text-danger" title="Add to wishlist"></i>
+      <i (click)="onShowDetails()" class="fas fa-circle-info fa-lg text-primary" title="Book details"></i>
+      <i (click)="onBorrow()" class="fas fa-file-arrow-down fa-lg text-success" title="Borrow book"></i>
+      <i (click)="onAddToWaitingList()" class="fas fa-heart fa-lg text-danger" title="Add to wishlist"></i>
     </div>
     <div class="d-flex gap-3" *ngIf="manage">
-      <i (click)="onShowDetails()" class="fas fa-circle-info text-primary" title="Book details"></i>
-      <i (click)="onEdit()" class="fas fa-edit text-success" title="Edit"></i>
-      <i (click)="onShare()" class="fas fa-share-nodes text-primary" title="Share"></i>
-      <i (click)="onArchive()" class="fas fa-archive text-danger" title="Archive"></i>
+      <i (click)="onShowDetails()" class="fas fa-circle-info fa-lg text-primary" title="Book details"></i>
+      <i (click)="onEdit()" class="fas fa-edit fa-lg text-success" title="Edit"></i>
+      <i (click)="onShare()" class="fas fa-share-nodes fa-lg text-primary" title="Share"></i>
+      <i (click)="onArchive()" class="fas fa-archive fa-lg text-danger" title="Archive"></i>
     </div>
   </div>
 </div>
