@@ -11,11 +11,11 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
-      <th scope="col">Author</th>
+      <th class="hidden-on-mobile" scope="col">Author</th>
       <th scope="col">Borrower</th>
-      <th scope="col">Borrowed at</th>
-      <th scope="col">Returned at</th>
-      <th scope="col">Feedback</th>
+      <th class="hidden-on-mobile" scope="col">Borrowed at</th>
+      <th class="hidden-on-mobile" scope="col">Returned at</th>
+      <th class="hidden-on-mobile" scope="col">Feedback</th>
       <th scope="col">Returned</th>
     </tr>
     </thead>
@@ -24,11 +24,11 @@
       *ngFor="let book of loanedBooks.content; let index = index">
       <th scope="row">{{ index + 1 }}</th>
       <td><span class="clickable" (click)="goToBookDetails(book.id)">{{ book.title }}</span></td>
-      <td><span class="clickable">{{ book.authorName }}</span></td>
+      <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
       <td><span class="clickable">{{ book.borrowedBy }}</span></td>
-      <td>{{ book.borrowedAt | date }}</td>
-      <td>{{ book.returnedAt | date }}</td>
-      <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
+      <td class="hidden-on-mobile">{{ book.borrowedAt | date }}</td>
+      <td class="hidden-on-mobile">{{ book.returnedAt | date }}</td>
+      <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
       <td>
         <i *ngIf="book.returned" class="fa-solid fa-circle-check fa-xl" style="color: green;"></i>
         <i *ngIf="!book.returned" class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i>
