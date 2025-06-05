@@ -6,43 +6,43 @@
 </div>
 <hr>
 <div class="d-flex justify-content-center">
-  <div class="d-flex flex-column col-6" *ngIf="selectedBook">
+  <div class="d-flex flex-column col-md-10 col-lg-8 col-xl-6" *ngIf="selectedBook">
     <h3 class="text-center my-4">Return and share feedback</h3>
-    <div class="d-flex flex-column col-12">
-      <div class="d-flex">
-        <div class="col-2">
+    <div class="d-flex flex-column">
+      <div class="row">
+        <div class="col-3 col-sm-2">
           <strong>Title:</strong>
         </div>
-        <div class="col-11">
+        <div class="col-9 col-sm-10">
           {{ selectedBook.title }}
         </div>
       </div>
-      <div class="d-flex">
-        <div class="col-2">
+      <div class="row">
+        <div class="col-3 col-sm-2">
           <strong>Author:</strong>
         </div>
-        <div class="col-12">
+        <div class="col-9 col-sm-10">
           {{ selectedBook.authorName }}
         </div>
       </div>
-      <div class="d-flex">
-        <div class="col-2">
+      <div class="row">
+        <div class="col-3 col-sm-2">
           <strong>ISBN:</strong>
         </div>
-        <div class="col-11">
+        <div class="col-9 col-sm-10">
           {{ selectedBook.isbn }}
         </div>
       </div>
-      <div class="d-flex">
-        <div class="col-2">
+      <div class="row">
+        <div class="col-3 col-sm-2">
           <strong>Rating:</strong>
         </div>
-        <div class="col-11">
+        <div class="col-9 col-sm-10">
           {{ selectedBook.rate }}
         </div>
       </div>
     </div>
-    <div class="col-12">
+    <div>
       <form class="row g-3">
         <div class="d-flex gap-3">
           <input [(ngModel)]="feedbackRequest.rating" type="range" id="rating" name="rating" class="form-range w-25" min="0" max="5" step="0.5">
@@ -75,10 +75,10 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
-      <th scope="col">Author</th>
+      <th class="hidden-on-mobile" scope="col">Author</th>
       <th scope="col">Owner</th>
-      <th scope="col">Borrowed at</th>
-      <th scope="col">Rating</th>
+      <th class="hidden-on-mobile" scope="col">Borrowed at</th>
+      <th class="hidden-on-mobile" scope="col">Rating</th>
       <th scope="col">Return</th>
     </tr>
     </thead>
@@ -87,10 +87,10 @@
       *ngFor="let book of borrowedBooks.content; let index = index">
       <th scope="row">{{ index + 1 }}</th>
       <td><span class="clickable" (click)="goToBookDetails(book.id)">{{ book.title }}</span></td>
-      <td><span class="clickable">{{ book.authorName }}</span></td>
+      <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
       <td><span class="clickable">{{ book.owner }}</span></td>
-      <td>{{ book.borrowedAt | date }}</td>
-      <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
+      <td class="hidden-on-mobile">{{ book.borrowedAt | date }}</td>
+      <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
       <td>
         <i *ngIf="book.returned" class="fa-regular fa-paper-plane fa-xl" title="Already returned" style="color: green;"></i>
         <i *ngIf="!book.returned" (click)="selectBook(book)" class="fa-solid fa-paper-plane fa-xl clickable" title="Return book" style="color: dodgerblue;"></i>

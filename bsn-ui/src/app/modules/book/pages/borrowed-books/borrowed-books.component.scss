@@ -3,3 +3,9 @@
   text-decoration: underline;
   color: #24a7e9;
 }
+
+@media (max-width: 538px) {
+  .hidden-on-mobile {
+    display: none;
+  }
+}
