@@ -29,4 +29,13 @@ public class WishlistRepository {
             .setParameter("bookId", bookId)
             .executeUpdate();
     }
+
+    @Transactional
+    public void deleteBookFromWishlist(Long userId, Long bookId) {
+        String query = "DELETE FROM wishlist WHERE user_id = :userId AND book_id = :bookId";
+        entityManager.createNativeQuery(query)
+                .setParameter("userId", userId)
+                .setParameter("bookId", bookId)
+                .executeUpdate();
+    }
 }

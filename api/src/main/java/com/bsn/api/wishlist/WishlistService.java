@@ -33,4 +33,18 @@ public class WishlistService {
 
         wishlistRepository.addBookToWishlist(currentUser.getId(), bookId);
     }
+
+    public void deleteBookFromWishlist(Long bookId) {
+        User currentUser = authenticationService.getAuthenticatedUser();
+
+        if (!bookRepository.existsById(bookId)) {
+            throw new BookNotFoundException();
+        }
+
+        if (!wishlistRepository.bookExistsInWishlist(currentUser.getId(), bookId)) {
+            throw new IllegalArgumentException("The book does not exist in your wishlist");
+        }
+
+        wishlistRepository.deleteBookFromWishlist(currentUser.getId(), bookId);
+    }
 }
