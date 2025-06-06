@@ -21,4 +21,12 @@ public class WishlistRepository {
         return count.intValue() > 0;
     }
 
+    @Transactional
+    public void addBookToWishlist(Long userId, Long bookId) {
+        String query = "INSERT INTO wishlist (user_id, book_id) VALUES (:userId, :bookId)";
+        entityManager.createNativeQuery(query)
+            .setParameter("userId", userId)
+            .setParameter("bookId", bookId)
+            .executeUpdate();
+    }
 }
