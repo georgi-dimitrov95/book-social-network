@@ -4,6 +4,7 @@ import com.bsn.api.auth.RegisterRequest;
 import com.bsn.api.book.Book;
 import com.bsn.api.book_transaction.BookTransaction;
 import com.bsn.api.role.Role;
+import com.bsn.api.wishlist.WishlistEntry;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -47,6 +48,9 @@ public class User {
 
     @OneToMany(mappedBy = "owner")
     private List<Book> books = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<WishlistEntry> wishlist = new HashSet<>();
 
     @OneToMany(mappedBy = "borrower")
     private List<BookTransaction> bookTransactions = new ArrayList<>();
