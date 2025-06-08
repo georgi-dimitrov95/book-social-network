@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "wishlist", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "book_id"}))
 public class WishlistEntry {
 
     @Id
