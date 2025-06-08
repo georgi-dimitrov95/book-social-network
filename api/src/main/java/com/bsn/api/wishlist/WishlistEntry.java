@@ -1,5 +1,7 @@
 package com.bsn.api.wishlist;
 
+import com.bsn.api.book.Book;
+import com.bsn.api.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +22,11 @@ public class WishlistEntry {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Long user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
-    private Long book;
+    private Book book;
 
     private LocalDate dateAdded;
 }
