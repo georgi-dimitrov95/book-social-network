@@ -1,41 +1,16 @@
 package com.bsn.api.wishlist;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.bsn.api.book.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class WishlistRepository {
+public interface WishlistRepository extends JpaRepository<WishlistEntry, Long> {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    @Transactional
-    public boolean bookExistsInWishlist(Long userId, Long bookId) {
-       String query = "SELECT COUNT(*) FROM wishlist WHERE user_id = :userId AND book_id = :bookId";
-        Number count = (Number) entityManager.createNativeQuery(query)
-                .setParameter("userId", userId)
-                .setParameter("bookId", bookId)
-                .getSingleResult();
-        return count.intValue() > 0;
-    }
-
-    @Transactional
-    public void addBookToWishlist(Long userId, Long bookId) {
-        String query = "INSERT INTO wishlist (user_id, book_id) VALUES (:userId, :bookId)";
-        entityManager.createNativeQuery(query)
-            .setParameter("userId", userId)
-            .setParameter("bookId", bookId)
-            .executeUpdate();
-    }
-
-    @Transactional
-    public void deleteBookFromWishlist(Long userId, Long bookId) {
-        String query = "DELETE FROM wishlist WHERE user_id = :userId AND book_id = :bookId";
-        entityManager.createNativeQuery(query)
-                .setParameter("userId", userId)
-                .setParameter("bookId", bookId)
-                .executeUpdate();
-    }
+    @Query("SELECT w.book FROM WishlistEntry w WHERE w.user.id = :userId")
+    Page<Book> findWishlistedBooksByUserId(@Param("userId") Long userId, Pageable pageable);
 }

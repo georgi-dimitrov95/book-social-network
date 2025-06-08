@@ -1,5 +1,7 @@
 package com.bsn.api.wishlist;
 
+import com.bsn.api.book.BookResponse;
+import com.bsn.api.misc.PageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,15 +16,12 @@ public class WishlistController {
 
     private final WishlistService wishlistService;
 
-    @PostMapping("/add/{bookId}")
-    public ResponseEntity<Void> addBookToWishlist(@PathVariable Long bookId) {
-        wishlistService.addBookToWishlist(bookId);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
+    @GetMapping("/get/all")
+    public ResponseEntity<PageResponse<BookResponse>> getWishlistedBooksOfUser (
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "5", required = false) int size) {
 
-    @DeleteMapping("/{bookId}")
-    public ResponseEntity<Void> deleteBookFromWishlist(@PathVariable Long bookId) {
-        wishlistService.deleteBookFromWishlist(bookId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        PageResponse<BookResponse> pageResponse = wishlistService.findWishlistedBooksOfUser(page, size);
+        return ResponseEntity.ok(pageResponse);
     }
 }

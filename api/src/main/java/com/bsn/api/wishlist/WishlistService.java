@@ -1,6 +1,7 @@
 package com.bsn.api.wishlist;
 
 import com.bsn.api.auth.AuthenticationService;
+import com.bsn.api.book.Book;
 import com.bsn.api.book.BookRepository;
 import com.bsn.api.book.BookResponse;
 import com.bsn.api.exception.BookNotFoundException;
@@ -28,6 +29,12 @@ public class WishlistService {
     private final UserRepository userRepository;
 
     private final WishlistRepository wishlistRepository;
+
+    public PageResponse<BookResponse> findWishlistedBooksOfUser (int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<Book> wishlistedBooksPage = wishlistRepository.findWishlistedBooksByUserId(getCurrentUser().getId(), pageable);
+        return convertPageToPageResponse(wishlistedBooksPage, BookResponse::new);
+    }
 
     private <V, R> PageResponse<R> convertPageToPageResponse(Page<V> page, Function<V, R> mapper) {
         List<R> responses = page.getContent()
