@@ -29,4 +29,10 @@ public class WishlistEntry {
     private Book book;
 
     private LocalDate dateAdded;
+
+    WishlistEntry(User user, Book book, LocalDate dateAdded) {
+        this.user = user;
+        this.book = book;
+        this.dateAdded = dateAdded;
+    }
 }

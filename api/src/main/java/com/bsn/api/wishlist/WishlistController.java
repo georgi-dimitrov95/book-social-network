@@ -24,4 +24,10 @@ public class WishlistController {
         PageResponse<BookResponse> pageResponse = wishlistService.findWishlistedBooksOfUser(page, size);
         return ResponseEntity.ok(pageResponse);
     }
+
+    @PostMapping("/add/{bookId}")
+    public ResponseEntity<WishlistEntryResponse> addBookToWishlist(@PathVariable Long bookId) {
+        WishlistEntryResponse wishlistResponse = wishlistService.addBookToWishlist(bookId);
+        return new ResponseEntity<>(wishlistResponse, HttpStatus.CREATED);
+    }
 }
