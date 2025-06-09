@@ -30,8 +30,6 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    private final UserRepository userRepository;
-
     private final BookTransactionRepository bookTransactionRepository;
 
     private final FileStorageService fileService;
