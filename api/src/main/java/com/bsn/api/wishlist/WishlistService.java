@@ -7,6 +7,7 @@ import com.bsn.api.book.BookResponse;
 import com.bsn.api.exception.BookNotFoundException;
 import com.bsn.api.misc.PageResponse;
 import com.bsn.api.user.User;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,6 +53,17 @@ public class WishlistService {
         wishlistRepository.save(entry);
         BookResponse bookResponse = new BookResponse(book);
         return new WishlistEntryResponse(bookResponse, user.getFullName(), LocalDate.now());
+    }
+
+    public void removeBookFromWishlist(Long bookId) {
+        User user = getCurrentUser();
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
+
+        WishlistEntry entry = wishlistRepository
+                .findByUserIdAndBookId(getCurrentUser().getId(), book.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No such book was found in your wishlist"));
+
+        wishlistRepository.delete(entry);
     }
 
     private <V, R> PageResponse<R> convertPageToPageResponse(Page<V> page, Function<V, R> mapper) {

@@ -30,4 +30,10 @@ public class WishlistController {
         WishlistEntryResponse wishlistResponse = wishlistService.addBookToWishlist(bookId);
         return new ResponseEntity<>(wishlistResponse, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/delete/{bookId}")
+    public ResponseEntity<Void> removeBookFromWishlist(@PathVariable Long bookId) {
+        wishlistService.removeBookFromWishlist(bookId);
+        return ResponseEntity.noContent().build();
+    }
 }
