@@ -1,5 +1,6 @@
 package com.bsn.api.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +47,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(createExceptionResponse(e));
     }
 
-    @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleUsernameNotFoundException(UsernameNotFoundException e) {
+    @ExceptionHandler({ UsernameNotFoundException.class, EntityNotFoundException.class })
+    public ResponseEntity<ExceptionResponse> handleNotFoundException(UsernameNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createExceptionResponse(e));
     }
 
