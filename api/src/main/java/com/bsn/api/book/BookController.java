@@ -107,25 +107,25 @@ public class BookController {
     }
 
     @PatchMapping("/shareable/{bookId}")
-    public ResponseEntity<BookResponse> updateBookShareableStatus(@RequestParam("bookId") Long bookId) {
+    public ResponseEntity<BookResponse> updateBookShareableStatus(@PathVariable Long bookId) {
         BookResponse bookResponse = bookService.updateBookShareableStatus(bookId);
         return new ResponseEntity<>(bookResponse, HttpStatus.OK);
     }
 
     @PatchMapping("/archived/{bookId}")
-    public ResponseEntity<BookResponse> updateBookArchivedStatus(@RequestParam("bookId") Long bookId) {
+    public ResponseEntity<BookResponse> updateBookArchivedStatus(@PathVariable Long bookId) {
         BookResponse bookResponse = bookService.updateBookArchivedStatus(bookId);
         return new ResponseEntity<>(bookResponse, HttpStatus.OK);
     }
 
     @PostMapping("/borrow/{bookId}")
-    public ResponseEntity<BorrowedBookResponse> borrowBook(@RequestParam("bookId") Long bookId) {
+    public ResponseEntity<BorrowedBookResponse> borrowBook(@PathVariable Long bookId) {
         BorrowedBookResponse borrowedBook = bookService.borrowBook(bookId);
         return new ResponseEntity<>(borrowedBook, HttpStatus.OK);
     }
 
     @PatchMapping("/return/{bookId}")
-    public ResponseEntity<BorrowedBookResponse> returnBook(@RequestParam("bookId") Long bookId) {
+    public ResponseEntity<BorrowedBookResponse> returnBook(@PathVariable Long bookId) {
         BorrowedBookResponse returnedBook = bookService.returnBook(bookId);
         return new ResponseEntity<>(returnedBook, HttpStatus.OK);
     }
