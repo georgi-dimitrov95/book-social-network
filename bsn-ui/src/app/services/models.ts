@@ -12,6 +12,7 @@ export type { LoginResponse } from './models/login-response';
 export type { PageResponseBookResponse } from './models/page-response-book-response';
 export type { PageResponseBorrowedBookResponse } from './models/page-response-borrowed-book-response';
 export type { PageResponseFeedbackResponse } from './models/page-response-feedback-response';
+export type { PageResponseWishlistEntryResponse } from './models/page-response-wishlist-entry-response';
 export type { RegisterRequest } from './models/register-request';
 export type { RegisterResponse } from './models/register-response';
 export type { WishlistEntryResponse } from './models/wishlist-entry-response';

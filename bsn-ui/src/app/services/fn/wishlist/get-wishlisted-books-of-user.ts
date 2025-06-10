@@ -8,14 +8,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PageResponseBookResponse } from '../../models/page-response-book-response';
+import { PageResponseWishlistEntryResponse } from '../../models/page-response-wishlist-entry-response';
 
 export interface GetWishlistedBooksOfUser$Params {
   page?: number;
   size?: number;
 }
 
-export function getWishlistedBooksOfUser(http: HttpClient, rootUrl: string, params?: GetWishlistedBooksOfUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBookResponse>> {
+export function getWishlistedBooksOfUser(http: HttpClient, rootUrl: string, params?: GetWishlistedBooksOfUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseWishlistEntryResponse>> {
   const rb = new RequestBuilder(rootUrl, getWishlistedBooksOfUser.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
@@ -27,7 +27,7 @@ export function getWishlistedBooksOfUser(http: HttpClient, rootUrl: string, para
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PageResponseBookResponse>;
+      return r as StrictHttpResponse<PageResponseWishlistEntryResponse>;
     })
   );
 }

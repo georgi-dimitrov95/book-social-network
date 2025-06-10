@@ -379,7 +379,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/PageResponseBookResponse"
+                  "$ref": "#/components/schemas/PageResponseWishlistEntryResponse"
                 }
               }
             }
@@ -1079,13 +1079,13 @@
           }
         }
       },
-      "PageResponseBookResponse": {
+      "PageResponseWishlistEntryResponse": {
         "type": "object",
         "properties": {
           "content": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/BookResponse"
+              "$ref": "#/components/schemas/WishlistEntryResponse"
             }
           },
           "number": {
@@ -1119,6 +1119,39 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FeedbackResponse"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageResponseBookResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BookResponse"
             }
           },
           "number": {

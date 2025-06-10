@@ -15,7 +15,7 @@ import { addBookToWishlist } from '../fn/wishlist/add-book-to-wishlist';
 import { AddBookToWishlist$Params } from '../fn/wishlist/add-book-to-wishlist';
 import { getWishlistedBooksOfUser } from '../fn/wishlist/get-wishlisted-books-of-user';
 import { GetWishlistedBooksOfUser$Params } from '../fn/wishlist/get-wishlisted-books-of-user';
-import { PageResponseBookResponse } from '../models/page-response-book-response';
+import { PageResponseWishlistEntryResponse } from '../models/page-response-wishlist-entry-response';
 import { removeBookFromWishlist } from '../fn/wishlist/remove-book-from-wishlist';
 import { RemoveBookFromWishlist$Params } from '../fn/wishlist/remove-book-from-wishlist';
 import { WishlistEntryResponse } from '../models/wishlist-entry-response';
@@ -60,7 +60,7 @@ export class WishlistService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getWishlistedBooksOfUser$Response(params?: GetWishlistedBooksOfUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBookResponse>> {
+  getWishlistedBooksOfUser$Response(params?: GetWishlistedBooksOfUser$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseWishlistEntryResponse>> {
     return getWishlistedBooksOfUser(this.http, this.rootUrl, params, context);
   }
 
@@ -70,9 +70,9 @@ export class WishlistService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getWishlistedBooksOfUser(params?: GetWishlistedBooksOfUser$Params, context?: HttpContext): Observable<PageResponseBookResponse> {
+  getWishlistedBooksOfUser(params?: GetWishlistedBooksOfUser$Params, context?: HttpContext): Observable<PageResponseWishlistEntryResponse> {
     return this.getWishlistedBooksOfUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PageResponseBookResponse>): PageResponseBookResponse => r.body)
+      map((r: StrictHttpResponse<PageResponseWishlistEntryResponse>): PageResponseWishlistEntryResponse => r.body)
     );
   }
 
