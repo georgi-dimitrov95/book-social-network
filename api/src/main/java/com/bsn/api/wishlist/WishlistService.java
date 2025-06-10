@@ -31,10 +31,10 @@ public class WishlistService {
 
     private final WishlistRepository wishlistRepository;
 
-    public PageResponse<BookResponse> findWishlistedBooksOfUser (int page, int size) {
+    public PageResponse<WishlistEntryResponse> findWishlistedBooksOfUser (int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<Book> wishlistedBooksPage = wishlistRepository.findWishlistedBooksByUserId(getCurrentUser().getId(), pageable);
-        return convertPageToPageResponse(wishlistedBooksPage, BookResponse::new);
+        Page<WishlistEntry> wishlistedBooksPage = wishlistRepository.findByUserId(getCurrentUser().getId(), pageable);
+        return convertPageToPageResponse(wishlistedBooksPage, WishlistEntryResponse::new);
     }
 
     public WishlistEntryResponse addBookToWishlist(Long bookId) {

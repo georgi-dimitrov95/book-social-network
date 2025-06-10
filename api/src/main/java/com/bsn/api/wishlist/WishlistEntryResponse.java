@@ -17,4 +17,10 @@ public class WishlistEntryResponse {
     private String userFullName;
 
     private LocalDate dateAdded;
+
+    WishlistEntryResponse(WishlistEntry wishlistEntry) {
+        this.bookResponse = new BookResponse(wishlistEntry.getBook());
+        this.userFullName = wishlistEntry.getBook().getAuthorName();
+        this.dateAdded = wishlistEntry.getDateAdded();
+    }
 }

@@ -17,11 +17,11 @@ public class WishlistController {
     private final WishlistService wishlistService;
 
     @GetMapping("/get/all")
-    public ResponseEntity<PageResponse<BookResponse>> getWishlistedBooksOfUser (
+    public ResponseEntity<PageResponse<WishlistEntryResponse>> getWishlistedBooksOfUser (
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "5", required = false) int size) {
 
-        PageResponse<BookResponse> pageResponse = wishlistService.findWishlistedBooksOfUser(page, size);
+        PageResponse<WishlistEntryResponse> pageResponse = wishlistService.findWishlistedBooksOfUser(page, size);
         return ResponseEntity.ok(pageResponse);
     }
 
