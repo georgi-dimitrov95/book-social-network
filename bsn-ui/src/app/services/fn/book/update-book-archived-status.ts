@@ -17,7 +17,7 @@ export interface UpdateBookArchivedStatus$Params {
 export function updateBookArchivedStatus(http: HttpClient, rootUrl: string, params: UpdateBookArchivedStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<BookResponse>> {
   const rb = new RequestBuilder(rootUrl, updateBookArchivedStatus.PATH, 'patch');
   if (params) {
-    rb.query('bookId', params.bookId, {});
+    rb.path('bookId', params.bookId, {});
   }
 
   return http.request(

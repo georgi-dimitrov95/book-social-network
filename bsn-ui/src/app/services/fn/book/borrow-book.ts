@@ -17,7 +17,7 @@ export interface BorrowBook$Params {
 export function borrowBook(http: HttpClient, rootUrl: string, params: BorrowBook$Params, context?: HttpContext): Observable<StrictHttpResponse<BorrowedBookResponse>> {
   const rb = new RequestBuilder(rootUrl, borrowBook.PATH, 'post');
   if (params) {
-    rb.query('bookId', params.bookId, {});
+    rb.path('bookId', params.bookId, {});
   }
 
   return http.request(

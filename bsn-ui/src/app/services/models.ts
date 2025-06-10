@@ -14,3 +14,4 @@ export type { PageResponseBorrowedBookResponse } from './models/page-response-bo
 export type { PageResponseFeedbackResponse } from './models/page-response-feedback-response';
 export type { RegisterRequest } from './models/register-request';
 export type { RegisterResponse } from './models/register-response';
+export type { WishlistEntryResponse } from './models/wishlist-entry-response';

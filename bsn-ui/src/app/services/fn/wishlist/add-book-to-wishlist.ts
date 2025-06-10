@@ -8,14 +8,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { BookResponse } from '../../models/book-response';
+import { WishlistEntryResponse } from '../../models/wishlist-entry-response';
 
-export interface UpdateBookShareableStatus$Params {
+export interface AddBookToWishlist$Params {
   bookId: number;
 }
 
-export function updateBookShareableStatus(http: HttpClient, rootUrl: string, params: UpdateBookShareableStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<BookResponse>> {
-  const rb = new RequestBuilder(rootUrl, updateBookShareableStatus.PATH, 'patch');
+export function addBookToWishlist(http: HttpClient, rootUrl: string, params: AddBookToWishlist$Params, context?: HttpContext): Observable<StrictHttpResponse<WishlistEntryResponse>> {
+  const rb = new RequestBuilder(rootUrl, addBookToWishlist.PATH, 'post');
   if (params) {
     rb.path('bookId', params.bookId, {});
   }
@@ -25,9 +25,9 @@ export function updateBookShareableStatus(http: HttpClient, rootUrl: string, par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<BookResponse>;
+      return r as StrictHttpResponse<WishlistEntryResponse>;
     })
   );
 }
 
-updateBookShareableStatus.PATH = '/books/shareable/{bookId}';
+addBookToWishlist.PATH = '/wishlist/add/{bookId}';
