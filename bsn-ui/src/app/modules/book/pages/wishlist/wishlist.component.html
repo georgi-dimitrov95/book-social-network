@@ -1,1 +1,13 @@
-<p>wishlist works!</p>
+<h3 class="text-center mt-4">My wishlist</h3>
+<hr>
+<div class="d-flex justify-content-center gap-3 flex-wrap">
+  <app-book-card
+    *ngFor="let book of wishlistResponse.content"
+    [book]="book.bookResponse!"
+  ></app-book-card>
+</div>
+<app-page-navigation
+  [pages]="pages"
+  [page]="page"
+  (pageChange)="onPageChange($event)">
+</app-page-navigation>
