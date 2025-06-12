@@ -42,12 +42,16 @@
             <i *ngIf="!book.returned" class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i>
           </td>
         </tr>
-
+        <!--   collapsible   -->
         <tr>
-          <td colspan="9">
-            <div [id]="'collapse' + (index + 1)" class="collapse">
-              <div class="card card-body">
-                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+          <td colspan="9" class="p-0 border-0">
+            <div [id]="'collapse' + (index + 1)" class="collapse bg-light">
+              <!--improves rendering performance-->
+              <div class="p-3">
+                <div><strong>Author:</strong> {{ book.authorName }}</div>
+                <div><strong>Borrowed at:</strong> {{ book.borrowedAt | date }}</div>
+                <div><strong>Returned at:</strong> {{ book.returnedAt | date }}</div>
+                <div><strong>Feedback:</strong> <i class="fas fa-star text-warning"></i> {{ book.rate }}</div>
               </div>
             </div>
           </td>
