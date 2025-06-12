@@ -4,8 +4,14 @@
   color: #24a7e9;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hidden-on-mobile {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .hidden-after-md {
     display: none;
   }
 }

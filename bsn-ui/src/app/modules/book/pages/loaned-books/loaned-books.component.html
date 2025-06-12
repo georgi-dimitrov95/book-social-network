@@ -10,7 +10,7 @@
     <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Title</th>
+      <th scope="col">Title </th>
       <th class="hidden-on-mobile" scope="col">Author</th>
       <th scope="col">Borrower</th>
       <th class="hidden-on-mobile" scope="col">Borrowed at</th>
@@ -20,20 +20,40 @@
     </tr>
     </thead>
     <tbody>
-    <tr
-      *ngFor="let book of loanedBooks.content; let index = index">
-      <th scope="row">{{ index + 1 }}</th>
-      <td><span class="clickable" (click)="goToBookDetails(book.id)">{{ book.title }}</span></td>
-      <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
-      <td><span class="clickable">{{ book.borrowedBy }}</span></td>
-      <td class="hidden-on-mobile">{{ book.borrowedAt | date }}</td>
-      <td class="hidden-on-mobile">{{ book.returnedAt | date }}</td>
-      <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
-      <td>
-        <i *ngIf="book.returned" class="fa-solid fa-circle-check fa-xl" style="color: green;"></i>
-        <i *ngIf="!book.returned" class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i>
-      </td>
-    </tr>
+      <ng-container *ngFor="let book of loanedBooks.content; let index = index">
+
+        <tr>
+          <th class="hidden-on-mobile" scope="row">{{ index + 1 }}</th>
+          <th scope="row" class="hidden-after-md">
+            <button class="btn p-0"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#collapse' + (index + 1)">
+              <i class="fa-solid fa-chevron-down"></i>
+            </button></th>
+          <td><span class="clickable" (click)="goToBookDetails(book.id)">{{ book.title }}</span></td>
+          <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
+          <td><span class="clickable">{{ book.borrowedBy }}</span></td>
+          <td class="hidden-on-mobile">{{ book.borrowedAt | date }}</td>
+          <td class="hidden-on-mobile">{{ book.returnedAt | date }}</td>
+          <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
+          <td>
+            <i *ngIf="book.returned" class="fa-solid fa-circle-check fa-xl" style="color: green;"></i>
+            <i *ngIf="!book.returned" class="fa-solid fa-circle-xmark fa-xl" style="color: red;"></i>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="9">
+            <div [id]="'collapse' + (index + 1)" class="collapse">
+              <div class="card card-body">
+                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </ng-container>
     </tbody>
   </table>
   <app-page-navigation
