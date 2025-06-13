@@ -51,19 +51,18 @@
                   <img [src]="'data:image/jpg;base64,' + book.cover" class="img-fluid collapsible-cover">
                 </div>
                 <!-- p-3 here instead of upper div improves rendering performance-->
-                <div id="info" class="d-inline-flex align-items-start p-3 gap-3">
-                  <div id="category" class="d-flex flex-column text-start">
-                    <strong>Author:</strong>
-                    <strong>Borrowed at:</strong>
-                    <strong>Returned at:</strong>
-                    <strong>Feedback:</strong>
-                  </div>
-                  <div id="book-details" class="d-flex flex-column text-start">
-                    <div>{{ book.authorName }}</div>
-                    <div>{{ book.borrowedAt | date }}</div>
-                    <div>{{ book.returnedAt | date }}</div>
-                    <div>{{ book.rate }}</div>
-                  </div>
+                <div id="info" class="d-grid p-3 gap-2 text-start" style="grid-template-columns: auto 1fr;">
+                  <div><strong>Author:</strong></div>
+                  <div>{{ book.authorName }}</div>
+
+                  <div><strong>Borrowed at:</strong></div>
+                  <div>{{ book.borrowedAt | date }}</div>
+
+                  <div><strong>Returned at:</strong></div>
+                  <div>{{ book.returnedAt | date }}</div>
+
+                  <div><strong>Feedback:</strong></div>
+                  <div><i class="fas fa-star text-warning"></i> {{ book.rate }}</div>
                 </div>
               </div>
             </div>
