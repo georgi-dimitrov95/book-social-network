@@ -13,7 +13,7 @@
       <th scope="col">Title </th>
       <th class="hidden-on-mobile" scope="col">Author</th>
       <th scope="col">Borrower</th>
-      <th class="hidden-on-mobile" scope="col">Borrowed at</th>
+      <th class="hidden-on-mobile" scope="col">Loaned at</th>
       <th class="hidden-on-mobile" scope="col">Returned at</th>
       <th class="hidden-on-mobile" scope="col">Feedback</th>
       <th scope="col">Returned</th>
@@ -21,7 +21,6 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let book of loanedBooks.content; let index = index">
-
         <tr>
           <th class="hidden-on-mobile" scope="row">{{ index + 1 }}</th>
           <th scope="row" class="hidden-after-md">
@@ -30,7 +29,8 @@
                     data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + (index + 1)">
               <i class="fa-solid fa-chevron-down"></i>
-            </button></th>
+            </button>
+          </th>
           <td><span class="clickable" (click)="goToBookDetails(book.id)">{{ book.title }}</span></td>
           <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
           <td><span class="clickable">{{ book.borrowedBy }}</span></td>
@@ -42,6 +42,7 @@
             <ng-template #notReturned>
               <strong class="text-danger">Not returned</strong>
             </ng-template>
+          </td>
           <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
           <td>
             <i *ngIf="book.returned" class="fa-solid fa-circle-check fa-xl" style="color: green;"></i>
@@ -61,7 +62,7 @@
                   <div><strong>Author:</strong></div>
                   <div>{{ book.authorName }}</div>
 
-                  <div><strong>Borrowed at:</strong></div>
+                  <div><strong>Loaned at:</strong></div>
                   <div>{{ book.borrowedAt | date }}</div>
 
                   <div><strong>Returned at:</strong></div>
