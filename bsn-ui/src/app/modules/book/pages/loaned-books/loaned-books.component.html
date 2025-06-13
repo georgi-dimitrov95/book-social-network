@@ -35,7 +35,13 @@
           <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
           <td><span class="clickable">{{ book.borrowedBy }}</span></td>
           <td class="hidden-on-mobile">{{ book.borrowedAt | date }}</td>
-          <td class="hidden-on-mobile">{{ book.returnedAt | date }}</td>
+          <td class="hidden-on-mobile">
+            <ng-container *ngIf="book.returnedAt; else notReturned">
+              {{ book.returnedAt | date }}
+            </ng-container>
+            <ng-template #notReturned>
+              <strong class="text-danger">Not returned</strong>
+            </ng-template>
           <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
           <td>
             <i *ngIf="book.returned" class="fa-solid fa-circle-check fa-xl" style="color: green;"></i>
@@ -59,7 +65,13 @@
                   <div>{{ book.borrowedAt | date }}</div>
 
                   <div><strong>Returned at:</strong></div>
-                  <div>{{ book.returnedAt | date }}</div>
+                  <div>
+                    <ng-container *ngIf="book.returnedAt; else notReturned">
+                      {{ book.returnedAt | date }}
+                    </ng-container>
+                    <ng-template #notReturned>
+                      <strong class="text-danger">Not returned</strong>
+                    </ng-template></div>
 
                   <div><strong>Feedback:</strong></div>
                   <div><i class="fas fa-star text-warning"></i> {{ book.rate }}</div>
