@@ -4,8 +4,20 @@
   color: #24a7e9;
 }
 
-@media (max-width: 538px) {
+@media (max-width: 767px) {
   .hidden-on-mobile {
     display: none;
   }
+}
+
+@media (min-width: 768px) {
+  .hidden-after-md {
+    display: none;
+  }
+}
+
+img.collapsible-cover {
+  max-width: 80px;
+  max-height: 120px;
+  width:100%;
 }

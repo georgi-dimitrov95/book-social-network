@@ -78,24 +78,75 @@
       <th class="hidden-on-mobile" scope="col">Author</th>
       <th scope="col">Owner</th>
       <th class="hidden-on-mobile" scope="col">Borrowed at</th>
-      <th class="hidden-on-mobile" scope="col">Rating</th>
+      <th class="hidden-on-mobile" scope="col">Returned at</th>
+      <th class="hidden-on-mobile" scope="col">Feedback</th>
       <th scope="col">Return</th>
     </tr>
     </thead>
     <tbody>
-    <tr
-      *ngFor="let book of borrowedBooks.content; let index = index">
-      <th scope="row">{{ index + 1 }}</th>
-      <td><span class="clickable" (click)="goToBookDetails(book.id)">{{ book.title }}</span></td>
-      <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
-      <td><span class="clickable">{{ book.owner }}</span></td>
-      <td class="hidden-on-mobile">{{ book.borrowedAt | date }}</td>
-      <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
-      <td>
-        <i *ngIf="book.returned" class="fa-regular fa-paper-plane fa-xl" title="Already returned" style="color: green;"></i>
-        <i *ngIf="!book.returned" (click)="selectBook(book)" class="fa-solid fa-paper-plane fa-xl clickable" title="Return book" style="color: dodgerblue;"></i>
-      </td>
-    </tr>
+      <ng-container *ngFor="let book of borrowedBooks.content; let index = index">
+        <tr>
+          <th class="hidden-on-mobile" scope="row">{{ index + 1 }}</th>
+          <th scope="row" class="hidden-after-md">
+            <button class="btn p-0"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#collapse' + (index + 1)">
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+          </th>
+          <td><span class="clickable" (click)="goToBookDetails(book.id)">{{ book.title }}</span></td>
+          <td class="hidden-on-mobile"><span class="clickable">{{ book.authorName }}</span></td>
+          <td><span class="clickable">{{ book.owner }}</span></td>
+          <td class="hidden-on-mobile">{{ book.borrowedAt | date }}</td>
+          <td class="hidden-on-mobile">
+            <ng-container *ngIf="book.returnedAt; else notReturned">
+              {{ book.returnedAt | date }}
+            </ng-container>
+            <ng-template #notReturned>
+              <strong class="text-danger">Not returned</strong>
+            </ng-template>
+          </td>
+          <td class="hidden-on-mobile"><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
+          <td>
+            <i *ngIf="book.returned" class="fa-regular fa-paper-plane fa-xl" title="Already returned" style="color: green;"></i>
+            <i *ngIf="!book.returned" (click)="selectBook(book)" class="fa-solid fa-paper-plane fa-xl clickable" title="Return book" style="color: dodgerblue;"></i>
+          </td>
+        </tr>
+
+        <!--   collapsible   -->
+        <tr>
+          <td colspan="9" class="p-0 border-0">
+            <div [id]="'collapse' + (index + 1)" class="collapse bg-light">
+              <div class="d-flex flex-row justify-content-evenly align-items-center">
+                <div id="image">
+                  <img [src]="'data:image/jpg;base64,' + book.cover" class="img-fluid collapsible-cover">
+                </div>
+                <!-- p-3 here instead of upper div improves rendering performance-->
+                <div id="info" class="d-grid p-3 gap-2 text-start" style="grid-template-columns: auto 1fr;">
+                  <div><strong>Author:</strong></div>
+                  <div>{{ book.authorName }}</div>
+
+                  <div><strong>Borrowed at:</strong></div>
+                  <div>{{ book.borrowedAt | date }}</div>
+
+                  <div><strong>Returned at:</strong></div>
+                  <div>
+                    <ng-container *ngIf="book.returnedAt; else notReturned">
+                      {{ book.returnedAt | date }}
+                    </ng-container>
+                    <ng-template #notReturned>
+                      <strong class="text-danger">Not returned</strong>
+                    </ng-template></div>
+
+                  <div><strong>Feedback:</strong></div>
+                  <div><i class="fas fa-star text-warning"></i> {{ book.rate }}</div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
   <app-page-navigation
