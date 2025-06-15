@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.SQLOutput;
+import java.util.List;
 
 @RestController
 @RequestMapping("books")
@@ -41,6 +42,12 @@ public class BookController {
     ) {
         PageResponse<BookResponse> pageResponse = bookService.findALlBooksFromOtherOwners(page, size);
         return ResponseEntity.ok(pageResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BookResponse>> getAllBooksByAuthor(@RequestParam String authorName) {
+        List<BookResponse> response = bookService.findAllBooksOfAuthor(authorName);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/user")

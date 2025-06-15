@@ -45,6 +45,14 @@ public class BookService {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
+    public List<BookResponse> findAllBooksOfAuthor(String name) {
+        List<Book> books = bookRepository.findAllByAuthorName(name);
+        return books
+                .stream()
+                .map(BookResponse::new)
+                .toList();
+    }
+
     public PageResponse<BookResponse> findALlBooksFromOtherOwners(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<Book> booksPage = bookRepository.findByArchivedFalseAndShareableTrueAndOwnerIdNot(getCurrentUser().getId(), pageable);
