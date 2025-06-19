@@ -33,6 +33,8 @@ import { findAllReturnedBooksByUser } from '../fn/book/find-all-returned-books-b
 import { FindAllReturnedBooksByUser$Params } from '../fn/book/find-all-returned-books-by-user';
 import { findBookById } from '../fn/book/find-book-by-id';
 import { FindBookById$Params } from '../fn/book/find-book-by-id';
+import { getAllBooksByAuthor } from '../fn/book/get-all-books-by-author';
+import { GetAllBooksByAuthor$Params } from '../fn/book/get-all-books-by-author';
 import { PageResponseBookResponse } from '../models/page-response-book-response';
 import { PageResponseBorrowedBookResponse } from '../models/page-response-borrowed-book-response';
 import { returnBook } from '../fn/book/return-book';
@@ -203,6 +205,31 @@ export class BookService extends BaseService {
   updateBookArchivedStatus(params: UpdateBookArchivedStatus$Params, context?: HttpContext): Observable<BookResponse> {
     return this.updateBookArchivedStatus$Response(params, context).pipe(
       map((r: StrictHttpResponse<BookResponse>): BookResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllBooksByAuthor()` */
+  static readonly GetAllBooksByAuthorPath = '/books';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllBooksByAuthor()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllBooksByAuthor$Response(params: GetAllBooksByAuthor$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookResponse>>> {
+    return getAllBooksByAuthor(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllBooksByAuthor$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllBooksByAuthor(params: GetAllBooksByAuthor$Params, context?: HttpContext): Observable<Array<BookResponse>> {
+    return this.getAllBooksByAuthor$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<BookResponse>>): Array<BookResponse> => r.body)
     );
   }
 

@@ -387,6 +387,39 @@
         }
       }
     },
+    "/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "getAllOwnersOfBookByBookTitle",
+        "parameters": [
+          {
+            "name": "bookTitle",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RegisterResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/feedbacks/book/{bookId}": {
       "get": {
         "tags": [
@@ -431,6 +464,39 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/PageResponseFeedbackResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "getAllBooksByAuthor",
+        "parameters": [
+          {
+            "name": "authorName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookResponse"
+                  }
                 }
               }
             }

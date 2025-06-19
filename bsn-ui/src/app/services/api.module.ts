@@ -10,6 +10,7 @@ import { WishlistService } from './services/wishlist.service';
 import { FeedbackService } from './services/feedback.service';
 import { BookService } from './services/book.service';
 import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
 
 /**
  * Module that provides all services and configuration.
@@ -23,6 +24,7 @@ import { AuthenticationService } from './services/authentication.service';
     FeedbackService,
     BookService,
     AuthenticationService,
+    UserService,
     ApiConfiguration
   ],
 })
