@@ -77,8 +77,8 @@
       <th scope="col">Title</th>
       <th class="hidden-on-mobile" scope="col">Author</th>
       <th scope="col">Owner</th>
-      <th class="hidden-on-mobile" scope="col">Borrowed at</th>
-      <th class="hidden-on-mobile" scope="col">Returned at</th>
+      <th class="hidden-on-mobile" scope="col">Borrowed</th>
+      <th class="hidden-on-mobile" scope="col">Returned</th>
       <th class="hidden-on-mobile" scope="col">Feedback</th>
       <th scope="col">Return</th>
     </tr>
@@ -127,10 +127,10 @@
                   <div><strong>Author:</strong></div>
                   <div>{{ book.authorName }}</div>
 
-                  <div><strong>Borrowed at:</strong></div>
+                  <div><strong>Borrowed:</strong></div>
                   <div>{{ book.borrowedAt | date }}</div>
 
-                  <div><strong>Returned at:</strong></div>
+                  <div><strong>Returned:</strong></div>
                   <div>
                     <ng-container *ngIf="book.returnedAt; else notReturned">
                       {{ book.returnedAt | date }}
