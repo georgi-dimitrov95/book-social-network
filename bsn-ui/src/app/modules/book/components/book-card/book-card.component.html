@@ -7,9 +7,9 @@
 >
   <img height="350" [src]="bookCover" class="card-img-top" alt="...">
   <div class="card-body overflow-scroll">
-    <h5 class="card-title fs-6 text-nowrap fw-bold mb-1"><i class="fa-solid fa-book"></i>&nbsp;{{book.title}}</h5>
-    <h5 class="card-subtitle fs-6 text-secondary mb-1"><i class="fa-sharp fa-solid fa-pen"></i>&nbsp;{{ book.authorName }}</h5>
-    <h5 class="card-subtitle fs-6 text-secondary"><i class="fas fa-user"></i>&nbsp;{{ book.owner }}</h5>
+    <h5 class="card-title fs-6 text-nowrap fw-bold mb-1"><i class="fa-solid fa-book" title="Title"></i>&nbsp;{{book.title}}</h5>
+    <h5 class="card-subtitle fs-6 text-secondary mb-1"><i class="fa-sharp fa-solid fa-pen" title="Author"></i>&nbsp;{{ book.authorName }}</h5>
+    <h5 class="card-subtitle fs-6 text-secondary"><i class="fas fa-user" title="Owner"></i>&nbsp;{{ book.owner }}</h5>
     <hr>
     <p class="card-text">{{book.synopsis}}</p>
   </div>
