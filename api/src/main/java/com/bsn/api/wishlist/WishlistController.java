@@ -25,6 +25,12 @@ public class WishlistController {
         return ResponseEntity.ok(pageResponse);
     }
 
+    @GetMapping("/is-wishlisted/{bookId}")
+    public ResponseEntity<Boolean> isBookWishlistedByUser(@PathVariable Long bookId) {
+        boolean wishlisted = wishlistService.isBookWishlistedByUser(bookId);
+        return ResponseEntity.ok(wishlisted);
+    }
+
     @PostMapping("/add/{bookId}")
     public ResponseEntity<WishlistEntryResponse> addBookToWishlist(@PathVariable Long bookId) {
         WishlistEntryResponse wishlistResponse = wishlistService.addBookToWishlist(bookId);

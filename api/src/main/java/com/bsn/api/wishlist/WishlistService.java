@@ -37,6 +37,10 @@ public class WishlistService {
         return convertPageToPageResponse(wishlistedBooksPage, WishlistEntryResponse::new);
     }
 
+    public boolean isBookWishlistedByUser(Long bookId) {
+        return wishlistRepository.existsByUserIdAndBookId(getCurrentUser().getId(), bookId);
+    }
+
     public WishlistEntryResponse addBookToWishlist(Long bookId) {
         User user = getCurrentUser();
         Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
