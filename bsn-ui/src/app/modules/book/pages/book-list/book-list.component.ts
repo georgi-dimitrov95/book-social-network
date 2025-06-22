@@ -47,20 +47,4 @@ export class BookListComponent implements OnInit {
     this.page = page;
     this.findAllBooks();
   }
-
-  borrowBook(book: BookResponse) {
-    this.message = '';
-    this.success = false;
-    this.bookService.borrowBook({'bookId': book.id as number}).subscribe({
-      next: () => {
-        this.success = true;
-        this.message = 'The book was successfully added to your list';
-      },
-      error: (err) => {
-        console.log(err);
-        this.success = false;
-        this.message = err.error.error;
-      }
-    });
-  }
 }

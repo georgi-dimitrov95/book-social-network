@@ -50,22 +50,6 @@ export class WishlistComponent implements OnInit {
     this.findAllWishlistedBooks();
   }
 
-  borrowBook(book: BookResponse) {
-    this.message = '';
-    this.success = false;
-    this.bookService.borrowBook({'bookId': book.id as number}).subscribe({
-      next: () => {
-        this.success = true;
-        this.message = 'The book was successfully added to your wishlist';
-      },
-      error: (err) => {
-        console.log(err);
-        this.success = false;
-        this.message = err.error.error;
-      }
-    });
-  }
-
   removeBookFromWishlist(book: BookResponse) {
     this.wishlistService.removeBookFromWishlist({'bookId': book.id as number}).subscribe({
       next: () => {

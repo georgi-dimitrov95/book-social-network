@@ -13,7 +13,6 @@
   <app-book-card
     *ngFor="let book of bookResponse.content"
     [book]="book"
-    (borrow) = "borrowBook($event)"
   ></app-book-card>
 </div>
 <app-page-navigation
