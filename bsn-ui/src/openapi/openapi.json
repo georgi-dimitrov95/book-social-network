@@ -345,6 +345,37 @@
         }
       }
     },
+    "/wishlist/is-wishlisted/{bookId}": {
+      "get": {
+        "tags": [
+          "Wishlist"
+        ],
+        "operationId": "isBookWishlistedByUser",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/wishlist/get/all": {
       "get": {
         "tags": [

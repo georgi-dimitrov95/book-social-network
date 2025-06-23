@@ -15,6 +15,8 @@ import { addBookToWishlist } from '../fn/wishlist/add-book-to-wishlist';
 import { AddBookToWishlist$Params } from '../fn/wishlist/add-book-to-wishlist';
 import { getWishlistedBooksOfUser } from '../fn/wishlist/get-wishlisted-books-of-user';
 import { GetWishlistedBooksOfUser$Params } from '../fn/wishlist/get-wishlisted-books-of-user';
+import { isBookWishlistedByUser } from '../fn/wishlist/is-book-wishlisted-by-user';
+import { IsBookWishlistedByUser$Params } from '../fn/wishlist/is-book-wishlisted-by-user';
 import { PageResponseWishlistEntryResponse } from '../models/page-response-wishlist-entry-response';
 import { removeBookFromWishlist } from '../fn/wishlist/remove-book-from-wishlist';
 import { RemoveBookFromWishlist$Params } from '../fn/wishlist/remove-book-from-wishlist';
@@ -48,6 +50,31 @@ export class WishlistService extends BaseService {
   addBookToWishlist(params: AddBookToWishlist$Params, context?: HttpContext): Observable<WishlistEntryResponse> {
     return this.addBookToWishlist$Response(params, context).pipe(
       map((r: StrictHttpResponse<WishlistEntryResponse>): WishlistEntryResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `isBookWishlistedByUser()` */
+  static readonly IsBookWishlistedByUserPath = '/wishlist/is-wishlisted/{bookId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `isBookWishlistedByUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  isBookWishlistedByUser$Response(params: IsBookWishlistedByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<boolean>> {
+    return isBookWishlistedByUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `isBookWishlistedByUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  isBookWishlistedByUser(params: IsBookWishlistedByUser$Params, context?: HttpContext): Observable<boolean> {
+    return this.isBookWishlistedByUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<boolean>): boolean => r.body)
     );
   }
 
