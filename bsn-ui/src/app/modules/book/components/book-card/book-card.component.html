@@ -23,7 +23,7 @@
     <div class="d-flex align-items-center gap-3" *ngIf="!manage">
       <i (click)="onShowDetails()" class="fas fa-circle-info fa-lg text-primary" title="Book details"></i>
       <app-borrow-book-button [bookId]="book.id"></app-borrow-book-button>
-      <i (click)="onAddToWishlist()" class="fas fa-heart fa-lg text-danger" title="Add to wishlist"></i>
+      <app-favorite-button [bookId]="book.id"></app-favorite-button>
     </div>
     <div class="d-flex gap-2" *ngIf="manage">
       <i (click)="onShowDetails()" class="fas fa-circle-info fa-lg text-primary" title="Book details"></i>

@@ -49,18 +49,4 @@ export class WishlistComponent implements OnInit {
     this.page = page;
     this.findAllWishlistedBooks();
   }
-
-  removeBookFromWishlist(book: BookResponse) {
-    this.wishlistService.removeBookFromWishlist({'bookId': book.id as number}).subscribe({
-      next: () => {
-        this.success = true;
-        this.message = 'The book was successfully removed from your wishlist';
-      },
-      error: (err) => {
-        console.log(err);
-        this.success = false;
-        this.message = err.error.error;
-      }
-    });
-  }
 }
