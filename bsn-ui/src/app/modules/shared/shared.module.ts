@@ -25,7 +25,8 @@ import { EditBookButtonComponent } from './components/edit-book-button/edit-book
     PageNavigationComponent,
     BorrowBookButtonComponent,
     FavoriteButtonComponent,
-    BookDetailsButtonComponent
+    BookDetailsButtonComponent,
+    EditBookButtonComponent
   ]
 })
 export class SharedModule { }

@@ -27,7 +27,7 @@
     </div>
     <div class="d-flex align-items-center gap-2" *ngIf="manage">
       <app-book-details-button [bookId]="book.id"></app-book-details-button>
-      <i (click)="onEdit()" class="fas fa-edit fa-lg text-success" title="Edit"></i>
+      <app-edit-book-button [bookId]="book.id"></app-edit-book-button>
       <i (click)="onShare()" class="fas fa-share-nodes fa-lg text-primary" title="Share"></i>
       <i (click)="onArchive()" class="fas fa-archive fa-lg text-danger" title="Archive"></i>
     </div>

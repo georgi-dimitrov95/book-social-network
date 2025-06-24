@@ -45,7 +45,6 @@ export class BookCardComponent {
 
     @Output() private share: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
     @Output() private archive: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
-    @Output() private edit: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
 
     onShare() {
       this.share.emit(this._book);
@@ -53,9 +52,5 @@ export class BookCardComponent {
 
     onArchive() {
       this.archive.emit(this._book);
-    }
-
-    onEdit() {
-      this.edit.emit(this._book);
     }
 }

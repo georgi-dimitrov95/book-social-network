@@ -17,10 +17,7 @@ export class MyBooksComponent implements OnInit {
   size = 4;
   pages: any = [];
 
-  constructor(
-    private bookService: BookService,
-    private router: Router
-  ) {}
+  constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
     this.findAllBooks();
@@ -64,9 +61,5 @@ export class MyBooksComponent implements OnInit {
         book.shareable = !book.shareable;
       }
     });
-  }
-
-  editBook(book: BookResponse) {
-    this.router.navigate(['books', 'manage-book', book.id]);
   }
 }
