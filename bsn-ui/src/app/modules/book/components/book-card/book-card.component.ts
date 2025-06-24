@@ -58,8 +58,4 @@ export class BookCardComponent {
     onEdit() {
       this.edit.emit(this._book);
     }
-
-    onShowDetails() {
-      this.router.navigate(['books', 'book-details'], {queryParams: {bookId: this._book.id}});
-    }
 }

@@ -5,22 +5,25 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { PageNavigationComponent } from './components/page-navigation/page-navigation.component';
 import { BorrowBookButtonComponent } from './components/borrow-book-button/borrow-book-button.component';
 import { FavoriteButtonComponent } from './components/favorite-button/favorite-button.component';
+import { BookDetailsButtonComponent } from './components/book-details-button/book-details-button.component';
 
 
 @NgModule({
   declarations: [
     PageNavigationComponent,
     BorrowBookButtonComponent,
-    FavoriteButtonComponent
+    FavoriteButtonComponent,
+    BookDetailsButtonComponent
   ],
   imports: [
     CommonModule,
     SharedRoutingModule
   ],
-    exports: [
-        PageNavigationComponent,
-        BorrowBookButtonComponent,
-        FavoriteButtonComponent
-    ]
+  exports: [
+    PageNavigationComponent,
+    BorrowBookButtonComponent,
+    FavoriteButtonComponent,
+    BookDetailsButtonComponent
+  ]
 })
 export class SharedModule { }
