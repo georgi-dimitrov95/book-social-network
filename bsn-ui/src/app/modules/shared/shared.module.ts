@@ -6,6 +6,7 @@ import { PageNavigationComponent } from './components/page-navigation/page-navig
 import { BorrowBookButtonComponent } from './components/borrow-book-button/borrow-book-button.component';
 import { FavoriteButtonComponent } from './components/favorite-button/favorite-button.component';
 import { BookDetailsButtonComponent } from './components/book-details-button/book-details-button.component';
+import { EditBookButtonComponent } from './components/edit-book-button/edit-book-button.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { BookDetailsButtonComponent } from './components/book-details-button/boo
     PageNavigationComponent,
     BorrowBookButtonComponent,
     FavoriteButtonComponent,
-    BookDetailsButtonComponent
+    BookDetailsButtonComponent,
+    EditBookButtonComponent
   ],
   imports: [
     CommonModule,
