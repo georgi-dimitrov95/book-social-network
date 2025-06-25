@@ -43,12 +43,7 @@ export class BookCardComponent {
       this._manage = value;
     }
 
-    @Output() private share: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
     @Output() private archive: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
-
-    onShare() {
-      this.share.emit(this._book);
-    }
 
     onArchive() {
       this.archive.emit(this._book);

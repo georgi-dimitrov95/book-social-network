@@ -7,6 +7,7 @@ import { BorrowBookButtonComponent } from './components/borrow-book-button/borro
 import { FavoriteButtonComponent } from './components/favorite-button/favorite-button.component';
 import { BookDetailsButtonComponent } from './components/book-details-button/book-details-button.component';
 import { EditBookButtonComponent } from './components/edit-book-button/edit-book-button.component';
+import { ShareBookButtonComponent } from './components/share-book-button/share-book-button.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EditBookButtonComponent } from './components/edit-book-button/edit-book
     BorrowBookButtonComponent,
     FavoriteButtonComponent,
     BookDetailsButtonComponent,
-    EditBookButtonComponent
+    EditBookButtonComponent,
+    ShareBookButtonComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { EditBookButtonComponent } from './components/edit-book-button/edit-book
     BorrowBookButtonComponent,
     FavoriteButtonComponent,
     BookDetailsButtonComponent,
-    EditBookButtonComponent
+    EditBookButtonComponent,
+    ShareBookButtonComponent
   ]
 })
 export class SharedModule { }

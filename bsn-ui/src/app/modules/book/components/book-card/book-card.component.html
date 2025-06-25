@@ -28,7 +28,7 @@
     <div class="d-flex align-items-center gap-2" *ngIf="manage">
       <app-book-details-button [bookId]="book.id"></app-book-details-button>
       <app-edit-book-button [bookId]="book.id"></app-edit-book-button>
-      <i (click)="onShare()" class="fas fa-share-nodes fa-lg text-primary" title="Share"></i>
+      <app-share-book-button [bookId]="book.id" [(shareable)]="book.shareable"></app-share-book-button>
       <i (click)="onArchive()" class="fas fa-archive fa-lg text-danger" title="Archive"></i>
     </div>
   </div>
