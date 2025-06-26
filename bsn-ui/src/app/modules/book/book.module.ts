@@ -16,6 +16,7 @@ import { ReturnedBooksComponent } from './pages/returned-books/returned-books.co
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
 import {SharedModule} from '../shared/shared.module';
+import { BookThumbnailComponent } from './components/book-thumbnail/book-thumbnail.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {SharedModule} from '../shared/shared.module';
     LoanedBooksComponent,
     ReturnedBooksComponent,
     WishlistComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    BookThumbnailComponent
   ],
   imports: [
     CommonModule,
