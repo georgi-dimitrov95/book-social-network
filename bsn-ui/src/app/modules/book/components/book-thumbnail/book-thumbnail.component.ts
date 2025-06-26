@@ -29,4 +29,8 @@ export class BookThumbnailComponent {
     }
     return '';
   }
+
+  goToBookDetails() {
+    this.router.navigate(['books', 'book-details'], {queryParams: {bookId: this.book.id}});
+  }
 }
