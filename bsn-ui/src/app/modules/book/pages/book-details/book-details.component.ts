@@ -27,17 +27,23 @@ export class BookDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.bookId = this.activatedRoute.snapshot.queryParams['bookId'];
-    if (this.bookId) {
-      this.bookService.findBookById({
-        'id': this.bookId
-      }).subscribe({
-        next: (book) => {
-          this.book = book;
-          this.findAllFeedbacks();
-        }
-      });
-    }
+    this.activatedRoute.queryParams.subscribe(params => {
+      const newBookId = +params['bookId'];
+
+      if (newBookId !== this.bookId) {
+        this.bookId = newBookId;
+        this.loadBookDetails();
+      }
+    });
+  }
+
+  private loadBookDetails():  void {
+    this.bookService.findBookById({ 'id': this.bookId }).subscribe({
+      next: (book) => {
+        this.book = book;
+        this.findAllFeedbacks();
+      }
+    });
   }
 
   private findAllFeedbacks() {
