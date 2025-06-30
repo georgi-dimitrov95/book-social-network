@@ -51,33 +51,4 @@ export class BookDetailsComponent implements OnInit {
       }
     });
   }
-
-  gotToPage(page: number) {
-    this.page = page;
-    this.findAllFeedbacks();
-  }
-
-  goToFirstPage() {
-    this.page = 0;
-    this.findAllFeedbacks();
-  }
-
-  goToPreviousPage() {
-    this.page --;
-    this.findAllFeedbacks();
-  }
-
-  goToLastPage() {
-    this.page = this.feedbacks.totalPages as number - 1;
-    this.findAllFeedbacks();
-  }
-
-  goToNextPage() {
-    this.page++;
-    this.findAllFeedbacks();
-  }
-
-  get isLastPage() {
-    return this.page === this.feedbacks.totalPages as number - 1;
-  }
 }
