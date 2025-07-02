@@ -18,8 +18,8 @@ export class ManageBookComponent implements OnInit {
     synopsis: '',
     title: ''
   };
-  selectedBookCover: any;
-  selectedPicture: string | undefined;
+  selectedCover: any;
+  displayCover: string | undefined;
 
   constructor(
     private bookService: BookService,
@@ -43,7 +43,7 @@ export class ManageBookComponent implements OnInit {
             synopsis: book.synopsis as string,
             shareable: book.shareable
           };
-          this.selectedPicture='data:image/jpg;base64,' + book.cover;
+          this.displayCover='data:image/jpg;base64,' + book.cover;
         }
       });
     }
@@ -57,7 +57,7 @@ export class ManageBookComponent implements OnInit {
         this.bookService.uploadBookCoverPicture({
           'bookId': book.id as number,
           body: {
-            file: this.selectedBookCover
+            file: this.selectedCover
           }
         }).subscribe({
           next: () => {
@@ -73,16 +73,16 @@ export class ManageBookComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.selectedBookCover = event.target.files[0];
-    console.log(this.selectedBookCover);
+    this.selectedCover = event.target.files[0];
+    console.log(this.selectedCover);
 
-    if (this.selectedBookCover) {
+    if (this.selectedCover) {
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.selectedPicture = reader.result as string;
+        this.displayCover = reader.result as string;
       };
-      reader.readAsDataURL(this.selectedBookCover);
+      reader.readAsDataURL(this.selectedCover);
     }
   }
 }
