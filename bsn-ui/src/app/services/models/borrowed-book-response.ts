@@ -8,6 +8,7 @@ export interface BorrowedBookResponse {
   borrowedAt?: string;
   borrowedBy?: string;
   cover?: string;
+  coverPath?: string;
   id?: number;
   isbn?: string;
   owner?: string;

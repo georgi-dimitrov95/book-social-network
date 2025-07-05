@@ -955,6 +955,9 @@
             "type": "string",
             "format": "byte"
           },
+          "coverPath": {
+            "type": "string"
+          },
           "rate": {
             "type": "number",
             "format": "double"
@@ -1047,6 +1050,9 @@
             "type": "string",
             "format": "byte"
           },
+          "coverPath": {
+            "type": "string"
+          },
           "rate": {
             "type": "number",
             "format": "double"
@@ -1096,6 +1102,9 @@
             "type": "string",
             "maxLength": 500,
             "minLength": 100
+          },
+          "coverPath": {
+            "type": "string"
           },
           "shareable": {
             "type": "boolean"
