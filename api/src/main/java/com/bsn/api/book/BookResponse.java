@@ -24,6 +24,8 @@ public class BookResponse {
 
     private byte[] cover;
 
+    private String coverPath;
+
     private double rate;
 
     private boolean archived;
@@ -38,6 +40,7 @@ public class BookResponse {
         this.synopsis = book.getSynopsis();
         this.owner = book.getOwner().getFullName();
         this.cover = FileUtils.readFileFromLocation(book.getBookCoverPath());
+        this.coverPath = book.getBookCoverPath();
         this.rate = book.getRate();
         this.archived = book.isArchived();
         this.shareable = book.isShareable();

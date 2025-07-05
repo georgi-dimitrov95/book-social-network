@@ -52,6 +52,7 @@ public class Book {
         this.authorName = bookRequest.authorName();
         this.isbn = bookRequest.isbn();
         this.synopsis = bookRequest.synopsis();
+        this.bookCoverPath = bookRequest.coverPath();
         this.shareable = bookRequest.shareable();
     }
 
