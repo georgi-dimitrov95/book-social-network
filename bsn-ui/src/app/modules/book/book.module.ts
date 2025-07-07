@@ -17,6 +17,7 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
 import {SharedModule} from '../shared/shared.module';
 import { BookThumbnailComponent } from './components/book-thumbnail/book-thumbnail.component';
+import { AuthorBooksCarouselComponent } from './components/author-books-carousel/author-books-carousel.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { BookThumbnailComponent } from './components/book-thumbnail/book-thumbna
     ReturnedBooksComponent,
     WishlistComponent,
     BookDetailsComponent,
-    BookThumbnailComponent
+    BookThumbnailComponent,
+    AuthorBooksCarouselComponent
   ],
   imports: [
     CommonModule,
