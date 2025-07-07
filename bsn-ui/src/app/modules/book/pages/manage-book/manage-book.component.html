@@ -1,23 +1,23 @@
-<div class="p-2">
-  <h2>Manage my book</h2>
-  <hr>
+<div class="mt-4" id="all">
   <div class="alert alert-danger mt-2" role="alert" *ngIf="errorMsg.length">
     <p class="p-0 m-0" *ngFor="let msg of errorMsg">{{msg}}</p>
   </div>
-  <div class="d-flex gap-2">
-    <div class="col-3">
-      <img class="rounded-1" width="100%" height="100%" [src]="displayCover" alt="">
-      <div class="mt-2">
-        <input
-          (change)="onFileSelected($event)"
-          class="form-control"
-          type="file"
-          id="formFile"
-          accept="image/*"
-        >
+  <div class="row g-0 g-md-5 g-lg-0">
+    <div id="img-section-wrapper" class="col-md-4 mb-4">
+      <div id="img-select-section" class="d-flex flex-column justify-content-center align-items-center">
+        <img id="book-cover" class="img-fluid rounded-3" [src]="displayCover" alt="Book Cover">
+        <div id="img-upload-form" class="mt-2">
+          <input
+            (change)="onFileSelected($event)"
+            class="form-control"
+            type="file"
+            id="formFile"
+            accept="image/*"
+          >
+        </div>
       </div>
     </div>
-    <div class="col-9">
+    <div id="input-form" class="col-md-8">
       <form class="row g-3">
         <div class="col-12">
           <label for="title" class="form-label">Title</label>
