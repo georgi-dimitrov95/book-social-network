@@ -18,11 +18,11 @@ export class AuthorBooksCarouselComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['authorName'] && this.authorName) {
-      this.populateBookArrays();
+      this.populateCarousel();
     }
   }
 
-  private populateBookArrays(): void {
+  private populateCarousel(): void {
     this.bookService.getAllBooksByAuthor({'authorName': this.authorName!}).subscribe({
       next: (response: BookResponse[]) => {
         this.books = response;
