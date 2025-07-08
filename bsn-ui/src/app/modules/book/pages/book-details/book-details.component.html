@@ -14,14 +14,14 @@
         </div>
       </div>
     </div>
-    <div id="synopsis" class="col-md-7">
-      <p class="fw-semibold">
+    <div id="additional-info" class="col-md-7">
+      <p id="synopsis" class="fw-semibold">
         {{ book.synopsis }}
       </p>
-    </div>
-    <div class="my-4">
-      <div class="h2 text-center mb-4">Other books from the author</div>
-      <app-author-books-carousel [authorName]="book.authorName"></app-author-books-carousel>
+      <div id="other-books-from-author" class="my-5">
+        <div class="h2 text-center mb-4">Other books from the author</div>
+        <app-author-books-carousel [authorName]="book.authorName"></app-author-books-carousel>
+      </div>
     </div>
   </div>
   <div id="feedbacks">
