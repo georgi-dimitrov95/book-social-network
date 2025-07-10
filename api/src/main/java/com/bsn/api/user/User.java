@@ -33,6 +33,8 @@ public class User {
 
     private String bio;
 
+    private String location;
+
     private LocalDate birthDate;
 
     @Column(unique = true)
