@@ -15,12 +15,12 @@ public class UserService {
 
     private final BookRepository bookRepository;
 
-    public List<RegisterResponse> findAllOwnersOfBookByTitle(String bookTitle) {
+    public List<UserCardDTO> findAllOwnersOfBookByTitle(String bookTitle) {
         List<Book> books = bookRepository.findAllByTitle(bookTitle);
         return books
                 .stream()
                 .map(Book::getOwner)
-                .map(RegisterResponse::new)
+                .map(UserCardDTO::new)
                 .toList();
     }
 }

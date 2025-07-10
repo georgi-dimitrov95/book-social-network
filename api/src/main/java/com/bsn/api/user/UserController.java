@@ -20,8 +20,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<RegisterResponse>> getAllOwnersOfBookByBookTitle(@RequestParam String bookTitle) {
-        List<RegisterResponse> response = userService.findAllOwnersOfBookByTitle(bookTitle);
+    public ResponseEntity<List<UserCardDTO>> getAllOwnersOfBookByBookTitle(@RequestParam String bookTitle) {
+        List<UserCardDTO> response = userService.findAllOwnersOfBookByTitle(bookTitle);
         return ResponseEntity.ok(response);
     }
 }
