@@ -27,6 +27,12 @@ public class User {
 
     private String lastname;
 
+    private String avatarPath;
+
+    private String coverPath;
+
+    private String bio;
+
     private LocalDate birthDate;
 
     @Column(unique = true)
