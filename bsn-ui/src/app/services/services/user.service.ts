@@ -13,7 +13,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { getAllOwnersOfBookByBookTitle } from '../fn/user/get-all-owners-of-book-by-book-title';
 import { GetAllOwnersOfBookByBookTitle$Params } from '../fn/user/get-all-owners-of-book-by-book-title';
-import { RegisterResponse } from '../models/register-response';
+import { UserCardDto } from '../models/user-card-dto';
 
 @Injectable({ providedIn: 'root' })
 export class UserService extends BaseService {
@@ -30,7 +30,7 @@ export class UserService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllOwnersOfBookByBookTitle$Response(params: GetAllOwnersOfBookByBookTitle$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<RegisterResponse>>> {
+  getAllOwnersOfBookByBookTitle$Response(params: GetAllOwnersOfBookByBookTitle$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserCardDto>>> {
     return getAllOwnersOfBookByBookTitle(this.http, this.rootUrl, params, context);
   }
 
@@ -40,9 +40,9 @@ export class UserService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllOwnersOfBookByBookTitle(params: GetAllOwnersOfBookByBookTitle$Params, context?: HttpContext): Observable<Array<RegisterResponse>> {
+  getAllOwnersOfBookByBookTitle(params: GetAllOwnersOfBookByBookTitle$Params, context?: HttpContext): Observable<Array<UserCardDto>> {
     return this.getAllOwnersOfBookByBookTitle$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<RegisterResponse>>): Array<RegisterResponse> => r.body)
+      map((r: StrictHttpResponse<Array<UserCardDto>>): Array<UserCardDto> => r.body)
     );
   }
 

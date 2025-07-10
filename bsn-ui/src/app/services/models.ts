@@ -15,4 +15,5 @@ export type { PageResponseFeedbackResponse } from './models/page-response-feedba
 export type { PageResponseWishlistEntryResponse } from './models/page-response-wishlist-entry-response';
 export type { RegisterRequest } from './models/register-request';
 export type { RegisterResponse } from './models/register-response';
+export type { UserCardDto } from './models/user-card-dto';
 export type { WishlistEntryResponse } from './models/wishlist-entry-response';

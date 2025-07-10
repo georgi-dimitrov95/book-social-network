@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { RegisterResponse } from '../../models/register-response';
+import { UserCardDto } from '../../models/user-card-dto';
 
 export interface GetAllOwnersOfBookByBookTitle$Params {
   bookTitle: string;
 }
 
-export function getAllOwnersOfBookByBookTitle(http: HttpClient, rootUrl: string, params: GetAllOwnersOfBookByBookTitle$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<RegisterResponse>>> {
+export function getAllOwnersOfBookByBookTitle(http: HttpClient, rootUrl: string, params: GetAllOwnersOfBookByBookTitle$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserCardDto>>> {
   const rb = new RequestBuilder(rootUrl, getAllOwnersOfBookByBookTitle.PATH, 'get');
   if (params) {
     rb.query('bookTitle', params.bookTitle, {});
@@ -25,7 +25,7 @@ export function getAllOwnersOfBookByBookTitle(http: HttpClient, rootUrl: string,
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<RegisterResponse>>;
+      return r as StrictHttpResponse<Array<UserCardDto>>;
     })
   );
 }

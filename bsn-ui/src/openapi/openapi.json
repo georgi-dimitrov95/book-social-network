@@ -442,7 +442,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/RegisterResponse"
+                    "$ref": "#/components/schemas/UserCardDTO"
                   }
                 }
               }
@@ -1215,6 +1215,24 @@
           },
           "last": {
             "type": "boolean"
+          }
+        }
+      },
+      "UserCardDTO": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "byte"
           }
         }
       },
