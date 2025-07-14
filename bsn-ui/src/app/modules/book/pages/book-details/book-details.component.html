@@ -22,6 +22,11 @@
         <div class="h2 text-center mb-4">Other books from the author</div>
         <app-author-books-carousel [authorName]="book.authorName"></app-author-books-carousel>
       </div>
+      <hr>
+      <div id="owners" class="my-5">
+        <div class="h2 text-center mb-4">Can be borrowed from</div>
+        <app-user-carousel [bookTitle]="book.title"></app-user-carousel>
+      </div>
     </div>
   </div>
   <div id="feedbacks">

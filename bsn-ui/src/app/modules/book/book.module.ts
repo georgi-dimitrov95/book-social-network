@@ -18,6 +18,7 @@ import { BookDetailsComponent } from './pages/book-details/book-details.componen
 import {SharedModule} from '../shared/shared.module';
 import { BookThumbnailComponent } from './components/book-thumbnail/book-thumbnail.component';
 import { AuthorBooksCarouselComponent } from './components/author-books-carousel/author-books-carousel.component';
+import {UserModule} from '../user/user.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AuthorBooksCarouselComponent } from './components/author-books-carousel
     CommonModule,
     BookRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    UserModule
   ]
 })
 export class BookModule { }
