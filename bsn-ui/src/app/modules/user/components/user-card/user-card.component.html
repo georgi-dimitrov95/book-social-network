@@ -11,7 +11,7 @@
     <p class="text-muted mb-3">{{ user.location || 'Unknown location' }}</p>
 
     <div class="d-grid gap-2">
-      <button class="btn btn-success">Borrow Book</button>
+      <app-borrow-book-button display="text"></app-borrow-book-button>
       <button class="btn btn-primary" (click)="viewProfile()">View Profile</button>
     </div>
   </div>
