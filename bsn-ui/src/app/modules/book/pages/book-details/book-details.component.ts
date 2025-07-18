@@ -4,6 +4,7 @@ import {PageResponseFeedbackResponse} from '../../../../services/models/page-res
 import {BookService} from '../../../../services/services/book.service';
 import {FeedbackService} from '../../../../services/services/feedback.service';
 import {ActivatedRoute} from '@angular/router';
+import {BookContextService} from '../../../../services/context/book-context.service';
 
 @Component({
   selector: 'app-book-details',
@@ -22,6 +23,7 @@ export class BookDetailsComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
+    private bookContext:  BookContextService,
     private feedbackService: FeedbackService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -35,6 +37,7 @@ export class BookDetailsComponent implements OnInit {
         this.loadBookDetails();
       }
     });
+    this.bookContext.setBookId(this.bookId);
   }
 
   private loadBookDetails():  void {
