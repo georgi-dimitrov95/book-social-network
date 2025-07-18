@@ -36,8 +36,8 @@ export class BookDetailsComponent implements OnInit {
         this.bookId = newBookId;
         this.loadBookDetails();
       }
+      this.bookContext.setBookId(this.bookId);
     });
-    this.bookContext.setBookId(this.bookId);
   }
 
   private loadBookDetails():  void {

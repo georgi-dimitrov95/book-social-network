@@ -15,7 +15,9 @@ export class BorrowBookButtonComponent implements OnInit {
 
   ngOnInit() {
     if (!this.bookId) {
-      this.bookId = this.bookContext.getBookId();
+      this.bookContext.bookId$.subscribe(bookId => {
+        this.bookId = bookId;
+      })
     }
   }
 
