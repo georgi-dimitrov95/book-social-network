@@ -1,1 +1,15 @@
-<i (click)="borrowBook()" class="fas fa-file-arrow-down fa-lg text-success" title="Borrow book"></i>
+<ng-container [ngSwitch]="display">
+
+  <i *ngSwitchCase="'icon'"
+     (click)="borrowBook()"
+     class="fas fa-file-arrow-down fa-lg text-success"
+     title="Borrow book">
+  </i>
+
+  <button *ngSwitchCase="'button'"
+          class="btn btn-success"
+          (click)="borrowBook()">
+    Borrow Book
+  </button>
+
+</ng-container>

@@ -11,6 +11,7 @@ import {BookContextService} from '../../../../services/context/book-context.serv
 export class BorrowBookButtonComponent implements OnInit {
 
   @Input() bookId: any;
+  @Input() display: 'icon' | 'text' = 'text';
 
   ngOnInit() {
     if (!this.bookId) {
