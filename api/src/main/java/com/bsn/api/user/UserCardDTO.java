@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserCardDTO {
 
+    private Long userId;
+
     private String firstname;
 
     private String lastname;
@@ -19,6 +21,7 @@ public class UserCardDTO {
     private byte[] avatar;
 
     public UserCardDTO(User user) {
+        this.userId = user.getId();
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
         this.location = user.getLocation();
