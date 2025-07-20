@@ -7,4 +7,5 @@ export interface UserCardDto {
   firstname?: string;
   lastname?: string;
   location?: string;
+  userId?: number;
 }

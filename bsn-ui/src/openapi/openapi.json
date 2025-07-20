@@ -1221,6 +1221,10 @@
       "UserCardDTO": {
         "type": "object",
         "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
           "firstname": {
             "type": "string"
           },
