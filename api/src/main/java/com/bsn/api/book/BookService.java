@@ -6,7 +6,6 @@ import com.bsn.api.exception.BookNotFoundException;
 import com.bsn.api.file.FileStorageService;
 import com.bsn.api.misc.*;
 import com.bsn.api.book_transaction.BookTransactionRepository;
-import com.bsn.api.user.UserRepository;
 import com.bsn.api.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -46,7 +45,7 @@ public class BookService {
     }
 
     public List<BookResponse> findAllBooksOfAuthor(String name) {
-        List<Book> books = bookRepository.findAllByAuthorName(name);
+        List<Book> books = bookRepository.findDistinctBooksByTitleFromAuthor(name);
         return books
                 .stream()
                 .map(BookResponse::new)

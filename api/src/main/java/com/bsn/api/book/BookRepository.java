@@ -1,9 +1,10 @@
 package com.bsn.api.book;
 
-import com.bsn.api.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +15,15 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Optional<Book> findByIsbn(String isbn);
 
-    List<Book> findAllByAuthorName(String name);
+    @Query("""
+    SELECT b FROM Book b
+    WHERE b.id IN (
+        SELECT MIN(b2.id) FROM Book b2
+        WHERE b2.authorName = :name
+        GROUP BY b2.title
+        )
+    """)
+    List<Book> findDistinctBooksByTitleFromAuthor(@Param("name") String name);
 
     List<Book> findAllByTitle(String title);
 
