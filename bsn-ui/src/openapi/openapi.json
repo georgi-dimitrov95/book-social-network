@@ -162,6 +162,45 @@
         }
       }
     },
+    "/books/borrow-from-user": {
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "operationId": "borrowBookByTitleFromUser",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BorrowedBookResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/books/add": {
       "post": {
         "tags": [

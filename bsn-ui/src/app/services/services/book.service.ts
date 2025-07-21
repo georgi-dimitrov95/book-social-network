@@ -14,6 +14,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { BookResponse } from '../models/book-response';
 import { borrowBook } from '../fn/book/borrow-book';
 import { BorrowBook$Params } from '../fn/book/borrow-book';
+import { borrowBookByTitleFromUser } from '../fn/book/borrow-book-by-title-from-user';
+import { BorrowBookByTitleFromUser$Params } from '../fn/book/borrow-book-by-title-from-user';
 import { BorrowedBookResponse } from '../models/borrowed-book-response';
 import { findAllBooksFromOtherOwners } from '../fn/book/find-all-books-from-other-owners';
 import { FindAllBooksFromOtherOwners$Params } from '../fn/book/find-all-books-from-other-owners';
@@ -104,6 +106,31 @@ export class BookService extends BaseService {
    */
   borrowBook(params: BorrowBook$Params, context?: HttpContext): Observable<BorrowedBookResponse> {
     return this.borrowBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<BorrowedBookResponse>): BorrowedBookResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `borrowBookByTitleFromUser()` */
+  static readonly BorrowBookByTitleFromUserPath = '/books/borrow-from-user';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `borrowBookByTitleFromUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  borrowBookByTitleFromUser$Response(params: BorrowBookByTitleFromUser$Params, context?: HttpContext): Observable<StrictHttpResponse<BorrowedBookResponse>> {
+    return borrowBookByTitleFromUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `borrowBookByTitleFromUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  borrowBookByTitleFromUser(params: BorrowBookByTitleFromUser$Params, context?: HttpContext): Observable<BorrowedBookResponse> {
+    return this.borrowBookByTitleFromUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<BorrowedBookResponse>): BorrowedBookResponse => r.body)
     );
   }
