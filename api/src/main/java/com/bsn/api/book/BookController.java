@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -128,6 +129,14 @@ public class BookController {
     @PostMapping("/borrow/{bookId}")
     public ResponseEntity<BorrowedBookResponse> borrowBook(@PathVariable Long bookId) {
         BorrowedBookResponse borrowedBook = bookService.borrowBook(bookId);
+        return new ResponseEntity<>(borrowedBook, HttpStatus.OK);
+    }
+
+    @PostMapping("/borrow-from-user")
+    public ResponseEntity<BorrowedBookResponse> borrowBookByTitleFromUser(
+            @RequestParam String title,
+            @RequestParam Long userId) {
+        BorrowedBookResponse borrowedBook = bookService.borrowBookByTitleFromUser(title, userId);
         return new ResponseEntity<>(borrowedBook, HttpStatus.OK);
     }
 

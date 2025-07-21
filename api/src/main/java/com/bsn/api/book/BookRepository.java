@@ -25,6 +25,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     """)
     List<Book> findDistinctBooksByTitleFromAuthor(@Param("name") String name);
 
+    Optional<Book> findFirstByArchivedFalseAndShareableTrueAndTitleAndOwnerId(String title, Long ownerId);
+
     List<Book> findAllByTitle(String title);
 
     Page<Book> findByArchivedFalseAndShareableTrueAndOwnerIdNot(Long ownerId, Pageable pageable);

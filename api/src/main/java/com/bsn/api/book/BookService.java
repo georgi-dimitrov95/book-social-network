@@ -148,6 +148,13 @@ public class BookService {
         return new BorrowedBookResponse(bookTransactionRepository.save(bookTransaction));
     }
 
+    public BorrowedBookResponse borrowBookByTitleFromUser(String title, Long userId) {
+        Book book = bookRepository
+                .findFirstByArchivedFalseAndShareableTrueAndTitleAndOwnerId(title, userId)
+                .orElseThrow(BookNotFoundException::new);
+        return borrowBook(book.getId());
+    }
+
     public BorrowedBookResponse returnBook(Long bookId) throws AccessDeniedException {
         Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
         User user = getCurrentUser();
