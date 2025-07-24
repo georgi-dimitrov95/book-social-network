@@ -8,6 +8,7 @@ import { FavoriteButtonComponent } from './components/favorite-button/favorite-b
 import { BookDetailsButtonComponent } from './components/book-details-button/book-details-button.component';
 import { EditBookButtonComponent } from './components/edit-book-button/edit-book-button.component';
 import { ShareBookButtonComponent } from './components/share-book-button/share-book-button.component';
+import { BorrowBookIconComponent } from './components/borrow-book-icon/borrow-book-icon.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ShareBookButtonComponent } from './components/share-book-button/share-b
     FavoriteButtonComponent,
     BookDetailsButtonComponent,
     EditBookButtonComponent,
-    ShareBookButtonComponent
+    ShareBookButtonComponent,
+    BorrowBookIconComponent
   ],
   imports: [
     CommonModule,
