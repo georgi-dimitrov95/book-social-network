@@ -4,7 +4,7 @@ import {BookService} from '../services/book.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BorrowServiceService {
+export class BookBorrowingService {
 
   constructor(
     private bookService: BookService
