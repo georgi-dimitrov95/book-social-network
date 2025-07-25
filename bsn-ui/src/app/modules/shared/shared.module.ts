@@ -25,13 +25,14 @@ import { BorrowBookIconComponent } from './components/borrow-book-icon/borrow-bo
     CommonModule,
     SharedRoutingModule
   ],
-  exports: [
-    PageNavigationComponent,
-    BorrowBookButtonComponent,
-    FavoriteButtonComponent,
-    BookDetailsButtonComponent,
-    EditBookButtonComponent,
-    ShareBookButtonComponent
-  ]
+    exports: [
+        PageNavigationComponent,
+        BorrowBookButtonComponent,
+        FavoriteButtonComponent,
+        BookDetailsButtonComponent,
+        EditBookButtonComponent,
+        ShareBookButtonComponent,
+        BorrowBookIconComponent
+    ]
 })
 export class SharedModule { }
