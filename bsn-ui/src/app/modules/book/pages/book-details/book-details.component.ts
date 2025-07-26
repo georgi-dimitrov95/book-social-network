@@ -37,6 +37,7 @@ export class BookDetailsComponent implements OnInit {
         this.loadBookDetails();
       }
       this.bookContext.setBookId(this.bookId);
+      this.bookContext.setBookTitle(this.book.title!);
     });
   }
 
