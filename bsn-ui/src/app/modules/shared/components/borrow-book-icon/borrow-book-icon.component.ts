@@ -1,5 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {BookService} from '../../../../services/services/book.service';
+import {Component, Input, OnInit} from '@angular/core';
 import {BookContextService} from '../../../../services/context/book-context.service';
 import {BookBorrowingService} from '../../../../services/custom/book-borrowing.service';
 
@@ -9,7 +8,7 @@ import {BookBorrowingService} from '../../../../services/custom/book-borrowing.s
   templateUrl: './borrow-book-icon.component.html',
   styleUrl: './borrow-book-icon.component.scss'
 })
-export class BorrowBookIconComponent {
+export class BorrowBookIconComponent implements OnInit {
 
   @Input() bookId: any;
 
