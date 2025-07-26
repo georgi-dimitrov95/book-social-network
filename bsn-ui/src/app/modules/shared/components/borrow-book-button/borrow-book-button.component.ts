@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BookService} from '../../../../services/services/book.service';
+import {BookBorrowingService} from '../../../../services/custom/book-borrowing.service';
 import {BookContextService} from '../../../../services/context/book-context.service';
 
 @Component({
@@ -10,35 +10,23 @@ import {BookContextService} from '../../../../services/context/book-context.serv
 })
 export class BorrowBookButtonComponent implements OnInit {
 
-  @Input() bookId: any;
-  @Input() display: 'icon' | 'text' = 'text';
+  @Input() bookTitle: string | null = null;
+  @Input() userId: number = 0;
 
   ngOnInit() {
-    if (!this.bookId) {
-      this.bookContext.bookId$.subscribe(bookId => {
-        this.bookId = bookId;
+    if (!this.bookTitle) {
+      this.bookContextService.bookTitle$.subscribe(bookTitle => {
+        this.bookTitle = bookTitle;
       })
     }
   }
 
   constructor(
-    private bookService: BookService,
-    private bookContext: BookContextService
+    private bookBorrowingService: BookBorrowingService,
+    private bookContextService: BookContextService
   ) {}
 
-  borrowBook() {
-    if (!this.bookId) {
-      console.error('no bookId');
-      return;
-    }
-
-    this.bookService.borrowBook({'bookId': this.bookId}).subscribe({
-      next: () => {
-        console.log('GREAT SUCCESS')
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+  borrowBookByTitleFromUser() {
+    this.bookBorrowingService.borrowBookByTitleFromUser(this.bookTitle!, this.userId);
   }
 }
